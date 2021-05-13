@@ -13,7 +13,7 @@ module.exports = {
 				try {
 					for (let i = 0; i < characters.length; i++) {
 						const query = { 'savedCharacters.name': { $all: [ characters[i].name ] } };
-						const update = { $set: { 'savedCharacters.$.id' : characters[i].id } };
+						const update = { $set: { 'savedCharacters.$' : characters[i] } };
 						await savedCharacterSchema.updateMany(query, update);
 					}
 					message.channel.send('Successfully updated database.');
