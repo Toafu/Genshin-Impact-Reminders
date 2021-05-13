@@ -21,12 +21,19 @@ module.exports = {
 		if (index >= 0 && index < characters.length) {
 			const embed = new Discord.MessageEmbed()
 				.setTitle(`${characters[index].name} ${getEmotes.getEmote(characters[index].element)}`)
+				.setImage(characters[index].img)
 				.setColor('#00FF97')
 				.addFields(
 					{
 						name: 'Talent Info',
-						value: `•**${characters[index].talent}** books can be farmed on **${characters[index].days.replace(/["]+/g, '')}**`,
+						value: `•**${characters[index].talent}** books can be farmed on **${characters[index].days.replace(/["]+/g, '')}**.`,
 						inline: true,
+					},
+					{
+						name: 'Ascension Info',
+						value: `•To ascend ${characters[index].name}, you'll need the **${characters[index].boss}** and **${characters[index].stone}** \
+						from normal bosses, **${characters[index].resource}**, and **${characters[index].loot}**.`,
+						inline: false,
 					});
 			message.channel.send(embed);
 		} else {
