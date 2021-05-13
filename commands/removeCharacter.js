@@ -1,8 +1,10 @@
 /* eslint-disable no-shadow-restricted-names */
 const mongo = require('../mongo');
+const Discord = require('discord.js');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
 const getChar = require('../getChars');
 const characters = getChar.getChars();
+const getEmotes = require('../getEmote');
 
 module.exports = {
 	commands: ['remove', 'untrack'],
@@ -41,7 +43,15 @@ module.exports = {
 					mongoose.connection.close();
 				}
 			});
-			message.channel.send(`You are no longer tracking **${characters[index].name}**`);
+			const embed = new Discord.MessageEmbed()
+				.setColor('#00FF97')
+				.addFields(
+					{
+						name: 'Removing Character',
+						value: `You are no longer tracking **${characters[index].name}** ${getEmotes.getEmote(characters[index].element)}`,
+						inline: true,
+					});
+			message.channel.send(embed);
 		} else {
 			message.channel.send(`Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`);
 		}
