@@ -134,7 +134,7 @@ module.exports.listen = (client) => {
 			}
 
 			//Handle the custom command code
-			callback(message, arguments, arguments.join(' '));
+			callback(message, arguments, arguments.join(' '), client);
 		}
 	});
 };
