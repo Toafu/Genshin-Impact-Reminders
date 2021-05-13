@@ -1,8 +1,10 @@
 /* eslint-disable no-shadow-restricted-names */
 const mongo = require('../mongo');
+const Discord = require('discord.js');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
 const getChar = require('../getChars');
 const characters = getChar.getChars();
+const getEmotes = require('../getEmote');
 
 module.exports = {
 	commands: ['add', 'track'],
@@ -40,7 +42,15 @@ module.exports = {
 					mongoose.connection.close();
 				}
 			});
-			message.channel.send(`You are now tracking **${characters[index].name}**`);
+			const embed = new Discord.MessageEmbed()
+				.setColor('#00FF97')
+				.addFields(
+					{
+						name: 'Adding Character',
+						value: `You are now tracking **${characters[index].name}** ${getEmotes.getEmote(characters[index].element)}`,
+						inline: true,
+					});
+			message.channel.send(embed);
 		} else {
 			message.channel.send(`Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`);
 		}
