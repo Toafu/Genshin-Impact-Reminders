@@ -45,6 +45,7 @@ module.exports = {
 			});
 			const embed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
+				.setAuthor(message.author.username)
 				.addFields(
 					{
 						name: 'Removing Character',

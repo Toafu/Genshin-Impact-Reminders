@@ -1,4 +1,6 @@
 /* eslint-disable no-shadow-restricted-names */
+//YOU NEED PAGE NUMBERS
+//ADD NUMBER OF CHARACTERS BEING TRACKED
 const Discord = require('discord.js');
 const mongo = require('@root/mongo');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
@@ -17,7 +19,7 @@ module.exports = {
 			.addFields(
 				{
 					name: `${author.username}, this list is empty.`,
-					value: 'You currently aren\'t tracking anyone. Add some characters with b!add <ID>.',
+					value: 'You currently aren\'t tracking anyone. Add some characters with b!add <ID/Character>.',
 					inline: true,
 				});
 
