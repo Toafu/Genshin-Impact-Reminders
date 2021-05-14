@@ -1,8 +1,8 @@
 /* eslint-disable no-shadow-restricted-names */
 const Discord = require('discord.js');
-const getChar = require('../getChars');
+const getChar = require('@helper/getChars');
 const characters = getChar.getChars();
-const getEmotes = require('../getEmote');
+const getEmotes = require('@helper/getEmote');
 
 module.exports = {
 	commands: 'info',

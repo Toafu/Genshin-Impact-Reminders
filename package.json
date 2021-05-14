@@ -11,7 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.3",
+    "module-alias": "^2.2.2",
     "mongoose": "^5.12.7"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@schemas": "./schemas",
+    "@helper": "./helper",
+    "@commands:": "./commands/commands"
   },
   "devDependencies": {
     "eslint": "^7.25.0"

@@ -1,10 +1,10 @@
 /* eslint-disable no-shadow-restricted-names */
-const mongo = require('../mongo');
+const mongo = require('@root/mongo');
 const Discord = require('discord.js');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
-const getChar = require('../getChars');
+const getChar = require('@helper/getChars');
 const characters = getChar.getChars();
-const getEmotes = require('../getEmote');
+const getEmotes = require('@helper/getEmote');
 
 module.exports = {
 	commands: ['remove', 'untrack'],

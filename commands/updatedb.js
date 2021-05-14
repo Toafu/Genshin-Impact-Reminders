@@ -1,6 +1,6 @@
-const mongo = require('../mongo');
-const savedCharacterSchema = require('../schemas/savedcharacter-schema');
-const getChar = require('../getChars');
+const mongo = require('@root/mongo');
+const savedCharacterSchema = require('@schemas/savedcharacter-schema');
+const getChar = require('@helper/getChars');
 const characters = getChar.getChars();
 
 module.exports = {
