@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-const getChar = require('../getChars');
+const getChar = require('@helper/getChars');
 const characters = getChar.getChars();
-const getEmotes = require('../getEmote');
+const getEmotes = require('@helper/getEmote');
 
 module.exports = {
 	commands: 'characters', //Can include all aliases of a command

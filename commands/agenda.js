@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-const mongo = require('../mongo');
+const mongo = require('@root/mongo');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
-const today = require('../today');
+const today = require('@helper/today');
 const day = today.todayIs();
 
 module.exports = {
