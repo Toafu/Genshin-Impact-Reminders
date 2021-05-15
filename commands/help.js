@@ -20,7 +20,7 @@ module.exports = {
 **bruh** - bruh moment
 **characters [page number]** - Displays supported characters
 **info [ID/Character Name]** - Displays information about a certain character
-**list** - Displays a list of who you are currently tracking
+**list (Page Number Optional — Defaults to 1)** - Displays a list of who you are currently tracking
 **add [ID/Character Name]** - Start tracking a character
 **remove [ID/Character Name]** - Stop tracking a character
 **agenda** - View what materials you can farm for your tracked characters`,
