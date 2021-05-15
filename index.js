@@ -60,5 +60,5 @@ client.on('ready', async () => {
 		}
 	});
 });
-
 client.login(process.env.DJS_TOKEN);
+//client.login(config.token);
