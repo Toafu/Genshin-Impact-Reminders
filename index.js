@@ -5,7 +5,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const config = require('@root/config.json');
+//const config = require('@root/config.json');
 const command = require('./command');
 const mongo = require('./mongo');
 
@@ -61,4 +61,4 @@ client.on('ready', async () => {
 	});
 });
 
-client.login(config.token);
+client.login(process.env.DJS_TOKEN);
