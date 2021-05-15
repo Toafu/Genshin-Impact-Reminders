@@ -4,7 +4,7 @@ const characters = getChar.getChars();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
-	commands: 'characters', //Can include all aliases of a command
+	commands: 'characters',
 	minArgs: 1,
 	maxArgs: 1,
 	expectedArgs: '<Page Number>',
@@ -18,8 +18,7 @@ module.exports = {
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
 				newlist.push(list[i]);
 			}
-			//console.log(list[0]);
-			//console.log(typeof list[0]);
+
 			const embed = new Discord.MessageEmbed()
 				.setTitle('__Supported Character List__')
 				.setColor('#00FF97')
@@ -38,7 +37,7 @@ module.exports = {
 				.addFields(
 					{
 						name: 'hol up',
-						value: `We only have ${maxPage} pages right now! More will come back soon.`,
+						value: `We only have **${maxPage}** pages right now! More will come soon.`,
 						inline: true,
 					})
 				.setFooter('>:(');
