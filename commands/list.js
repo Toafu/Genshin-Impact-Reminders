@@ -1,6 +1,4 @@
 /* eslint-disable no-shadow-restricted-names */
-//YOU NEED PAGE NUMBERS
-//ADD NUMBER OF CHARACTERS BEING TRACKED
 const Discord = require('discord.js');
 const mongo = require('@root/mongo');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
