@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mongoPath = 'mongodb://localhost:27017/BlobBot';
+//const { mongoPath } = require('./config.json');
+const mongoPath = `mongodb+srv://Toafu:${process.env.DJS_MONGO}@genshin-impact-reminder.mbg5c.mongodb.net/GI-Tracking-Users?retryWrites=true&w=majority`;
 
 module.exports = async () => {
 	await mongoose.connect(mongoPath, {
