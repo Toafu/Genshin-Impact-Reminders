@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	commands: 'help', //Can include all aliases of a command
+	commands: 'help',
 	minArgs: 0,
 	maxArgs: 0,
 	callback: message => {
@@ -22,7 +22,7 @@ module.exports = {
 **info [ID/Character Name]** - Displays information about a certain character
 **list (Page Number Optional — Defaults to 1)** - Displays a list of who you are currently tracking
 **add [ID/Character Name]** - Start tracking a character
-**remove [ID/Character Name]** - Stop tracking a character
+**remove [ID/Character Name]** - Stop tracking a character (b!remove all WIPES your tracking list. Be careful.)
 **agenda** - View what materials you can farm for your tracked characters`,
 					inline: false,
 				});
