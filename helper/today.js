@@ -9,13 +9,15 @@ const week = {
 	6: 'Saturday',
 };
 const d = new Date();
+d.setHours(d.getHours() - 5);
+console.log(d.getHours());
 const day = d.getDay();
 const daynum = d.getDate();
 console.log(daynum);
-const offset = new Date().getTimezoneOffset();
+const offset = d.getTimezoneOffset();
 console.log(offset);
 const todayIs = () => {
 	return week[day];
 };
 exports.todayIs = todayIs;
-console.log(todayIs());
+//console.log(todayIs());
