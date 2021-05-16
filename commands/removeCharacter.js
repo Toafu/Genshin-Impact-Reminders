@@ -22,6 +22,7 @@ module.exports = {
 		} else if (message.content.startsWith('b!untrack ')) {
 			query = message.content.replace('b!untrack ', '').toLowerCase();
 		}
+		
 		if (query === 'all') {
 			await mongo().then(async mongoose => {
 				try {

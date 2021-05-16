@@ -1,5 +1,5 @@
-const { prefix } = require('./config.json');
-//const prefix = 'b!';
+//const { prefix } = require('./config.json');
+const prefix = 'b!';
 
 // ['ping', 'test'] This is an array
 
