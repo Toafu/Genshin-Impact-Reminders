@@ -14,4 +14,4 @@ const todayIs = () => {
 	return week[day];
 };
 exports.todayIs = todayIs;
-//console.log(todayIs());
+console.log(todayIs());
