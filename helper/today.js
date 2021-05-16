@@ -12,6 +12,8 @@ const d = new Date();
 const day = d.getDay();
 const daynum = d.getDate();
 console.log(daynum);
+const offset = new Date().getTimezoneOffset();
+console.log(offset);
 const todayIs = () => {
 	return week[day];
 };
