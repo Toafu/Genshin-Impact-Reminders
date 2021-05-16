@@ -10,6 +10,8 @@ const week = {
 };
 const d = new Date();
 const day = d.getDay();
+const daynum = d.getDate();
+console.log(daynum);
 const todayIs = () => {
 	return week[day];
 };
