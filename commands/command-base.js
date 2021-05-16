@@ -1,8 +1,9 @@
 /* eslint-disable no-shadow-restricted-names */
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-const */
-const prefix = 'b!';
-//const { prefix } = require('@root/config.json');
+
+//const prefix = 'b!';
+const { prefix } = require('@root/config.json');
 
 const validatePermissions = (permissions) => {
 	const validPermissions = [
@@ -50,13 +51,7 @@ const allCommands = {};
 module.exports = (commandOptions) => {
 	let {
 		commands,
-		//expectedArgs = '',
-		//permissionError = 'You do not have permission to run this command',
-		//minArgs = 0,
-		//maxArgs = null,
 		permissions = [],
-		//requiredRoles = [],
-		//callback,
 	} = commandOptions;
 
 	// Ensure the command and aliases are in an array

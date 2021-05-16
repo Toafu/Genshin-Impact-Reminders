@@ -22,39 +22,61 @@ module.exports = {
 		} else if (message.content.startsWith('b!untrack ')) {
 			query = message.content.replace('b!untrack ', '').toLowerCase();
 		}
-		const querytest = Number(query);
-		if (Number.isNaN(querytest) === true) {
-			index = characters.findIndex(person => person.name.toLowerCase() === query);
-		} else {
-			index = querytest;
-		}
-
-		if(index >= 0 && index < characters.length) {
+		if (query === 'all') {
 			await mongo().then(async mongoose => {
 				try {
-					await savedCharacterSchema.findOneAndUpdate({
+					await savedCharacterSchema.findOneAndDelete({
 						_id: id,
-					}, {
-						$pull: { savedCharacters: characters[index] },
-					}, {
-						upsert: true,
-					}).exec();
+					});
 				} finally {
 					mongoose.connection.close();
 				}
 			});
-			const embed = new Discord.MessageEmbed()
+			const removeallembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor(message.author.username)
 				.addFields(
 					{
-						name: 'Removing Character',
-						value: `You are no longer tracking **${characters[index].name}** ${getEmotes.getEmote(characters[index].element)}`,
+						name: 'Removing All Characters',
+						value: 'You are no longer tracking any characters.',
 						inline: true,
 					});
-			message.channel.send(embed);
+			message.channel.send(removeallembed);
 		} else {
-			message.channel.send(`Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`);
+			const querytest = Number(query);
+			if (Number.isNaN(querytest) === true) {
+				index = characters.findIndex(person => person.name.toLowerCase() === query);
+			} else {
+				index = querytest;
+			}
+
+			if(index >= 0 && index < characters.length) {
+				await mongo().then(async mongoose => {
+					try {
+						await savedCharacterSchema.findOneAndUpdate({
+							_id: id,
+						}, {
+							$pull: { savedCharacters: characters[index] },
+						}, {
+							upsert: true,
+						}).exec();
+					} finally {
+						mongoose.connection.close();
+					}
+				});
+				const embed = new Discord.MessageEmbed()
+					.setColor('#00FF97')
+					.setAuthor(message.author.username)
+					.addFields(
+						{
+							name: 'Removing Character',
+							value: `You are no longer tracking **${characters[index].name}** ${getEmotes.getEmote(characters[index].element)}`,
+							inline: true,
+						});
+				message.channel.send(embed);
+			} else {
+				message.channel.send(`Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`);
+			}
 		}
 	},
 };
