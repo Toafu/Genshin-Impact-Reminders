@@ -19,7 +19,7 @@ module.exports = {
 		}
 		if (index >= 0 && index < weapons.length) {
 			const embed = new Discord.MessageEmbed()
-				.setTitle(`**${weapons[index].name}** (${weapons[index].stars})`)
+				.setTitle(`**${weapons[index].name}** (${weapons[index].stars}) [ID: ${weapons[index].id}]`)
 				.setImage(weapons[index].img)
 				.setColor('#00FF97')
 				.addFields(
