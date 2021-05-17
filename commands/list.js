@@ -44,7 +44,7 @@ module.exports = {
 					const newlist = [];
 					trackList.sort((char1, char2) => (char1.name > char2.name) ? 1 : -1);
 					const maxPage = Math.ceil(trackList.length / 15);
-					trackList.forEach(person => list.push(`[${person.id}] ${person.name} ${getEmotes.getEmote(person.element)}`));
+					trackList.forEach(person => list.push(`[${person.id}] **${person.name}** ${getEmotes.getEmote(person.element)}`));
 
 					for (let i = (page * 15) - 15; i < page * 15; i++) {
 						newlist.push(list[i]);

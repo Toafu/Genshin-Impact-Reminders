@@ -13,8 +13,13 @@ module.exports = {
 	callback: async (message) => {
 		const { author } = message;
 		const { id } = author;
+		let query;
 		let index;
-		const query = message.content.replace('b!equip ', '').toLowerCase();
+		if (message.content.startsWith('b!addweapon ')) {
+			query = message.content.replace('b!addweapon ', '').toLowerCase();
+		} else if (message.content.startsWith('b!equip ')) {
+			query = message.content.replace('b!equip ', '').toLowerCase();
+		}
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
 			index = weapons.findIndex(weapon => weapon.name.toLowerCase() === query);

@@ -19,7 +19,7 @@ module.exports = {
 		if (page > 0 && page <= maxPage) {
 			const list = [];
 			const newlist = [];
-			weapons.forEach(weapon => list.push(`[${weapon.id}] ${weapon.name} (${weapon.stars})`));
+			weapons.forEach(weapon => list.push(`[${weapon.id}] **${weapon.name}** (${weapon.stars})`));
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
 				newlist.push(list[i]);
 			}
