@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const mongo = require('@root/mongo');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
 const today = require('@helper/today');
-const zeroPad = (num, places) => String(num).padStart(places, '0');
 
 module.exports = {
 	commands: 'agenda',
@@ -11,13 +10,15 @@ module.exports = {
 	callback: async message => {
 		const day = today.todayIs();
 		const time = today.timeIs();
+		const hours = String(time.getHours());
+		const minutes = String(time.getMintes());
 
 		const { author } = message;
 		const { id } = author;
 		const logo = 'https://media.discordapp.net/attachments/424627903876169729/838122787083649055/4936.png?width=720&height=405';
 
 		const nonexistantembed = new Discord.MessageEmbed()
-			.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${zeroPad(time.getHours(), 2)}:${zeroPad(time.getMinutes(), 2)} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
+			.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${hours.padStart(2, '0')}:${minutes.padStart(2, '0')} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
 			.setThumbnail(logo)
 			.setAuthor(message.author.username)
 			.setFooter('Run b!agenda to see this window again.')
