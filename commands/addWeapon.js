@@ -6,7 +6,7 @@ const getWeapon = require('@helper/getWeapons.js');
 const weapons = getWeapon.getWeapons();
 
 module.exports = {
-	commands: 'equip',
+	commands: ['addweapon', 'equip'],
 	minArgs: 1,
 	maxArgs: 6,
 	expectedArgs: '<ID/Weapon Name>',
