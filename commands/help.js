@@ -9,7 +9,7 @@ module.exports = {
 			.setColor('#00FF97')
 			.addFields(
 				{
-					name: 'This bot is a __**Work In Progress**__!',
+					name: 'This bot is a __**Work In Progress**__ and is centered around **NA** server time!',
 					value: 'Stuff is probably not going to work. Please contact `Toafu#4965` if something doesn\'t work as expected.',
 					inline: true,
 				},

@@ -8,16 +8,22 @@ const week = {
 	5: 'Friday',
 	6: 'Saturday',
 };
-const d = new Date();
-d.setHours(d.getHours() - 5);
-console.log(d.getHours());
-const day = d.getDay();
-const daynum = d.getDate();
-console.log(daynum);
+const time = new Date();
+time.setHours(time.getHours() - 5); //For Heroku server
+console.log(time.getHours());
+const day = time.getDay();
+// const daynum = d.getDate();
+// console.log(daynum);
 // const offset = d.getTimezoneOffset();
 // console.log(offset);
 const todayIs = () => {
 	return week[day];
 };
 exports.todayIs = todayIs;
+const timeIs = () => {
+	return time;
+};
+exports.timeIs = timeIs;
+//const timetest = timeIs();
+//console.log(`It is currenntly ${timetest.getHours()}:${timetest.getMinutes()}.`);
 //console.log(todayIs());

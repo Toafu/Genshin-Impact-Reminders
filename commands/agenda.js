@@ -3,6 +3,7 @@ const mongo = require('@root/mongo');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
 const today = require('@helper/today');
 const day = today.todayIs();
+const time = today.timeIs();
 
 module.exports = {
 	commands: 'agenda',
@@ -14,7 +15,7 @@ module.exports = {
 		const logo = 'https://media.discordapp.net/attachments/424627903876169729/838122787083649055/4936.png?width=720&height=405';
 
 		const nonexistantembed = new Discord.MessageEmbed()
-			.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
+			.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${time.getHours()}:${time.getMinutes()} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
 			.setThumbnail(logo)
 			.setAuthor(message.author.username)
 			.setFooter('Run b!agenda to see this window again.')
@@ -27,7 +28,7 @@ module.exports = {
 				});
 
 		const nothingtodayembed = new Discord.MessageEmbed()
-			.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
+			.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${time.getHours()}:${time.getMinutes()} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
 			.setThumbnail(logo)
 			.setAuthor(message.author.username)
 			.setFooter('Run b!agenda to see this window again.')
@@ -66,7 +67,7 @@ module.exports = {
 						agenda.push(`•**${todaysChars[i].talent}** books for **${todaysChars[i].name}.**`);
 					}
 					const embed = new Discord.MessageEmbed()
-						.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
+						.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${time.getHours()}:${time.getMinutes()} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
 						.setThumbnail(logo)
 						.setAuthor(message.author.username)
 						.setFooter('Run b!agenda to see this window again.')
