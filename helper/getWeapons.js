@@ -27,7 +27,12 @@ const getWeapons = () => {
 			word.splice(0, 10);
 			i += 1;
 		}
-		//console.log(weapons[0]);
+		weapons.forEach(weapon => {
+			if(weapon.passive.startsWith('"')) {
+				weapon.passive = weapon.passive.substring(1, weapon.passive.length - 1);
+			}
+		});
+		//console.log(weapons[97]);
 	});
 	return weapons;
 };
