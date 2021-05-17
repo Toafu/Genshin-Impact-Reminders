@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const mongo = require('@root/mongo');
-const savedCharacterSchema = require('../schemas/savedcharacter-schema');
+const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const today = require('@helper/today');
 
 module.exports = {

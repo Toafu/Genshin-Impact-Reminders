@@ -22,8 +22,4 @@ const timeIs = () => {
 	time.setHours(time.getHours() - 5); //For Heroku server
 	return time;
 };
-// const timetest = timeIs();
-// const hours = String(timetest.getHours()).padStart(2, '0');
-// const minutes = String(timetest.getMinutes()).padStart(2, '0');
-// console.log(`It is ${hours}:${minutes}`);
 exports.timeIs = timeIs;

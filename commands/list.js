@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow-restricted-names */
 const Discord = require('discord.js');
 const mongo = require('@root/mongo');
-const savedCharacterSchema = require('../schemas/savedcharacter-schema');
+const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const getEmotes = require('@helper/getEmote');
 
 
