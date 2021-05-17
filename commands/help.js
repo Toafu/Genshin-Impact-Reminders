@@ -24,6 +24,7 @@ module.exports = {
 **add/track [ID/Character Name]** - Start tracking a character
 **remove/untrack [ID/Character Name]** - Stop tracking a character (b!remove all WIPES your characters list. Be careful.)
 **weapons (Page Number Optional — Defaults to 1)** - Displays supported weapons
+**weaponinfo [ID/Weapon Name]** - Displays information about a certain weapon
 **addweapon/equip [ID/Weapon Name]** - Start tracking a weapon
 **removeweapon/unequip [ID/Weapon Name]** - Stop tracking a weapon (b!unequip all WIPES your weapons list. Be careful.)
 **agenda** - View what materials you can farm for your tracked characters`,
