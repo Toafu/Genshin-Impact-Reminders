@@ -5,13 +5,13 @@ const characters = getChar.getChars();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
-	commands: 'info',
+	commands: 'charinfo',
 	minArgs: 1,
 	maxArgs: 2,
 	expectedArgs: '<ID/Character Name>',
 	callback: (message) => {
 		let index;
-		const query = message.content.replace('b!info ', '').toLowerCase();
+		const query = message.content.replace('b!charinfo ', '').toLowerCase();
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
 			index = characters.findIndex(person => person.name.toLowerCase() === query);

@@ -6,7 +6,7 @@ const getEmotes = require('@helper/getEmote');
 
 
 module.exports = {
-	commands: ['list', 'tracking'],
+	commands: 'tracking',
 	minArgs: 0,
 	maxArgs: 1,
 	expectedArgs: '<Page Number>',
