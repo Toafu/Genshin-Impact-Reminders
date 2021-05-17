@@ -18,7 +18,7 @@ module.exports = {
 					value: `
 **help** - Displays this window
 **bruh** - bruh moment
-**characters [page number]** - Displays supported characters
+**characters (Page Number Optional — Defaults to 1)** - Displays supported characters
 **info [ID/Character Name]** - Displays information about a certain character
 **list (Page Number Optional — Defaults to 1)** - Displays a list of who you are currently tracking
 **add [ID/Character Name]** - Start tracking a character
