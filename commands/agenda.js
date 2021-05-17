@@ -11,6 +11,7 @@ module.exports = {
 		const day = today.todayIs();
 		const time = today.timeIs();
 		const hours = String(time.getHours()).padStart(2, '0');
+		console.log(hours);
 		const minutes = String(time.getMinutes()).padStart(2, '0');
 
 		const { author } = message;
