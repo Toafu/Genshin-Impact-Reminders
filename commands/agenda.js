@@ -11,8 +11,6 @@ module.exports = {
 		const day = today.todayIs();
 		const time = today.timeIs();
 		const hours = String(time.getHours()).padStart(2, '0');
-		console.log(hours);
-		console.log(typeof hours);
 		const minutes = String(time.getMinutes()).padStart(2, '0');
 
 		const { author } = message;
@@ -33,7 +31,7 @@ module.exports = {
 				});
 
 		const nothingtodayembed = new Discord.MessageEmbed()
-			.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${time.getHours()}:${time.getMinutes()} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
+			.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${hours}:${minutes} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
 			.setThumbnail(logo)
 			.setAuthor(message.author.username)
 			.setFooter('Run b!agenda to see this window again.')
@@ -72,7 +70,7 @@ module.exports = {
 						agenda.push(`•**${todaysChars[i].talent}** books for **${todaysChars[i].name}.**`);
 					}
 					const embed = new Discord.MessageEmbed()
-						.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${time.getHours()}:${time.getMinutes()} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
+						.setTitle(`Welcome to your Genshin Impact agenda. Today is ${day}, ${hours}:${minutes} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`)
 						.setThumbnail(logo)
 						.setAuthor(message.author.username)
 						.setFooter('Run b!agenda to see this window again.')
