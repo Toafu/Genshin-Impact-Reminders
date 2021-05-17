@@ -32,9 +32,9 @@ const getWeapons = () => {
 				weapon.passive = weapon.passive.substring(1, weapon.passive.length - 1);
 			}
 		});
-		//console.log(weapons[97]);
+		console.log(weapons[89]);
 	});
 	return weapons;
 };
 exports.getWeapons = getWeapons;
-//getWeapons();
+getWeapons();
