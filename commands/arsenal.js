@@ -60,6 +60,8 @@ module.exports = {
 									inline: true,
 								});
 						message.channel.send(embed);
+					} else if (list.length === 0) {
+						message.channel.send(emptyembed);
 					} else if (page > maxPage) {
 						const maxpageembed = new Discord.MessageEmbed()
 							.setTitle(`${author.username}'s Tracking List`)

@@ -83,6 +83,10 @@ module.exports.listen = (client) => {
 	client.on('message', message => {
 		const { member, content, guild } = message;
 
+		if (message.author.bot) {
+			return;
+		}
+
 		//Split on any number of spaces
 		const arguments = content.split(/[ ]+/);
 
