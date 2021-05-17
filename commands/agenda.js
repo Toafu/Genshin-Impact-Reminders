@@ -2,14 +2,15 @@ const Discord = require('discord.js');
 const mongo = require('@root/mongo');
 const savedCharacterSchema = require('../schemas/savedcharacter-schema');
 const today = require('@helper/today');
-const day = today.todayIs();
-const time = today.timeIs();
 
 module.exports = {
 	commands: 'agenda',
 	minArgs: 0,
 	maxArgs: 0,
 	callback: async message => {
+		const day = today.todayIs();
+		const time = today.timeIs();
+
 		const { author } = message;
 		const { id } = author;
 		const logo = 'https://media.discordapp.net/attachments/424627903876169729/838122787083649055/4936.png?width=720&height=405';
