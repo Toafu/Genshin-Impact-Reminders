@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow-restricted-names */
 const Discord = require('discord.js');
 const getChar = require('@helper/getChars');
 const characters = getChar.getChars();
@@ -8,8 +9,13 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: 1,
 	expectedArgs: '<Page Number>',
-	callback: message => {
-		const page = message.content.replace('b!characters ', '');
+	callback: (message, arguments) => {
+		let page;
+		if (arguments.length === 0) {
+			page = 1;
+		} else {
+			page = +arguments[0];
+		}
 		const maxPage = Math.ceil(characters.length / 20);
 		if (page > 0 && page <= maxPage) {
 			const list = [];
