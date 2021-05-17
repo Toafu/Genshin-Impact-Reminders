@@ -11,7 +11,7 @@ module.exports = {
 		const day = today.todayIs();
 		const time = today.timeIs();
 		const hours = String(time.getHours());
-		const minutes = String(time.getMintes());
+		const minutes = String(time.getMinutes());
 
 		const { author } = message;
 		const { id } = author;
