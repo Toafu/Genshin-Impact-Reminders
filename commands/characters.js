@@ -6,7 +6,7 @@ const getEmotes = require('@helper/getEmote');
 
 module.exports = {
 	commands: 'characters',
-	minArgs: 1,
+	minArgs: 0,
 	maxArgs: 1,
 	expectedArgs: '<Page Number>',
 	callback: (message, arguments) => {
