@@ -20,9 +20,12 @@ module.exports = {
 **bruh** - bruh moment
 **characters (Page Number Optional — Defaults to 1)** - Displays supported characters
 **info [ID/Character Name]** - Displays information about a certain character
-**list (Page Number Optional — Defaults to 1)** - Displays a list of who you are currently tracking
-**add [ID/Character Name]** - Start tracking a character
-**remove [ID/Character Name]** - Stop tracking a character (b!remove all WIPES your tracking list. Be careful.)
+**tracking (Page Number Optional — Defaults to 1)** - Displays a list of who you are currently tracking
+**add/track [ID/Character Name]** - Start tracking a character
+**remove/untrack [ID/Character Name]** - Stop tracking a character (b!remove all WIPES your characters list. Be careful.)
+**weapons (Page Number Optional — Defaults to 1)** - Displays supported weapons
+**addweapon/equip [ID/Weapon Name]** - Start tracking a weapon
+**removeweapon/unequip [ID/Weapon Name]** - Stop tracking a weapon (b!unequip all WIPES your weapons list. Be careful.)
 **agenda** - View what materials you can farm for your tracked characters`,
 					inline: false,
 				});

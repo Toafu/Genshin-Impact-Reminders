@@ -20,7 +20,7 @@ module.exports = {
 		if (page > 0 && page <= maxPage) {
 			const list = [];
 			const newlist = [];
-			characters.forEach(character => list.push(`[${character.id}] ${character.name} ${getEmotes.getEmote(character.element)}`));
+			characters.forEach(character => list.push(`[${character.id}] **${character.name}** ${getEmotes.getEmote(character.element)}`));
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
 				newlist.push(list[i]);
 			}
