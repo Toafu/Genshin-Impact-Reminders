@@ -27,7 +27,7 @@ const getWeapons = () => {
 			word.splice(0, 10);
 			i += 1;
 		}
-		console.log(weapons[0]);
+		//console.log(weapons[0]);
 	});
 	return weapons;
 };
