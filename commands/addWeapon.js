@@ -20,6 +20,23 @@ module.exports = {
 		} else if (message.content.startsWith('b!equip ')) {
 			query = message.content.replace('b!equip ', '').toLowerCase();
 		}
+
+		if (query === 'all') {
+			await mongo().then(async mongoose => {
+				try {
+					await savedWeaponSchema.findOneAndUpdate({
+						_id: id,
+					}, {
+						$addToSet: { savedWeapons: weapons },
+					}, {
+						upsert: true,
+					});
+				} finally {
+					mongoose.connection.close();
+				}
+			});
+		}
+
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
 			index = weapons.findIndex(weapon => weapon.name.toLowerCase() === query);
