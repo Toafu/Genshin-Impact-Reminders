@@ -3,7 +3,6 @@ const Discord = require('discord.js');
 const mongo = require('@root/mongo');
 const savedWeaponSchema = require('@schemas/savedweapon-schema');
 
-
 module.exports = {
 	commands: 'arsenal',
 	minArgs: 0,
