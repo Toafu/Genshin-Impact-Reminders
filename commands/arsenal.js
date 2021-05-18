@@ -41,7 +41,7 @@ module.exports = {
 
 					const list = [];
 					const newlist = [];
-					trackList.sort((wep1, wep2) => (wep1.name > wep2.name) ? 1 : -1);
+					trackList.sort((wep1, wep2) => (wep1.id > wep2.id) ? 1 : -1);
 					const maxPage = Math.ceil(trackList.length / 15);
 					trackList.forEach(weapon => list.push(`[${weapon.id}] **${weapon.name}** (${weapon.stars})`));
 
