@@ -35,41 +35,51 @@ module.exports = {
 					mongoose.connection.close();
 				}
 			});
-		}
-
-		const querytest = Number(query);
-		if (Number.isNaN(querytest) === true) {
-			index = weapons.findIndex(weapon => weapon.name.toLowerCase() === query);
-		} else {
-			index = querytest;
-		}
-
-		if(index >= 0 && index < weapons.length) {
-			await mongo().then(async mongoose => {
-				try {
-					await savedWeaponSchema.findOneAndUpdate({
-						_id: id,
-					}, {
-						$addToSet: { savedWeapons: weapons[index] },
-					}, {
-						upsert: true,
-					}).exec();
-				} finally {
-					mongoose.connection.close();
-				}
-			});
-			const embed = new Discord.MessageEmbed()
+			const addallweaponembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor(message.author.username)
 				.addFields(
 					{
-						name: 'Adding Weapon',
-						value: `You have equipped **${weapons[index].name}** (${weapons[index].stars})`,
+						name: 'Adding All Weapons',
+						value: 'I hope you realized what you just did.',
 						inline: true,
 					});
-			message.channel.send(embed);
+			message.channel.send(addallweaponembed);
 		} else {
-			message.channel.send(`Please use a valid ID [\`0-${weapons.length - 1}\`] or weapon name.`);
+			const querytest = Number(query);
+			if (Number.isNaN(querytest) === true) {
+				index = weapons.findIndex(weapon => weapon.name.toLowerCase() === query);
+			} else {
+				index = querytest;
+			}
+
+			if(index >= 0 && index < weapons.length) {
+				await mongo().then(async mongoose => {
+					try {
+						await savedWeaponSchema.findOneAndUpdate({
+							_id: id,
+						}, {
+							$addToSet: { savedWeapons: weapons[index] },
+						}, {
+							upsert: true,
+						}).exec();
+					} finally {
+						mongoose.connection.close();
+					}
+				});
+				const embed = new Discord.MessageEmbed()
+					.setColor('#00FF97')
+					.setAuthor(message.author.username)
+					.addFields(
+						{
+							name: 'Adding Weapon',
+							value: `You have equipped **${weapons[index].name}** (${weapons[index].stars})`,
+							inline: true,
+						});
+				message.channel.send(embed);
+			} else {
+				message.channel.send(`Please use a valid ID [\`0-${weapons.length - 1}\`] or weapon name.`);
+			}
 		}
 	},
 };
