@@ -1,5 +1,5 @@
 Hunter's Bow	Bow	⭐	None	None	Boreal Wolf's Teeth	"Tuesday, Friday, Sunday"	Ley Line Branches	Insignias	Chest
-Apprentice's Notes	Catalyst	⭐	None	None	Dandelion Gladiator Chains	"Wednesday, Saturday, Sunday"	Scrolls	Chaos Devices	Chest
+Apprentice's Notes	Catalyst	⭐	None	None	Decarabian's Stones	"Monday, Thursday, Sunday"	Scrolls	Chaos Devices	Chest
 Waster Greatsword	Claymore	⭐	None	None	Boreal Wolf's Teeth	"Tuesday, Friday, Sunday"	Ley Line Branches	Slime	Chest
 Beginner's Proctor	Polearm	⭐	None	None	Dandelion Gladiator Chains	"Wednesday, Saturday, Sunday"	Chaos Devices	Scrolls	Chest
 Dull Blade	Sword	⭐	None	None	Decarabian's Stones	"Monday, Thursday, Sunday"	Horns	Arrowheads	Chest

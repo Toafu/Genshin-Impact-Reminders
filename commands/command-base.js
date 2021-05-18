@@ -83,7 +83,7 @@ module.exports.listen = (client) => {
 	client.on('message', message => {
 		const { member, content, guild } = message;
 
-		if (message.author.bot) {
+		if (message.author.bot) { //Ignores bots
 			return;
 		}
 
