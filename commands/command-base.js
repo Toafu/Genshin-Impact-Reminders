@@ -2,8 +2,8 @@
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-const */
 
-//const prefix = 'b!';
-const { prefix } = require('@root/config.json');
+const prefix = 'b!';
+//const { prefix } = require('@root/config.json');
 
 const validatePermissions = (permissions) => {
 	const validPermissions = [

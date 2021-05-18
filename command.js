@@ -1,9 +1,9 @@
-const { prefix } = require('./config.json');
-//const prefix = 'b!';
+//const { prefix } = require('./config.json');
+const prefix = 'b!';
 
 module.exports = (client, aliases, callback) => {
-	if (typeof aliases === 'string') { // If the type of alias is exactly a string
-		aliases = [aliases]; // 'ping' -> ['ping']
+	if (typeof aliases === 'string') {
+		aliases = [aliases];
 	}
 
 	client.on('message', message => {
