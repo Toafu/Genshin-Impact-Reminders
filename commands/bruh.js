@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	commands: 'bruh', //Can include all aliases of a command
+	commands: 'bruh',
 	minArgs: 0,
 	maxArgs: 0,
 	callback: message => {
@@ -13,7 +13,6 @@ module.exports = {
 					value: 'This is a certified bruh moment™',
 					inline: true,
 				});
-		console.log(embed.length);
 		message.channel.send(embed);
 	},
 };

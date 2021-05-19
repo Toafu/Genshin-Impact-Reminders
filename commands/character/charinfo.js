@@ -5,7 +5,7 @@ const characters = getChar.getChars();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
-	commands: 'charinfo',
+	commands: ['charinfo', 'cinfo'],
 	minArgs: 1,
 	maxArgs: 2,
 	expectedArgs: '<ID/Character Name>',

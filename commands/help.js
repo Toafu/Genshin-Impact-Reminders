@@ -19,15 +19,16 @@ module.exports = {
 **help** - Displays this window
 **bruh** - bruh moment
 **characters (Page Number Optional — Defaults to 1)** - Displays supported characters
-**info [ID/Character Name]** - Displays information about a certain character
-**tracking (Page Number Optional — Defaults to 1)** - Displays a list of who you are currently tracking
+**charinfo/cinfo [ID/Character Name]** - Displays information about a certain character
+**tracking (Page Number Optional — Defaults to 1)** - Displays a list of which characters you are currently tracking
 **add/track [ID/Character Name]** - Start tracking a character
-**remove/untrack [ID/Character Name]** - Stop tracking a character (b!remove all WIPES your characters list. Be careful.)
+**remove/untrack [ID/Character Name/all]** - Stop tracking a character ( \`all\` WIPES your characters list. Be careful.)
 **weapons (Page Number Optional — Defaults to 1)** - Displays supported weapons
-**weaponinfo [ID/Weapon Name]** - Displays information about a certain weapon
+**weaponinfo/winfo [ID/Weapon Name]** - Displays information about a certain weapon
+**arsenal** - Displays a list of which weapons you are curently tracking
 **addweapon/equip [ID/Weapon Name]** - Start tracking a weapon
-**removeweapon/unequip [ID/Weapon Name]** - Stop tracking a weapon (b!unequip all WIPES your weapons list. Be careful.)
-**agenda** - View what materials you can farm for your tracked characters`,
+**removeweapon/unequip [ID/Weapon Name/all]** - Stop tracking a weapon (\`all\` WIPES your weapons list. Be careful.)
+**agenda (Page Number Optional)** - View what materials you can farm for your tracked characters and weapons`,
 					inline: false,
 				});
 		message.channel.send(embed);
