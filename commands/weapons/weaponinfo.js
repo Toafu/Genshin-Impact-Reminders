@@ -10,13 +10,15 @@ module.exports = {
 	expectedArgs: '<ID/Weapon Name>',
 	callback: (message, arguments, text) => {
 		let index;
-		const query = text;
+		const query = text.toLowerCase();
+
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
 			index = weapons.findIndex(person => person.name.toLowerCase() === query);
 		} else {
 			index = querytest;
 		}
+
 		if (index >= 0 && index < weapons.length) {
 			const embed = new Discord.MessageEmbed()
 				.setTitle(`**${weapons[index].name}** (${weapons[index].stars}) [ID: ${weapons[index].id}]`)
