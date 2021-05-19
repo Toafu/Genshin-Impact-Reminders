@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const savedWeaponSchema = require('@schemas/savedweapon-schema');
 const getWeapon = require('@helper/getWeapons.js');
 const weapons = getWeapon.getWeapons();
+
 module.exports = {
 	commands: ['removeweapon', 'unequip'],
 	minArgs: 1,
