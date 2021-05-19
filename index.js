@@ -5,7 +5,7 @@ const client = new Discord.Client();
 
 //const config = require('@root/config.json');
 const firstMessage = require('./first-message');
-const roleClaim = require('.role-claim');
+const roleClaim = require('./role-claim');
 const loadCommands = require('./commands/load-commands');
 const command = require('./command');
 const mongo = require('./mongo');
