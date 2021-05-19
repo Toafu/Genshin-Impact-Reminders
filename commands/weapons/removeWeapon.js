@@ -10,17 +10,13 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: 2,
 	expectedArgs: '<ID/Weapon Name>',
-	callback: async (message) => {
+	callback: async (message, arguments, text) => {
 		const { author } = message;
 		const { id } = author;
 
-		let query;
+		const query = text;
 		let index;
-		if (message.content.startsWith('b!removeweapon ')) {
-			query = message.content.replace('b!removeweapon ', '').toLowerCase();
-		} else if (message.content.startsWith('b!unequip ')) {
-			query = message.content.replace('b!unequip ', '').toLowerCase();
-		}
+
 		if (query === 'all') {
 			await mongo().then(async mongoose => {
 				try {

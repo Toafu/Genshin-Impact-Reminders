@@ -8,9 +8,9 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: 6,
 	expectedArgs: '<ID/Weapon Name>',
-	callback: (message) => {
+	callback: (message, arguments, text) => {
 		let index;
-		const query = message.content.replace('b!weaponinfo ', '').toLowerCase();
+		const query = text;
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
 			index = weapons.findIndex(person => person.name.toLowerCase() === query);

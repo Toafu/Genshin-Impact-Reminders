@@ -11,16 +11,11 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: 2,
 	expectedArgs: '<ID/Character Name>',
-	callback: async (message) => {
+	callback: async (message, arguments, text) => {
 		const { author } = message;
 		const { id } = author;
-		let query;
+		const query = text;
 		let index;
-		if (message.content.startsWith('b!add ')) {
-			query = message.content.replace('b!add ', '').toLowerCase();
-		} else if (message.content.startsWith('b!track ')) {
-			query = message.content.replace('b!track ', '').toLowerCase();
-		}
 
 		if (query === 'all') {
 			await mongo().then(async mongoose => {
