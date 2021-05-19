@@ -11,7 +11,7 @@ module.exports = {
 	expectedArgs: '<ID/Character Name>',
 	callback: (message, arguments, text) => {
 		let index;
-		const query = text;
+		const query = text.toLowerCase();
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
 			index = characters.findIndex(person => person.name.toLowerCase() === query);

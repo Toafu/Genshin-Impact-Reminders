@@ -14,7 +14,7 @@ module.exports = {
 		const { author } = message;
 		const { id } = author;
 
-		const query = text;
+		const query = text.toLowerCase();
 		let index;
 
 		if (query === 'all') {

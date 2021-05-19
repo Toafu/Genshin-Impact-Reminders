@@ -14,7 +14,8 @@ module.exports = {
 	callback: async (message, arguments, text) => {
 		const { author } = message;
 		const { id } = author;
-		const query = text;
+
+		const query = text.toLowerCase();
 		let index;
 
 		if (query === 'all') {
