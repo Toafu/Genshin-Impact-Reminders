@@ -5,6 +5,7 @@ const client = new Discord.Client();
 
 //const config = require('@root/config.json');
 const firstMessage = require('./first-message');
+const roleClaim = require('.role-claim');
 const loadCommands = require('./commands/load-commands');
 const command = require('./command');
 const mongo = require('./mongo');
@@ -36,7 +37,9 @@ client.on('ready', async () => {
 		.setDescription('We need to make sure you\'re a person! Just hit that check mark below this message. It may take a short bit for the verification process to complete.')
 		.setFooter('You got this!');
 
-	firstMessage(client, '844208376828788771', verificationembed, ['✔️']);
+	firstMessage(client, '844208376828788771', verificationembed, ['✅']);
+
+	roleClaim(client);
 
 	command(client, 'status', message => {
 		if(message.member.hasPermission('ADMINISTRATOR')) {
