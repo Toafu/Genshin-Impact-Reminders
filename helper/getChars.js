@@ -32,4 +32,4 @@ const getChars = () => {
 	return characters; //Returns an array containing each character as an object.
 };
 exports.getChars = getChars;
-getChars();
+//getChars();
