@@ -13,7 +13,7 @@ module.exports = client => {
 	const getEmoji = emojiName => client.emojis.cache.find(emoji => emoji.name === emojiName);
 
 	const emojis = {
-		white_check_mark: '0 Primogem Gang',
+		check: '0 Primogem Gang',
 	};
 
 	const reactions = [];
