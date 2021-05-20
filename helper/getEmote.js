@@ -70,7 +70,3 @@ const getEmote = string => {
 	return words;
 };
 exports.getEmote = getEmote;
-
-const test = 'Dandelion Gladiator Chains';
-const result = getEmote(test);
-console.log(result);
