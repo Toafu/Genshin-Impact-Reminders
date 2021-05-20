@@ -6,6 +6,7 @@ const savedMessageSchema = require('@schemas/custommessage-schema');
 module.exports = {
 	commands: 'message',
 	minArgs: 0,
+	maxArgs: null,
 	expectedArgs: '<Message>',
 	callback:  async (message, arguments, text) => {
 		const { author } = message;
