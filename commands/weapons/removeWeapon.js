@@ -65,7 +65,7 @@ module.exports = {
 					.addFields(
 						{
 							name: 'Removing Weapon',
-							value: `You have unequipped **${weapons[index].name}** (${weapons[index].stars})}`,
+							value: `You have unequipped **${weapons[index].name}** (${weapons[index].stars})`,
 							inline: true,
 						});
 				message.channel.send(embed);
