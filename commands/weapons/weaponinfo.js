@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const getWeapon = require('@helper/getWeapons.js');
 const weapons = getWeapon.getWeapons();
+const getEmotes = require('@helper/getEmote');
 
 module.exports = {
 	commands: ['weaponinfo', 'winfo'],
@@ -47,7 +48,7 @@ module.exports = {
 					},
 					{
 						name: 'Ascension Info',
-						value: `•To ascend ${weapons[index].name}, you'll need **${weapons[index].mat}** from domains on **${weapons[index].days.replace(/["]+/g, '')}**, and **${weapons[index].loot1}** and **${weapons[index].loot2}** from normal enemies.`,
+						value: `•To ascend ${weapons[index].name}, you'll need **${getEmotes.getEmote(weapons[index].mat)}** from domains on **${weapons[index].days.replace(/["]+/g, '')}**, and **${weapons[index].loot1}** and **${weapons[index].loot2}** from normal enemies.`,
 						inline: false,
 					});
 			message.channel.send(embed);
