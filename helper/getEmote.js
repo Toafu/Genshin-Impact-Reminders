@@ -55,7 +55,7 @@ const getEmote = string => {
 			words[i] = `Guyun Stones ${emotes.Guyun}`;
 			words.splice(i + 1, 1);
 			break;
-		case 'Mist Veiled Elixir':
+		case 'Mist':
 			words[i] = `Mist Veiled Elixir ${emotes.Elixir}`;
 			words.splice(i + 1, 2);
 			break;
