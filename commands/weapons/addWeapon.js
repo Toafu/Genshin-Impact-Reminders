@@ -14,7 +14,8 @@ module.exports = {
 		const { author } = message;
 		const { id } = author;
 
-		const query = text.toLowerCase();
+		let query = text.toLowerCase();
+		query = query.replace(/[’‘]/g, '\'');
 		let index;
 
 		if (query === 'all') {
