@@ -19,7 +19,8 @@ module.exports = {
 				**arsenal** - Displays a list of which weapons you are curently tracking
 				**addweapon/equip [ID/Weapon Name]** - Start tracking a weapon
 				**removeweapon/unequip [ID/Weapon Name/all]** - Stop tracking a weapon (\`all\` WIPES your weapons list. Be careful.)
-				**agenda (Page Number - Default 1)** - View what materials you can farm for your tracked characters and weapons`,
+				**agenda (Page Number - Default 1)** - View what materials you can farm for your tracked characters and weapons
+				**message (Message)** - Add a custom message to the bottom of the agenda. Inputting no arguments will show your saved message`,
 			)
 			.setColor('#00FF97')
 			.addFields(
