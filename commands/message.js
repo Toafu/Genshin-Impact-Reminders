@@ -56,7 +56,7 @@ module.exports = {
 			const updatedembed = new Discord.MessageEmbed()
 				.setTitle('Updated Custom Message Text')
 				.setColor('#00FF97')
-				.setDescription(`${message.author.username}, this message will now always appear at the bottom of your agenda.`);
+				.setDescription(`${message.author.username}, this message will now always appear at the bottom of your agenda. \n "${customtext}"`);
 			message.channel.send(updatedembed);
 		} else {
 			await mongo().then(async mongoose => {
