@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const mongo = require('@root/mongo');
 const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const savedWeaponSchema = require('@schemas/savedweapon-schema');
+const savedMessageSchema = require('@schemas/custommessage-schema');
 const today = require('@helper/today');
 
 module.exports = {
@@ -110,6 +111,19 @@ module.exports = {
 				const wepresult = await savedWeaponSchema.find(query);
 				const todaysWeps = [];
 
+				const msgresult = await savedMessageSchema.find(query);
+				let customtext;
+				let custommessage;
+
+				if (msgresult.length > 0) {
+					customtext = msgresult[0].savedMessage;
+					custommessage = {
+						name: 'Your Custom Message',
+						value: customtext,
+						inline: false,
+					};
+				}
+
 				if (charresult.length === 0 && wepresult.length === 0) { // If MongoDB has nothing on the user
 					const nonexistantembed = new Discord.MessageEmbed()
 						.setTitle(title)
@@ -145,7 +159,16 @@ module.exports = {
 					const footer = `Page ${page} of ${maxPage}`;
 
 					if (page > 0 && page <= maxPage) {
-						if (wepagenda.length > 0) {
+						if (wepagenda.length > 0 && custommessage) {
+							const agendaembed = new Discord.MessageEmbed()
+								.setTitle(title)
+								.setThumbnail(logo)
+								.setAuthor(message.author.username)
+								.setFooter(footer)
+								.setColor('#00FF97')
+								.addFields(nocharstoday, wepfield, custommessage);
+							message.channel.send(agendaembed);
+						} else if (wepagenda.length > 0 && !custommessage) {
 							const agendaembed = new Discord.MessageEmbed()
 								.setTitle(title)
 								.setThumbnail(logo)
@@ -195,7 +218,16 @@ module.exports = {
 					const footer = `Page ${page} of ${maxPage}`;
 
 					if (page > 0 && page <= maxPage) {
-						if (charagenda.length > 0) {
+						if (charagenda.length > 0 && custommessage) {
+							const agendaembed = new Discord.MessageEmbed()
+								.setTitle(title)
+								.setThumbnail(logo)
+								.setAuthor(message.author.username)
+								.setFooter(footer)
+								.setColor('#00FF97')
+								.addFields(charfield, nowepstoday, custommessage);
+							message.channel.send(agendaembed);
+						} else if (charagenda.length > 0 && !custommessage) {
 							const agendaembed = new Discord.MessageEmbed()
 								.setTitle(title)
 								.setThumbnail(logo)
@@ -270,7 +302,16 @@ module.exports = {
 					const footer = `Page ${page} of ${maxPage}`;
 
 					if (page > 0 && page <= maxPage) {
-						if (finalcharlist.length > 0 && finalweplist.length > 0) {
+						if (finalcharlist.length > 0 && finalweplist.length > 0 && custommessage) {
+							const agendaembed = new Discord.MessageEmbed()
+								.setTitle(title)
+								.setThumbnail(logo)
+								.setAuthor(message.author.username)
+								.setFooter(footer)
+								.setColor('#00FF97')
+								.addFields(charfield, wepfield, custommessage);
+							message.channel.send(agendaembed);
+						} else if (finalcharlist.length > 0 && finalweplist.length > 0 && !custommessage) {
 							const agendaembed = new Discord.MessageEmbed()
 								.setTitle(title)
 								.setThumbnail(logo)
@@ -279,7 +320,16 @@ module.exports = {
 								.setColor('#00FF97')
 								.addFields(charfield, wepfield);
 							message.channel.send(agendaembed);
-						} else if (finalcharlist.length > 0 && finalweplist.length === 0) {
+						} else if (finalcharlist.length > 0 && finalweplist.length === 0 && custommessage) {
+							const agendaembed = new Discord.MessageEmbed()
+								.setTitle(title)
+								.setThumbnail(logo)
+								.setAuthor(message.author.username)
+								.setFooter(footer)
+								.setColor('#00FF97')
+								.addFields(charfield, nowepstoday, custommessage);
+							message.channel.send(agendaembed);
+						} else if (finalcharlist.length > 0 && finalweplist.length === 0 && !custommessage) {
 							const agendaembed = new Discord.MessageEmbed()
 								.setTitle(title)
 								.setThumbnail(logo)
@@ -288,16 +338,25 @@ module.exports = {
 								.setColor('#00FF97')
 								.addFields(charfield, nowepstoday);
 							message.channel.send(agendaembed);
-						} else if (finalcharlist.length === 0 && finalweplist.length > 0) {
+						} else if (finalcharlist.length === 0 && finalweplist.length > 0 && custommessage) {
 							const agendaembed = new Discord.MessageEmbed()
 								.setTitle(title)
 								.setThumbnail(logo)
 								.setAuthor(message.author.username)
 								.setFooter(footer)
 								.setColor('#00FF97')
-								.addFields(nocharstoday, wepfield);
+								.addFields(nocharstoday, wepfield, custommessage);
 							message.channel.send(agendaembed);
 						}
+					} else if (finalcharlist.length === 0 && finalweplist.length > 0 && !custommessage) {
+						const agendaembed = new Discord.MessageEmbed()
+							.setTitle(title)
+							.setThumbnail(logo)
+							.setAuthor(message.author.username)
+							.setFooter(footer)
+							.setColor('#00FF97')
+							.addFields(nocharstoday, wepfield);
+						message.channel.send(agendaembed);
 					} else if (page > maxPage) {
 						const invalidpageembed = new Discord.MessageEmbed()
 							.setTitle('__Supported Character List__')
