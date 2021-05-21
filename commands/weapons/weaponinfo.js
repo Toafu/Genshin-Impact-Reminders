@@ -12,6 +12,7 @@ module.exports = {
 	callback: (message, arguments, text) => {
 		let index;
 		const query = text.toLowerCase();
+		query.replace(/‘/g, '\'');
 
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
