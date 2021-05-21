@@ -4,7 +4,7 @@
 
 const mongo = require('@root/mongo');
 const commandPrefixSchema = require('@schemas/command-prefix-schema');
-const { prefix: globalPrefix } = 'b!';
+const globalPrefix = 'b!';
 //const { prefix: globalPrefix } = require('@root/config.json');
 const guildPrefixes = {}; // { 'guildId' : 'prefix' }
 
