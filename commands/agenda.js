@@ -34,6 +34,12 @@ module.exports = {
 			inline: false,
 		};
 
+		const nothing = {
+			name: 'You aren\'t tracking anything yet!',
+			value: 'Run b!add or b!equip to start tracking stuff!',
+			inline: true,
+		};
+
 		const nothingtodayembed = new Discord.MessageEmbed()
 			.setTitle(title)
 			.setThumbnail(logo)
@@ -124,18 +130,21 @@ module.exports = {
 					};
 				}
 
-				if (charresult.length === 0 && wepresult.length === 0) { // If MongoDB has nothing on the user
+				if (charresult.length === 0 && wepresult.length === 0 && custommessage) { // If MongoDB has nothing on the user
 					const nonexistantembed = new Discord.MessageEmbed()
 						.setTitle(title)
 						.setThumbnail(logo)
 						.setAuthor(message.author.username)
 						.setColor('#00FF97')
-						.addFields(
-							{
-								name: 'You aren\'t tracking anything yet!',
-								value: 'Run b!add or b!equip to start tracking stuff!',
-								inline: true,
-							});
+						.addFields(nothing, custommessage);
+					message.channel.send(nonexistantembed);
+				} else if (charresult.length === 0 && wepresult.length === 0 && !custommessage) {
+					const nonexistantembed = new Discord.MessageEmbed()
+						.setTitle(title)
+						.setThumbnail(logo)
+						.setAuthor(message.author.username)
+						.setColor('#00FF97')
+						.addFields(nothing);
 					message.channel.send(nonexistantembed);
 				} else if (charresult.length === 0 && wepresult.length > 0) { // If MongoDB can only find weapons
 					gettodaysWeps(todaysWeps, wepresult);
