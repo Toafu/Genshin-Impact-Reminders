@@ -16,7 +16,7 @@ module.exports = {
 		const hours = String(time.getHours()).padStart(2, '0');
 		const minutes = String(time.getMinutes()).padStart(2, '0');
 
-		const title = `Welcome to your Genshin Impact agenda. Today is ${day}, ${hours}:${minutes} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`;
+		const title = `Welcome to your Genshin Impact agenda.\nToday is ${day}, ${hours}:${minutes} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`;
 		const logo = 'https://media.discordapp.net/attachments/424627903876169729/838122787083649055/4936.png?width=720&height=405';
 
 		const { author } = message;

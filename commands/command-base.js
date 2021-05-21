@@ -2,8 +2,11 @@
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-const */
 
-const prefix = 'b!';
-//const { prefix } = require('@root/config.json');
+const mongo = require('@root/mongo');
+const commandPrefixSchema = require('@schemas/command-prefix-schema');
+const { prefix: globalPrefix } = 'b!';
+//const { prefix: globalPrefix } = require('@root/config.json');
+const guildPrefixes = {}; // { 'guildId' : 'prefix' }
 
 const validatePermissions = (permissions) => {
 	const validPermissions = [
@@ -83,6 +86,8 @@ module.exports.listen = (client) => {
 	client.on('message', message => {
 		const { member, content, guild } = message;
 
+		const prefix = guildPrefixes[guild.id] || globalPrefix;
+
 		if (message.author.bot) { //Ignores bots
 			return;
 		}
@@ -135,6 +140,37 @@ module.exports.listen = (client) => {
 
 			//Handle the custom command code
 			callback(message, arguments, arguments.join(' '), client);
+		}
+	});
+};
+
+module.exports.updateCache = (guildId, newPrefix) => {
+	guildPrefixes[guildId] = newPrefix;
+};
+
+module.exports.loadPrefixes = async (client) => {
+	await mongo().then(async mongoose => {
+		try {
+			for (const guild of client.guilds.cache) {
+				const guildId = guild[1].id;
+
+				const result = await commandPrefixSchema.findOne({ _id: guildId });
+				if (!result) {
+					await commandPrefixSchema.findOneAndUpdate(
+						{
+							_id: guildId,
+						}, {
+							_id: guildId,
+							prefix: 'b!',
+						}, {
+							upsert: true,
+						});
+					break;
+				}
+				guildPrefixes[guildId] = result.prefix;
+			}
+		} finally {
+			mongoose.connection.close();
 		}
 	});
 };
