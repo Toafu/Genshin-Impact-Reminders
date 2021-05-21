@@ -11,8 +11,8 @@ module.exports = {
 	expectedArgs: '<ID/Weapon Name>',
 	callback: (message, arguments, text) => {
 		let index;
-		const query = text.toLowerCase();
-		query.replace(/[’‘]/g, '\'');
+		let query = text.toLowerCase();
+		query = query.replace(/[’‘’]/g, '\'');
 
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
