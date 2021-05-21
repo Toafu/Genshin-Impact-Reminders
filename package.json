@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.3",
+    "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
     "module-alias": "^2.2.2",
     "mongoose": "^5.12.7"
   },
