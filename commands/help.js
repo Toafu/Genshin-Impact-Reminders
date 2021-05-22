@@ -14,7 +14,6 @@ module.exports = {
 		await mongo().then(async mongoose => {
 			try {
 				const result = await commandPrefixSchema.find(query);
-				console.log(result);
 				let prefix;
 				if (result.length === 0) {
 					prefix = 'b!';
