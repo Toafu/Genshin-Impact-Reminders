@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { mongo } = require('mongoose');
+const mongo = require('@root/mongo');
 const commandPrefixSchema = require('@schemas/command-prefix-schema');
 
 module.exports = {
@@ -9,36 +9,36 @@ module.exports = {
 	callback: async message => {
 
 		const guildId = message.guild.id;
+		const query = { _id: guildId };
 
 		await mongo().then(async mongoose => {
 			try {
-				const result = await commandPrefixSchema.find({
-					_id: guildId,
-				});
+				const result = await commandPrefixSchema.find(query);
+				console.log(result);
 				let prefix;
-				if (result) {
-					prefix = result[0].prefix;
-				} else {
+				if (result.length === 0) {
 					prefix = 'b!';
+				} else {
+					prefix = result[0].prefix;
 				}
 
 				const embed = new Discord.MessageEmbed()
-					.setTitle(`Help/Command List (Current Prefix ${prefix})`)
+					.setTitle(`Help/Command List (Current Prefix: ${prefix})`)
 					.setDescription(`
-				**help** - Displays this window\n
-				**bruh** - bruh moment\n
-				**characters (Page Number — Default 1)** - Displays supported characters\n
-				**charinfo/cinfo [ID/Character Name]** - Displays information about a certain character\n
-				**tracking (Page Number — Default 1)** - Displays a list of which characters you are currently tracking\n
-				**add/track [ID/Character Name]** - Start tracking a character\n
-				**remove/untrack [ID/Character Name/all]** - Stop tracking a character ( \`all\` WIPES your characters list. Be careful.)\n
-				**weapons (Page Number — Default 1)** - Displays supported weapons\n
-				**weaponinfo/winfo [ID/Weapon Name]** - Displays information about a certain weapon\n
-				**arsenal** - Displays a list of which weapons you are curently tracking\n
-				**addweapon/equip [ID/Weapon Name]** - Start tracking a weapon\n
-				**removeweapon/unequip [ID/Weapon Name/all]** - Stop tracking a weapon (\`all\` WIPES your weapons list. Be careful.)\n
-				**agenda (Page Number - Default 1)** - View what materials you can farm for your tracked characters and weapons\n
-				**message (Message)** - Add a custom message to the bottom of the agenda. Inputting no arguments will show your saved message\n
+				**help** - Displays this window
+				**bruh** - bruh moment
+				**characters (Page Number — Default 1)** - Displays supported characters
+				**charinfo/cinfo [ID/Character Name]** - Displays information about a certain character
+				**tracking (Page Number — Default 1)** - Displays a list of which characters you are currently tracking
+				**add/track [ID/Character Name]** - Start tracking a character
+				**remove/untrack [ID/Character Name/all]** - Stop tracking a character ( \`all\` WIPES your characters list. Be careful.)
+				**weapons (Page Number — Default 1)** - Displays supported weapons
+				**weaponinfo/winfo [ID/Weapon Name]** - Displays information about a certain weapon
+				**arsenal** - Displays a list of which weapons you are curently tracking
+				**addweapon/equip [ID/Weapon Name]** - Start tracking a weapon
+				**removeweapon/unequip [ID/Weapon Name/all]** - Stop tracking a weapon (\`all\` WIPES your weapons list. Be careful.)
+				**agenda (Page Number - Default 1)** - View what materials you can farm for your tracked characters and weapons
+				**message (Message)** - Add a custom message to the bottom of the agenda. Inputting no arguments will show your saved message
 				**setprefix** [prefix] - You need administrator perms to do this one`,
 					)
 					.setColor('#00FF97')
