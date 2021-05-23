@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const mongo = require('@root/mongo');
 const savedMessageSchema = require('@schemas/custommessage-schema');
 
 module.exports = {
@@ -47,13 +46,7 @@ module.exports = {
 				.setDescription(`${message.author.username}, this message will now always appear at the bottom of your agenda: \n\n "${customtext}"`);
 			message.channel.send(updatedembed);
 		} else {
-			await mongo().then(async mongoose => {
-				try {
-					result = await savedMessageSchema.find({ _id: id });
-				} finally {
-					mongoose.connection.close();
-				}
-			});
+			result = await savedMessageSchema.find({ _id: id });
 			if (result.length === 0) {
 				const nothingembed = new Discord.MessageEmbed()
 					.setTitle(`${message.author.username}, you currently do not have a custom message set.`)

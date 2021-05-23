@@ -20,7 +20,8 @@
     "@root": ".",
     "@schemas": "./schemas",
     "@helper": "./helper",
-    "@commands:": "./commands/commands"
+    "@commands:": "./commands/commands",
+    "@features:": "./features"
   },
   "devDependencies": {
     "eslint": "^7.25.0"
