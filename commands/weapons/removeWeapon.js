@@ -8,7 +8,7 @@ const weapons = getWeapon.getWeapons();
 module.exports = {
 	commands: ['removeweapon', 'unequip'],
 	minArgs: 1,
-	maxArgs: 2,
+	maxArgs: 6,
 	expectedArgs: '<ID/Weapon Name>',
 	callback: async (message, arguments, text) => {
 		const { author } = message;
