@@ -3,8 +3,6 @@ require('module-alias/register');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-//const Commando = require('discord.js-commando');
-
 //const config = require('@root/config.json');
 const firstMessage = require('./first-message');
 const roleClaim = require('./role-claim');
@@ -12,12 +10,6 @@ const loadCommands = require('./commands/load-commands');
 const commandBase = require('./commands/command-base');
 const command = require('./command');
 const mongo = require('./mongo');
-
-// const client = new Commando.CommandoClient({
-// 	owner: '269910487133716480',
-// 	//commandPrefix: config.prefix,
-// 	commandPrefix: 'b!',
-// });
 
 client.on('ready', async () => {
 	console.log('It has awoken.');
