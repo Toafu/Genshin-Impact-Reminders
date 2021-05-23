@@ -6,8 +6,8 @@ const client = new Discord.Client({
 	partials: ['MESSAGE', 'REACTION'],
 });
 
-//const config = require('@root/config.json');
-const firstMessage = require('./features/first-message');
+const config = require('@root/config.json');
+const firstMessage = require('./first-message');
 const roleClaim = require('./role-claim');
 //const command = require('./command');
 
@@ -77,5 +77,5 @@ client.on('ready', () => {
 	roleClaim(client);
 
 });
-client.login(process.env.DJS_TOKEN);
-//client.login(config.token);
+//client.login(process.env.DJS_TOKEN);
+client.login(config.token);
