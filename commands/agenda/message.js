@@ -1,31 +1,26 @@
-/* eslint-disable no-shadow-restricted-names */
 const Discord = require('discord.js');
 const mongo = require('@root/mongo');
 const savedMessageSchema = require('@schemas/custommessage-schema');
 
 module.exports = {
-	commands: 'message',
+	name: 'message',
+	category: 'Agenda',
+	description: 'Add a custom message to the bottom of the agenda. No arguments will show your saved message.',
 	minArgs: 0,
 	maxArgs: 200,
-	expectedArgs: '<Message>',
-	callback:  async (message, arguments, text) => {
+	expectedArgs: '(Message)',
+	callback:  async ({ message, args, text }) => {
 		const { author } = message;
 		const { id } = author;
 
 		let result;
 
-		if (arguments.length > 0) {
+		if (args.length > 0) {
 			const customtext = text;
 
 			if (customtext.toLowerCase() === 'clear') {
-				await mongo().then(async mongoose => {
-					try {
-						await savedMessageSchema.findOneAndDelete({
-							_id: id,
-						});
-					} finally {
-						mongoose.connection.close();
-					}
+				await savedMessageSchema.findOneAndDelete({
+					_id: id,
 				});
 				const clearembed = new Discord.MessageEmbed()
 					.setTitle(`${message.author.username}, you have removed your custom message.`)
@@ -39,19 +34,12 @@ module.exports = {
 				message.channel.send('Your custom message is too big! Please limit it to 200 characters.');
 				return;
 			}
-
-			await mongo().then(async mongoose => {
-				try {
-					await savedMessageSchema.findOneAndUpdate({
-						_id: id,
-					}, {
-						savedMessage: customtext,
-					}, {
-						upsert: true,
-					});
-				} finally {
-					mongoose.connection.close();
-				}
+			await savedMessageSchema.findOneAndUpdate({
+				_id: id,
+			}, {
+				savedMessage: customtext,
+			}, {
+				upsert: true,
 			});
 			const updatedembed = new Discord.MessageEmbed()
 				.setTitle('Updated Custom Message Text')

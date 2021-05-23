@@ -1,16 +1,17 @@
-/* eslint-disable no-shadow-restricted-names */
-const mongo = require('@root/mongo');
 const Discord = require('discord.js');
 const savedWeaponSchema = require('@schemas/savedweapon-schema');
 const getWeapon = require('@helper/getWeapons.js');
 const weapons = getWeapon.getWeapons();
 
 module.exports = {
-	commands: ['addweapon', 'equip'],
+	name: 'equip',
+	aliases: 'addweapon',
+	category: 'Weapons',
+	description: 'Adds a weapon to your agenda. `all` equips everything',
 	minArgs: 1,
-	maxArgs: 6,
+	maxArgs: -1,
 	expectedArgs: '<ID/Weapon Name>',
-	callback: async (message, arguments, text) => {
+	callback: async ({ message, text }) => {
 		const { author } = message;
 		const { id } = author;
 
@@ -19,18 +20,12 @@ module.exports = {
 		let index;
 
 		if (query === 'all') {
-			await mongo().then(async mongoose => {
-				try {
-					await savedWeaponSchema.findOneAndUpdate({
-						_id: id,
-					}, {
-						$addToSet: { savedWeapons: weapons },
-					}, {
-						upsert: true,
-					});
-				} finally {
-					mongoose.connection.close();
-				}
+			await savedWeaponSchema.findOneAndUpdate({
+				_id: id,
+			}, {
+				$addToSet: { savedWeapons: weapons },
+			}, {
+				upsert: true,
 			});
 			const addallweaponembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
@@ -51,19 +46,13 @@ module.exports = {
 			}
 
 			if(index >= 0 && index < weapons.length) {
-				await mongo().then(async mongoose => {
-					try {
-						await savedWeaponSchema.findOneAndUpdate({
-							_id: id,
-						}, {
-							$addToSet: { savedWeapons: weapons[index] },
-						}, {
-							upsert: true,
-						}).exec();
-					} finally {
-						mongoose.connection.close();
-					}
-				});
+				await savedWeaponSchema.findOneAndUpdate({
+					_id: id,
+				}, {
+					$addToSet: { savedWeapons: weapons[index] },
+				}, {
+					upsert: true,
+				}).exec();
 				const embed = new Discord.MessageEmbed()
 					.setColor('#00FF97')
 					.setAuthor(message.author.username)

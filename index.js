@@ -1,34 +1,68 @@
 require('module-alias/register');
 
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const WOKCommands = require('wokcommands');
+const client = new Discord.Client({
+	partials: ['MESSAGE', 'REACTION'],
+});
 
 //const config = require('@root/config.json');
-const firstMessage = require('./first-message');
+const firstMessage = require('./features/first-message');
 const roleClaim = require('./role-claim');
-const loadCommands = require('./commands/load-commands');
-const commandBase = require('./commands/command-base');
-const command = require('./command');
-const mongo = require('./mongo');
+//const command = require('./command');
 
-client.on('ready', async () => {
+client.on('ready', () => {
 	console.log('It has awoken.');
 
-	await mongo().then(mongoose => { //Connect to MongoDB
-		try {
-			//Try some code
-			console.log('Connected to mongo!');
-		} finally {
-			//Will always run
-			mongoose.connection.close();
-		}
-	});
-	commandBase.loadPrefixes(client);
-	loadCommands(client);
+	new WOKCommands(client, {
+		commandsDir: 'commands',
+		messagesPath: 'messages.json',
+
+		dbOptions: {
+			keepAlive: true,
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			useFindAndModify: false,
+		},
+
+		testServers: '345711221208514560',
+
+		disabledDefaultCommands: [
+			'language',
+		],
+
+	})
+		.setCategorySettings([
+			{
+				name: 'Characters',
+				emoji: '😶',
+			},
+			{
+				name: 'Weapons',
+				emoji: '⚔️',
+			},
+			{
+				name: 'Agenda',
+				emoji: '📅',
+			},
+			{
+				name: 'Misc',
+				emoji: '🟢',
+			},
+			{
+				name: 'Development',
+				emoji: '🖥️',
+				hidden: true,
+			},
+		])
+		.setDisplayName('Genshin Impact Reminders')
+		.setDefaultPrefix('b!')
+		.setColor('0x00ff97')
+		.setMongoPath('mongodb://localhost:27017/BlobBot');
 
 	client.user.setPresence({
 		activity: {
-			name: 'b!help',
+			name: 'Under maintenance',
 			type: 0,
 		},
 	});
@@ -42,17 +76,6 @@ client.on('ready', async () => {
 
 	roleClaim(client);
 
-	command(client, 'status', message => {
-		if(message.member.hasPermission('ADMINISTRATOR')) {
-			const content = message.content.replace('b!status ', '');
-			client.user.setPresence({
-				activity: {
-					name: content,
-					type: 0,
-				},
-			});
-		}
-	});
 });
 client.login(process.env.DJS_TOKEN);
 //client.login(config.token);

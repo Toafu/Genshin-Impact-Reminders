@@ -1,15 +1,17 @@
-/* eslint-disable no-shadow-restricted-names */
 const Discord = require('discord.js');
 const getChar = require('@helper/getChars');
 const characters = getChar.getChars();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
-	commands: ['charinfo', 'cinfo'],
+	name: 'charinfo',
+	aliases: 'cinfo',
+	category: 'Characters',
+	description: 'Shows detailed information about a specific character',
 	minArgs: 1,
-	maxArgs: 2,
+	maxArgs: -1,
 	expectedArgs: '<ID/Character Name>',
-	callback: (message, arguments, text) => {
+	callback: ({ message, text }) => {
 		let index;
 		const query = text.toLowerCase();
 		const querytest = Number(query);

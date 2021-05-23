@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow-restricted-names */
-const mongo = require('@root/mongo');
 const Discord = require('discord.js');
 const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const getChar = require('@helper/getChars');
@@ -7,11 +5,14 @@ const characters = getChar.getChars();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
-	commands: ['remove', 'untrack'],
+	name: 'untrack',
+	aliases: 'remove',
+	category: 'Characters',
+	description: 'Removes a character from your agenda. `all` wipes your character list.',
 	minArgs: 1,
-	maxArgs: 2,
+	maxArgs: -1,
 	expectedArgs: '<ID/Character Name>',
-	callback: async (message, arguments, text) => {
+	callback: async ({ message, text }) => {
 		const { author } = message;
 		const { id } = author;
 
@@ -19,14 +20,8 @@ module.exports = {
 		let index;
 
 		if (query === 'all') {
-			await mongo().then(async mongoose => {
-				try {
-					await savedCharacterSchema.findOneAndDelete({
-						_id: id,
-					});
-				} finally {
-					mongoose.connection.close();
-				}
+			await savedCharacterSchema.findOneAndDelete({
+				_id: id,
 			});
 			const removeallembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
@@ -47,19 +42,13 @@ module.exports = {
 			}
 
 			if(index >= 0 && index < characters.length) {
-				await mongo().then(async mongoose => {
-					try {
-						await savedCharacterSchema.findOneAndUpdate({
-							_id: id,
-						}, {
-							$pull: { savedCharacters: characters[index] },
-						}, {
-							upsert: true,
-						}).exec();
-					} finally {
-						mongoose.connection.close();
-					}
-				});
+				await savedCharacterSchema.findOneAndUpdate({
+					_id: id,
+				}, {
+					$pull: { savedCharacters: characters[index] },
+				}, {
+					upsert: true,
+				}).exec();
 				const embed = new Discord.MessageEmbed()
 					.setColor('#00FF97')
 					.setAuthor(message.author.username)

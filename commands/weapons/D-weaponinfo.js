@@ -1,15 +1,17 @@
-/* eslint-disable no-shadow-restricted-names */
 const Discord = require('discord.js');
 const getWeapon = require('@helper/getWeapons.js');
 const weapons = getWeapon.getWeapons();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
-	commands: ['weaponinfo', 'winfo'],
+	name: 'weaponinfo',
+	aliases: 'winfo',
+	category: 'Weapons',
+	description: 'Shows detailed information about a specific weapon',
 	minArgs: 1,
-	maxArgs: 6,
+	maxArgs: -1,
 	expectedArgs: '<ID/Weapon Name>',
-	callback: (message, arguments, text) => {
+	callback: ({ message, text }) => {
 		let index;
 		let query = text.toLowerCase();
 		query = query.replace(/[’‘]/g, '\'');

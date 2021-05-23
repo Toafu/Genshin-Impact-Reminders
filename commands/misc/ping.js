@@ -1,9 +1,11 @@
 /* eslint-disable no-shadow-restricted-names */
 module.exports = {
-	commands: 'ping',
+	name: 'ping',
+	category: 'Misc',
+	description: 'Shows bot ping',
 	minArgs: 0,
 	maxArgs: 0,
-	callback: (message, arguments, text, client) => {
+	callback: ({ message, client }) => {
 		message.reply('Calculating ping...').then(resultMessage => {
 			const ping = resultMessage.createdTimestamp - message.createdTimestamp;
 
