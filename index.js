@@ -9,7 +9,6 @@ const client = new Discord.Client({
 //const config = require('@root/config.json');
 const firstMessage = require('./first-message');
 const roleClaim = require('./role-claim');
-//const command = require('./command');
 
 client.on('ready', () => {
 	console.log('It has awoken.');
