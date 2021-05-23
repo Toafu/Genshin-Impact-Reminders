@@ -7,7 +7,7 @@ module.exports = {
 	name: 'weaponinfo',
 	aliases: 'winfo',
 	category: 'Weapons',
-	description: 'Shows detailed information about a specific weapon',
+	description: 'Shows detailed information about a specific weapon.',
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<ID/Weapon Name>',

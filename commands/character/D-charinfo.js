@@ -7,7 +7,7 @@ module.exports = {
 	name: 'charinfo',
 	aliases: 'cinfo',
 	category: 'Characters',
-	description: 'Shows detailed information about a specific character',
+	description: 'Shows detailed information about a specific character.',
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<ID/Character Name>',

@@ -57,11 +57,12 @@ client.on('ready', () => {
 		.setDisplayName('Genshin Impact Reminders')
 		.setDefaultPrefix('b!')
 		.setColor('0x00ff97')
+		//.setMongoPath(config.mongoPath);
 		.setMongoPath(process.env.DJS_MONGO);
 
 	client.user.setPresence({
 		activity: {
-			name: 'Under maintenance',
+			name: 'b!help',
 			type: 0,
 		},
 	});

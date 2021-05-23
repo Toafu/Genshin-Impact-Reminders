@@ -7,7 +7,7 @@ const weapons = getWeapon.getWeapons();
 
 module.exports = {
 	category: 'Development',
-	description: 'Checks database to make sure stored information matches local source information',
+	description: 'Checks database to make sure stored information matches local source information.',
 	minArgs: 0,
 	maxArgs: 0,
 	callback: async ({ message }) => {
