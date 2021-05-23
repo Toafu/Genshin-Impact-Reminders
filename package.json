@@ -13,7 +13,8 @@
     "discord.js": "^12.5.3",
     "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
     "module-alias": "^2.2.2",
-    "mongoose": "^5.12.7"
+    "mongoose": "^5.12.7",
+    "wokcommands": "^1.3.5"
   },
   "_moduleAliases": {
     "@root": ".",

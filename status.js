@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow-restricted-names */
+//const command = require('./command');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 

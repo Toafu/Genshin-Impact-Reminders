@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow-restricted-names */
-const mongo = require('@root/mongo');
 const Discord = require('discord.js');
 const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const getChar = require('@helper/getChars');
@@ -7,11 +5,14 @@ const characters = getChar.getChars();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
-	commands: ['add', 'track'],
+	name: 'track',
+	aliases: 'add',
+	category: 'Characters',
+	description: 'Adds a character to your agenda. `all` adds everyone.',
 	minArgs: 1,
-	maxArgs: 2,
+	maxArgs: -1,
 	expectedArgs: '<ID/Character Name>',
-	callback: async (message, arguments, text) => {
+	callback: async ({ message, text }) => {
 		const { author } = message;
 		const { id } = author;
 
@@ -19,19 +20,14 @@ module.exports = {
 		let index;
 
 		if (query === 'all') {
-			await mongo().then(async mongoose => {
-				try {
-					await savedCharacterSchema.findOneAndUpdate({
-						_id: id,
-					}, {
-						$addToSet: { savedCharacters: characters },
-					}, {
-						upsert: true,
-					});
-				} finally {
-					mongoose.connection.close();
-				}
+			await savedCharacterSchema.findOneAndUpdate({
+				_id: id,
+			}, {
+				$addToSet: { savedCharacters: characters },
+			}, {
+				upsert: true,
 			});
+
 			const addallcharsembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor(message.author.username)
@@ -51,19 +47,13 @@ module.exports = {
 			}
 
 			if(index >= 0 && index < characters.length) {
-				await mongo().then(async mongoose => {
-					try {
-						await savedCharacterSchema.findOneAndUpdate({
-							_id: id,
-						}, {
-							$addToSet: { savedCharacters: characters[index] },
-						}, {
-							upsert: true,
-						}).exec();
-					} finally {
-						mongoose.connection.close();
-					}
-				});
+				await savedCharacterSchema.findOneAndUpdate({
+					_id: id,
+				}, {
+					$addToSet: { savedCharacters: characters[index] },
+				}, {
+					upsert: true,
+				}).exec();
 				const embed = new Discord.MessageEmbed()
 					.setColor('#00FF97')
 					.setAuthor(message.author.username)
