@@ -6,7 +6,7 @@ const client = new Discord.Client({
 	partials: ['MESSAGE', 'REACTION'],
 });
 
-const config = require('@root/config.json');
+//const config = require('@root/config.json');
 const firstMessage = require('./first-message');
 const roleClaim = require('./role-claim');
 //const command = require('./command');
@@ -58,7 +58,7 @@ client.on('ready', () => {
 		.setDisplayName('Genshin Impact Reminders')
 		.setDefaultPrefix('b!')
 		.setColor('0x00ff97')
-		.setMongoPath('mongodb://localhost:27017/BlobBot');
+		.setMongoPath(process.env.DJS_MONGO);
 
 	client.user.setPresence({
 		activity: {
@@ -77,5 +77,5 @@ client.on('ready', () => {
 	roleClaim(client);
 
 });
-//client.login(process.env.DJS_TOKEN);
-client.login(config.token);
+client.login(process.env.DJS_TOKEN);
+//client.login(config.token);
