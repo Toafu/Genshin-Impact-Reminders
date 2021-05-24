@@ -9,7 +9,6 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: 1,
 	expectedArgs: '<NA/EU/ASIA>',
-	testOnly: true,
 	callback: async ({ message, text }) => {
 		const { author } = message;
 		const { id } = author;
