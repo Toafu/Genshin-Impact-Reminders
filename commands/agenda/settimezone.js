@@ -5,7 +5,7 @@ module.exports = {
 	name: 'settimezone',
 	aliases: 'setserver',
 	category: 'Agenda',
-	description: 'Sets your Genshin server.',
+	description: 'Sets your Genshin server. Default NA.',
 	minArgs: 1,
 	maxArgs: 1,
 	expectedArgs: '<NA/EU/ASIA>',

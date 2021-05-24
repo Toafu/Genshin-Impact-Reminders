@@ -8,7 +8,6 @@ const client = new Discord.Client({
 
 require('dotenv').config();
 
-//const config = require('@root/config.json');
 const firstMessage = require('./first-message');
 const roleClaim = require('./role-claim');
 
@@ -79,4 +78,3 @@ client.on('ready', () => {
 
 });
 client.login(process.env.DJS_TOKEN);
-//client.login(config.token);
