@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const savedWeaponSchema = require('@schemas/savedweapon-schema');
 const savedMessageSchema = require('@schemas/custommessage-schema');
+const timezoneSchema = require('@schemas/timezone-schema');
 const today = require('@helper/today');
 
 module.exports = {
@@ -11,16 +12,29 @@ module.exports = {
 	minArgs: 0,
 	maxArgs: 1,
 	callback: async ({ message, args }) => {
-		const day = today.todayIs();
-		const time = today.timeIs();
+		const { author } = message;
+		const { id } = author;
+
+		const zone = await timezoneSchema.find({ _id: id });
+		let server;
+		let offset;
+
+		if (zone.length > 0) {
+			server = zone[0].server.name;
+			offset = zone[0].server.offset;
+		} else {
+			server = 'NA';
+			offset = -5;
+		}
+
+		const day = today.todayIs(offset);
+		const time = today.timeIs(offset);
 		const hours = String(time.getHours()).padStart(2, '0');
 		const minutes = String(time.getMinutes()).padStart(2, '0');
 
-		const title = `Welcome to your Genshin Impact agenda.\nToday is ${day}, ${hours}:${minutes} NA server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`;
+		const title = `Welcome to your Genshin Impact agenda.\nToday is ${day}, ${hours}:${minutes} ${server} server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`;
 		const logo = 'https://media.discordapp.net/attachments/424627903876169729/838122787083649055/4936.png?width=720&height=405';
 
-		const { author } = message;
-		const { id } = author;
 
 		const nocharstoday = {
 			name: 'None of your characters\' talent materials can be farmed today (or you aren\'t tracking any yet!).',

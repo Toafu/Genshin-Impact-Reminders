@@ -6,6 +6,8 @@ const client = new Discord.Client({
 	partials: ['MESSAGE', 'REACTION'],
 });
 
+require('dotenv').config();
+
 //const config = require('@root/config.json');
 const firstMessage = require('./first-message');
 const roleClaim = require('./role-claim');
@@ -57,7 +59,6 @@ client.on('ready', () => {
 		.setDisplayName('Genshin Impact Reminders')
 		.setDefaultPrefix('b!')
 		.setColor('0x00ff97')
-		//.setMongoPath(config.mongoPath);
 		.setMongoPath(process.env.DJS_MONGO);
 
 	client.user.setPresence({
