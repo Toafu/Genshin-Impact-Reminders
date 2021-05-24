@@ -26,8 +26,8 @@ module.exports = {
 			**removeweapon/unequip [ID/Weapon Name/all]** - Stop tracking a weapon (\`all\` WIPES your weapons list. Be careful.)
 			**agenda (Page Number - Default 1)** - View what materials you can farm for your tracked characters and weapons
 			**message (Message)** - Add a custom message to the bottom of the agenda. Inputting no arguments will show your saved message
-			**setprefix [prefix]** - You need administrator perms to do this one
-			**settimezone [NA/EU/ASIA]** - Set the server you play for your agenda`,
+			**prefix [prefix]** - Change/view bot prefix
+			**settimezone/setserver [NA/EU/ASIA]** - Set the server you play for your agenda`,
 			)
 			.setColor('#00FF97')
 			.addFields(
