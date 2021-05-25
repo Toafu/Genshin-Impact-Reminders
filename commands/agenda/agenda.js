@@ -114,6 +114,26 @@ module.exports = {
 			return finalweplist;
 		};
 
+		const getlocations = (todaysChars, todaysWeps) => {
+			const loclist = [];
+			if (todaysChars.length > 0) {
+				todaysChars.forEach(character => {
+					if (!loclist.includes(character.location)) {
+						loclist.push(character.location);
+					}
+				});
+			}
+			if (todaysWeps.length > 0) {
+				todaysWeps.forEach(weapon => {
+					if (!loclist.includes(weapon.location)) {
+						loclist.push(weapon.location);
+					}
+				});
+			}
+			loclist.sort((loc1, loc2) => loc1 > loc2 ? 1 : -1);
+			return loclist;
+		};
+
 		let page;
 		if (args.length === 0) {
 			page = 1;
@@ -170,10 +190,17 @@ module.exports = {
 			maxPage = Math.ceil(todaysWeps.length / 10);
 			let finalweplist = [];
 			finalweplist = getfinalweplist(finalweplist, wepagenda);
+			const loclist = getlocations(todaysChars, todaysWeps);
 
 			const wepfield = {
 				name: '__Today\'s Weapons__',
 				value: finalweplist,
+				inline: false,
+			};
+
+			const locfield = {
+				name: '__Places to Go__',
+				value: loclist,
 				inline: false,
 			};
 
@@ -187,7 +214,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(nocharstoday, wepfield, custommessage);
+						.addFields(nocharstoday, wepfield, locfield, custommessage);
 					message.channel.send(agendaembed);
 				} else if (wepagenda.length > 0 && !custommessage) {
 					const agendaembed = new Discord.MessageEmbed()
@@ -196,7 +223,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(nocharstoday, wepfield);
+						.addFields(nocharstoday, wepfield, locfield);
 					message.channel.send(agendaembed);
 				} else if (finalweplist.length === 0) {
 					message.channel.send(nothingtodayembed);
@@ -229,11 +256,18 @@ module.exports = {
 			maxPage = Math.ceil(todaysChars.length / 10);
 			let finalcharlist = [];
 			finalcharlist = getfinalcharlist(finalcharlist, charagenda);
+			const loclist = getlocations(todaysChars, todaysWeps);
 
 			const charfield = {
 				name: 'Today\'s Talents',
 				value: finalcharlist,
 				inline: true,
+			};
+
+			const locfield = {
+				name: '__Places to Go__',
+				value: loclist,
+				inline: false,
 			};
 
 			const footer = `Page ${page} of ${maxPage}`;
@@ -246,7 +280,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(charfield, nowepstoday, custommessage);
+						.addFields(charfield, nowepstoday, locfield, custommessage);
 					message.channel.send(agendaembed);
 				} else if (charagenda.length > 0 && !custommessage) {
 					const agendaembed = new Discord.MessageEmbed()
@@ -255,7 +289,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(charfield, nowepstoday);
+						.addFields(charfield, nowepstoday, locfield);
 					message.channel.send(agendaembed);
 				} else if (finalcharlist.length === 0) {
 					message.channel.send(nothingtodayembed);
@@ -308,6 +342,8 @@ module.exports = {
 
 			finalweplist = getfinalweplist(finalweplist, wepagenda);
 
+			const loclist = getlocations(todaysChars, todaysWeps);
+
 			const charfield = {
 				name: '__Today\'s Talents__',
 				value: finalcharlist,
@@ -317,6 +353,12 @@ module.exports = {
 			const wepfield = {
 				name: '__Today\'s Weapons__',
 				value: finalweplist,
+				inline: false,
+			};
+
+			const locfield = {
+				name: '__Places to Go__',
+				value: loclist,
 				inline: false,
 			};
 
@@ -330,7 +372,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(charfield, wepfield, custommessage);
+						.addFields(charfield, wepfield, locfield, custommessage);
 					message.channel.send(agendaembed);
 				} else if (finalcharlist.length > 0 && finalweplist.length > 0 && !custommessage) {
 					const agendaembed = new Discord.MessageEmbed()
@@ -339,7 +381,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(charfield, wepfield);
+						.addFields(charfield, wepfield, locfield);
 					message.channel.send(agendaembed);
 				} else if (finalcharlist.length > 0 && finalweplist.length === 0 && custommessage) {
 					const agendaembed = new Discord.MessageEmbed()
@@ -348,7 +390,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(charfield, nowepstoday, custommessage);
+						.addFields(charfield, nowepstoday, locfield, custommessage);
 					message.channel.send(agendaembed);
 				} else if (finalcharlist.length > 0 && finalweplist.length === 0 && !custommessage) {
 					const agendaembed = new Discord.MessageEmbed()
@@ -357,7 +399,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(charfield, nowepstoday);
+						.addFields(charfield, nowepstoday, locfield);
 					message.channel.send(agendaembed);
 				} else if (finalcharlist.length === 0 && finalweplist.length > 0 && custommessage) {
 					const agendaembed = new Discord.MessageEmbed()
@@ -366,7 +408,7 @@ module.exports = {
 						.setAuthor(message.author.username)
 						.setFooter(footer)
 						.setColor('#00FF97')
-						.addFields(nocharstoday, wepfield, custommessage);
+						.addFields(nocharstoday, wepfield, locfield, custommessage);
 					message.channel.send(agendaembed);
 				}
 			} else if (finalcharlist.length === 0 && finalweplist.length > 0 && !custommessage) {
@@ -376,7 +418,7 @@ module.exports = {
 					.setAuthor(message.author.username)
 					.setFooter(footer)
 					.setColor('#00FF97')
-					.addFields(nocharstoday, wepfield);
+					.addFields(nocharstoday, wepfield, locfield);
 				message.channel.send(agendaembed);
 			} else if (page > maxPage) {
 				const invalidpageembed = new Discord.MessageEmbed()

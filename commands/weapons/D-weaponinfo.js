@@ -51,7 +51,7 @@ module.exports = {
 					},
 					{
 						name: 'Ascension Info',
-						value: `•To ascend ${weapons[index].name}, you'll need **${getEmotes.getEmote(weapons[index].mat)}** from domains on **${weapons[index].days.replace(/["]+/g, '')}**, and **${weapons[index].loot1}** and **${weapons[index].loot2}** from normal enemies.`,
+						value: `•To ascend ${weapons[index].name}, you'll need **${getEmotes.getEmote(weapons[index].mat)}** from **${weapons[index].location}** on **${weapons[index].days.replace(/["]+/g, '')}**, and **${weapons[index].loot1}** and **${weapons[index].loot2}** from normal enemies.`,
 						inline: false,
 					});
 			message.channel.send(embed);

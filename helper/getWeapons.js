@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const weaponRead = (name, type, stars, id, passive, stat, mat, days, loot1, loot2, obtain) => {
+const weaponRead = (name, type, stars, id, passive, stat, mat, days, loot1, loot2, obtain, location) => {
 	return {
 		name,
 		type,
@@ -13,6 +13,7 @@ const weaponRead = (name, type, stars, id, passive, stat, mat, days, loot1, loot
 		loot1,
 		loot2,
 		obtain,
+		location,
 	};
 };
 const getWeapons = () => {
@@ -23,8 +24,8 @@ const getWeapons = () => {
 		const word = text.split(/[\n\t\r]+/);
 		let i = 0;
 		while(word.length > 0) {
-			weapons[i] = (weaponRead(word[0], word[1], word[2], i, word[3], word[4], word[5], word[6], word[7], word[8], word[9]));
-			word.splice(0, 10);
+			weapons[i] = (weaponRead(word[0], word[1], word[2], i, word[3], word[4], word[5], word[6], word[7], word[8], word[9], word[10]));
+			word.splice(0, 11);
 			i += 1;
 		}
 		weapons.forEach(weapon => {
