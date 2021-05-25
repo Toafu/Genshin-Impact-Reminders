@@ -28,7 +28,7 @@ module.exports = {
 				.addFields(
 					{
 						name: 'Talent Info',
-						value: `•**${characters[index].talent}** books can be farmed on **${characters[index].days.replace(/["]+/g, '')}**.`,
+						value: `•**${characters[index].talent}** books can be farmed on **${characters[index].days.replace(/["]+/g, '')}** at **${characters[index].location}**.`,
 						inline: true,
 					},
 					{

@@ -1,33 +1,33 @@
-Albedo	Geo	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/r594GEf.jpg	Basalt Pillar	Prithiva Topaz (Geo Hypostasis)	Cecilia	Scrolls (Samachurls)
-Amber	Pyro	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/bRgxZdy.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Small Lamp Grass	Arrowheads (Hilichurl Shooters)
-Barbara	Hydro	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/2l1Yx0j.jpg	Cleansing Heart	Varunada Lazurite (Oceanid)	Philanemo Mushroom	Scrolls (Samachurls)
-Beidou	Electro	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/dgbEz4i.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Noctilucous Jade	Insignia (Treasure Hoarders)
-Bennett	Pyro	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/2FUpEKH.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Windwheel Aster	Insignia (Treasure Hoarders)
-Chongyun	Cryo	Diligence	"Tuesday, Friday, Sunday"	https://i.imgur.com/1QBWbHs.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Cor Lapis	Masks (Hilichurls)
-Diluc	Pyro	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/dgX2pGt.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Small Lamp Grass	Insignia (Treasure Hoarders)
-Diona	Cryo	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/4jfrSbm.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Calla Lily	Arrowheads (Hilichurl Shooters)
-Eula	Cryo	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/a5RHtCI.jpg	Crystalline Bloom	Shivada Jade (Cryo Regisvine)	Dandelion Seed	Masks (Hilichurls)
-Fischl	Electro	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/vUaKhEt.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Small Lamp Grass	Arrowheads (Hilichurl Shooters)
-Ganyu	Cryo	Diligence	"Tuesday, Friday, Sunday"	https://i.imgur.com/RVxVuyO.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Qingxin	Nectar (Whopperflowers)
-Hu Tao	Pyro	Diligence	"Tuesday, Friday, Sunday"	https://i.imgur.com/Fdgt24m.jpg	Juvenile Jade	Agnidus Agate (Pyro Regisvine)	Silk Flower	Nectar (Whopperflowers)
-Jean	Anemo	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/xAl4O5M.jpg	Hurricane Seed	Vayuda Turquoise (Anemo Hypostasis)	Dandelion Seed	Masks (Hilichurls)
-Kaeya	Cryo	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/WExnmzB.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Calla Lily	Insignia (Treasure Hoarders)
-Keqing	Electro	Prosperity	"Monday, Thursday, Sunday"	https://i.imgur.com/20eicjD.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Cor Lapis	Nectar (Whopperflowers)
-Klee	Pyro	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/ntZ8MZx.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Philanemo Mushroom	Scrolls (Samachurls)
-Lisa	Electro	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/zHiY3Qv.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Valberry	Slime (Slimes)
-Mona	Hydro	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/QDSaIOk.jpg	Cleansing Heart	Varunada Lazurite (Oceanid)	Philanemo Mushroom	Nectar (Whopperflowers)
-Ningguang	Geo	Prosperity	"Monday, Thursday, Sunday"	https://i.imgur.com/uwslmTn.jpg	Basalt Pillar	Prithiva Topaz (Geo Hypostasis)	Glaze Lily	Insignia (Treasure Hoarders)
-Noelle	Geo	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/MQhulEu.jpg	Basalt Pillar	Prithiva Topaz (Geo Hypostasis)	Valberry	Masks (Hilichurls)
-Qiqi	Cryo	Prosperity	"Monday, Thursday, Sunday"	https://i.imgur.com/ISwTBwo.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Violetgrass	Scrolls (Samachurls)
-Razor	Electro	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/9879rA0.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Wolfhook	Masks (Hilichurls)
-Rosaria	Cryo	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/aPUpXmw.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Valberry	Insignia (Treasure Hoarders)
-Sucrose	Anemo	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/4tfR0Hr.jpg	Hurricane Seed	Vayuda Turquoise (Anemo Hypostasis)	Windwheel Aster	Nectar (Whopperflowers)
-Tartaglia	Hydro	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/ZMgfCxz.jpg	Cleansing Heart	Varunada Lazurite (Oceanid)	Starconch	Insignia (Treasure Hoarders)
-Traveler	Anemo Geo	ALL	"Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday"	https://i.imgur.com/1eh0NMU.png	N/A	Brilliant Diamond (Adventure Rank Rewards)	Windwheel Aster	Masks (Hilichurls)
-Venti	Anemo	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/YneM0MX.jpg	Hurricane Seed	Vayuda Turquoise (Anemo Hypostasis)	Cecilia	Slime (Slimes)
-Xiangling	Pyro	Diligence	"Tuesday, Friday, Sunday"	https://i.imgur.com/uAPGrln.png	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Jueyun Chili	Slime (Slimes)
-Xiao	Anemo	Prosperity	"Monday, Thursday, Sunday"	https://i.imgur.com/3XsRZ7d.jpg	Juvenile Jade	Vayuda Turquoise (Anemo Hypostasis)	Qingxin	Slime (Slimes)
-Xingqiu	Hydro	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/i21qudn.jpg	Cleansing Heart	Varunada Lazurite (Oceanid)	Silk Flower	Masks (Hilichurls)
-Xinyan	Pyro	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/68j6cdD.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Violetgrass	Insignia (Treasure Hoarders)
-Yanfei	Pyro	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/IQUH5By.jpg	Juvenile Jade	Agnidus Agate (Pyro Regisvine)	Noctilucous Jade	Insignia (Treasure Hoarders)
-Zhongli	Geo	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/R9mNApP.png	Basalt Pillar	Prithiva Topaz (Geo Hypostasis)	Cor Lapis	Slime (Slimes)
+Albedo	Geo	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/r594GEf.jpg	Basalt Pillar	Prithiva Topaz (Geo Hypostasis)	Cecilia	Scrolls (Samachurls)	Forsaken Rift
+Amber	Pyro	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/bRgxZdy.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Small Lamp Grass	Arrowheads (Hilichurl Shooters)	Forsaken Rift
+Barbara	Hydro	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/2l1Yx0j.jpg	Cleansing Heart	Varunada Lazurite (Oceanid)	Philanemo Mushroom	Scrolls (Samachurls)	Forsaken Rift
+Beidou	Electro	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/dgbEz4i.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Noctilucous Jade	Insignia (Treasure Hoarders)	Taishan Mansion
+Bennett	Pyro	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/2FUpEKH.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Windwheel Aster	Insignia (Treasure Hoarders)	Forsaken Rift
+Chongyun	Cryo	Diligence	"Tuesday, Friday, Sunday"	https://i.imgur.com/1QBWbHs.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Cor Lapis	Masks (Hilichurls)	Taishan Mansion
+Diluc	Pyro	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/dgX2pGt.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Small Lamp Grass	Insignia (Treasure Hoarders)	Forsaken Rift
+Diona	Cryo	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/4jfrSbm.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Calla Lily	Arrowheads (Hilichurl Shooters)	Forsaken Rift
+Eula	Cryo	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/a5RHtCI.jpg	Crystalline Bloom	Shivada Jade (Cryo Regisvine)	Dandelion Seed	Masks (Hilichurls)	Forsaken Rift
+Fischl	Electro	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/vUaKhEt.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Small Lamp Grass	Arrowheads (Hilichurl Shooters)	Forsaken Rift
+Ganyu	Cryo	Diligence	"Tuesday, Friday, Sunday"	https://i.imgur.com/RVxVuyO.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Qingxin	Nectar (Whopperflowers)	Taishan Mansion
+Hu Tao	Pyro	Diligence	"Tuesday, Friday, Sunday"	https://i.imgur.com/Fdgt24m.jpg	Juvenile Jade	Agnidus Agate (Pyro Regisvine)	Silk Flower	Nectar (Whopperflowers)	Taishan Mansion
+Jean	Anemo	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/xAl4O5M.jpg	Hurricane Seed	Vayuda Turquoise (Anemo Hypostasis)	Dandelion Seed	Masks (Hilichurls)	Forsaken Rift
+Kaeya	Cryo	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/WExnmzB.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Calla Lily	Insignia (Treasure Hoarders)	Forsaken Rift
+Keqing	Electro	Prosperity	"Monday, Thursday, Sunday"	https://i.imgur.com/20eicjD.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Cor Lapis	Nectar (Whopperflowers)	Taishan Mansion
+Klee	Pyro	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/ntZ8MZx.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Philanemo Mushroom	Scrolls (Samachurls)	Forsaken Rift
+Lisa	Electro	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/zHiY3Qv.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Valberry	Slime (Slimes)	Forsaken Rift
+Mona	Hydro	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/QDSaIOk.jpg	Cleansing Heart	Varunada Lazurite (Oceanid)	Philanemo Mushroom	Nectar (Whopperflowers)	Forsaken Rift
+Ningguang	Geo	Prosperity	"Monday, Thursday, Sunday"	https://i.imgur.com/uwslmTn.jpg	Basalt Pillar	Prithiva Topaz (Geo Hypostasis)	Glaze Lily	Insignia (Treasure Hoarders)	Taishan Mansion
+Noelle	Geo	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/MQhulEu.jpg	Basalt Pillar	Prithiva Topaz (Geo Hypostasis)	Valberry	Masks (Hilichurls)	Forsaken Rift
+Qiqi	Cryo	Prosperity	"Monday, Thursday, Sunday"	https://i.imgur.com/ISwTBwo.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Violetgrass	Scrolls (Samachurls)	Taishan Mansion
+Razor	Electro	Resistance	"Tuesday, Friday, Sunday"	https://i.imgur.com/9879rA0.jpg	Lightning Prism	Vajrada Amethyst (Electro Hypostasis)	Wolfhook	Masks (Hilichurls)	Forsaken Rift
+Rosaria	Cryo	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/aPUpXmw.jpg	Hoarfrost Core	Shivada Jade (Cryo Regisvine)	Valberry	Insignia (Treasure Hoarders)	Forsaken Rift
+Sucrose	Anemo	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/4tfR0Hr.jpg	Hurricane Seed	Vayuda Turquoise (Anemo Hypostasis)	Windwheel Aster	Nectar (Whopperflowers)	Forsaken Rift
+Tartaglia	Hydro	Freedom	"Monday, Thursday, Sunday"	https://i.imgur.com/ZMgfCxz.jpg	Cleansing Heart	Varunada Lazurite (Oceanid)	Starconch	Insignia (Treasure Hoarders)	Forsaken Rift
+Traveler	Anemo Geo	ALL	"Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday"	https://i.imgur.com/1eh0NMU.png	N/A	Brilliant Diamond (Adventure Rank Rewards)	Windwheel Aster	Masks (Hilichurls)	Forsaken Rift
+Venti	Anemo	Ballad	"Wednesday, Saturday, Sunday"	https://i.imgur.com/YneM0MX.jpg	Hurricane Seed	Vayuda Turquoise (Anemo Hypostasis)	Cecilia	Slime (Slimes)	Forsaken Rift
+Xiangling	Pyro	Diligence	"Tuesday, Friday, Sunday"	https://i.imgur.com/uAPGrln.png	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Jueyun Chili	Slime (Slimes)	Taishan Mansion
+Xiao	Anemo	Prosperity	"Monday, Thursday, Sunday"	https://i.imgur.com/3XsRZ7d.jpg	Juvenile Jade	Vayuda Turquoise (Anemo Hypostasis)	Qingxin	Slime (Slimes)	Taishan Mansion
+Xingqiu	Hydro	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/i21qudn.jpg	Cleansing Heart	Varunada Lazurite (Oceanid)	Silk Flower	Masks (Hilichurls)	Taishan Mansion
+Xinyan	Pyro	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/68j6cdD.jpg	Everflame Seed	Agnidus Agate (Pyro Regisvine)	Violetgrass	Insignia (Treasure Hoarders)	Taishan Mansion
+Yanfei	Pyro	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/IQUH5By.jpg	Juvenile Jade	Agnidus Agate (Pyro Regisvine)	Noctilucous Jade	Insignia (Treasure Hoarders)	Taishan Mansion
+Zhongli	Geo	Gold	"Wednesday, Saturday, Sunday"	https://i.imgur.com/R9mNApP.png	Basalt Pillar	Prithiva Topaz (Geo Hypostasis)	Cor Lapis	Slime (Slimes)	Taishan Mansion
