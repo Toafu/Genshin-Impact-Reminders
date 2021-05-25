@@ -11,6 +11,7 @@ module.exports = {
 	minArgs: 0,
 	maxArgs: 0,
 	callback: async ({ message }) => {
+		const msg = await message.channel.send('Updating database...');
 		if (message.author.id.toString() === '269910487133716480') {
 			for (let i = 0; i < characters.length; i++) {
 				const query = { 'savedCharacters.name': { $all: [ characters[i].name ] } };
@@ -22,7 +23,7 @@ module.exports = {
 				const update = { $set: { 'savedWeapons.$' : weapons[i] } };
 				await savedWeaponSchema.updateMany(query, update);
 			}
-			message.channel.send('Successfully updated database.');
+			msg.edit('Successfully updated database.');
 		} else {
 			message.channel.send('You do not have permission to run this command.');
 		}
