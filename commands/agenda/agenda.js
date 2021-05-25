@@ -136,7 +136,7 @@ module.exports = {
 		if (msgresult.length > 0) {
 			customtext = msgresult[0].savedMessage;
 			custommessage = {
-				name: 'Your Custom Message',
+				name: '__Your Custom Message__',
 				value: customtext,
 				inline: false,
 			};
@@ -172,7 +172,7 @@ module.exports = {
 			finalweplist = getfinalweplist(finalweplist, wepagenda);
 
 			const wepfield = {
-				name: 'Today\'s Weapons',
+				name: '__Today\'s Weapons__',
 				value: finalweplist,
 				inline: false,
 			};
@@ -309,13 +309,13 @@ module.exports = {
 			finalweplist = getfinalweplist(finalweplist, wepagenda);
 
 			const charfield = {
-				name: 'Today\'s Talents',
+				name: '__Today\'s Talents__',
 				value: finalcharlist,
 				inline: true,
 			};
 
 			const wepfield = {
-				name: 'Today\'s Weapons',
+				name: '__Today\'s Weapons__',
 				value: finalweplist,
 				inline: false,
 			};
