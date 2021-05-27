@@ -4,13 +4,14 @@ const weapons = getWeapon.getWeapons();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
+	slash: 'both',
 	name: 'weaponinfo',
 	aliases: 'winfo',
 	category: 'Weapons',
 	description: 'Shows detailed information about a specific weapon.',
 	minArgs: 1,
 	maxArgs: -1,
-	expectedArgs: '<ID/Weapon Name>',
+	expectedArgs: '<id or weapon name>',
 	callback: ({ message, text }) => {
 		let index;
 		let query = text.toLowerCase();
@@ -54,9 +55,16 @@ module.exports = {
 						value: `•To ascend ${weapons[index].name}, you'll need **${getEmotes.getEmote(weapons[index].mat)}** from **${weapons[index].location}** on **${weapons[index].days.replace(/["]+/g, '')}**, and **${weapons[index].loot1}** and **${weapons[index].loot2}** from normal enemies.`,
 						inline: false,
 					});
-			message.channel.send(embed);
+			if (message) {
+				message.channel.send(embed);
+			}
+			return embed;
 		} else {
-			message.channel.send(`Please use a valid ID [\`0-${weapons.length - 1}\`] or weapon name.`);
+			const error = `Please use a valid ID [\`0-${weapons.length - 1}\`] or weapon name.`;
+			if (message) {
+				message.channel.send(error);
+			}
+			return error;
 		}
 	},
 };

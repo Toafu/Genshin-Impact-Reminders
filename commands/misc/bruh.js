@@ -1,11 +1,13 @@
 module.exports = {
+	slash: 'both',
 	name: 'bruh',
 	category: 'Misc',
-	description: 'bruh moment',
-	minArgs: 0,
 	maxArgs: 0,
+	description: 'bruh moment',
 	callback: ({ message }) => {
-		message.channel.send('This is a certified bruh moment™');
+		if (message) {
+			message.channel.send('This is a certified bruh moment™');
+		}
+		return 'This is a certified bruh moment™';
 	},
-
 };

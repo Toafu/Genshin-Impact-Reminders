@@ -11,7 +11,7 @@ require('dotenv').config();
 const firstMessage = require('./first-message');
 const roleClaim = require('./role-claim');
 
-client.on('ready', () => {
+client.on('ready', async () => {
 	console.log('It has awoken.');
 
 	new WOKCommands(client, {
@@ -25,7 +25,7 @@ client.on('ready', () => {
 			useFindAndModify: false,
 		},
 
-		testServers: '345711221208514560',
+		testServers: ['844003091934085140'],
 
 		disabledDefaultCommands: [
 			'language',
@@ -58,6 +58,7 @@ client.on('ready', () => {
 		.setDisplayName('Genshin Impact Reminders')
 		.setDefaultPrefix('b!')
 		.setColor('0x00ff97')
+		.setBotOwner('269910487133716480')
 		.setMongoPath(process.env.DJS_MONGO);
 
 	client.user.setPresence({
