@@ -4,13 +4,14 @@ const characters = getChar.getChars();
 const getEmotes = require('@helper/getEmote');
 
 module.exports = {
+	slash: 'both',
 	name: 'charinfo',
 	aliases: 'cinfo',
 	category: 'Characters',
 	description: 'Shows detailed information about a specific character.',
 	minArgs: 1,
 	maxArgs: -1,
-	expectedArgs: '<ID/Character Name>',
+	expectedArgs: '<id or character name>',
 	callback: ({ message, text }) => {
 		let index;
 		const query = text.toLowerCase();
@@ -37,9 +38,16 @@ module.exports = {
 						from normal bosses, **${characters[index].resource}**, and **${characters[index].loot}**.`,
 						inline: false,
 					});
-			message.channel.send(embed);
+			if (message) {
+				message.channel.send(embed);
+			}
+			return embed;
 		} else {
-			message.channel.send(`Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`);
+			const error = `Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`;
+			if (message) {
+				message.channel.send(error);
+			}
+			return error;
 		}
 	},
 };

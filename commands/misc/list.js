@@ -1,13 +1,12 @@
 const Discord = require('discord.js');
 
 module.exports = {
+	slash: 'both',
 	name: 'list',
 	category: 'Misc',
-	description: 'List of all commands',
-	minArgs: 0,
 	maxArgs: 0,
-	callback: async message => {
-
+	description: 'List of all commands',
+	callback: async ({ message }) => {
 		const embed = new Discord.MessageEmbed()
 			.setTitle('Help/Command List (Default Prefix: b!)')
 			.setDescription(`
@@ -36,6 +35,9 @@ module.exports = {
 					value: 'Stuff is probably not going to work. Please contact `Toafu#4965` if something doesn\'t work as expected.',
 					inline: true,
 				});
-		message.channel.send(embed);
+		if (message) {
+			message.channel.send(embed);
+		}
+		return embed;
 	},
 };

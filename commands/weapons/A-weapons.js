@@ -3,12 +3,13 @@ const getWeapon = require('@helper/getWeapons.js');
 const weapons = getWeapon.getWeapons();
 
 module.exports = {
+	slash: 'both',
 	name: 'weapons',
 	category: 'Weapons',
 	description: 'Shows list of supported weapons with their ID\'s. Default page 1.',
 	minArgs: 0,
 	maxArgs: 1,
-	expectedArgs: '(Page Number)',
+	expectedArgs: '(page number)',
 	callback: ({ message, args }) => {
 		let page;
 		if (args.length === 0) {
@@ -35,7 +36,10 @@ module.exports = {
 						inline: true,
 					})
 				.setFooter(`Page ${page} of ${maxPage}`);
-			message.channel.send(embed);
+			if (message) {
+				message.channel.send(embed);
+			}
+			return embed;
 		} else if (page > maxPage) {
 			const embed = new Discord.MessageEmbed()
 				.setTitle('__Supported Weapons List__')
@@ -47,9 +51,16 @@ module.exports = {
 						inline: true,
 					})
 				.setFooter('>:(');
-			message.channel.send(embed);
+			if (message) {
+				message.channel.send(embed);
+			}
+			return embed;
 		} else {
-			message.channel.send('Incorrect syntax. Use b!weapons (Page Number)');
+			const error = 'Incorrect syntax. Use b!weapons (Page Number)';
+			if (message) {
+				message.channel.send(error);
+			}
+			return error;
 		}
 	},
 };
