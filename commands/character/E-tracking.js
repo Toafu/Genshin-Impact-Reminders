@@ -26,6 +26,7 @@ module.exports = {
 		const result = await savedCharacterSchema.find({
 			_id: id,
 		});
+
 		if (result.length > 0) {
 			const dblist = result[0].savedCharacters;
 			const trackList = [];
@@ -37,27 +38,95 @@ module.exports = {
 				page = +args[0];
 			}
 
-			const list = [];
-			const newlist = [];
-			trackList.sort((char1, char2) => (char1.name > char2.name) ? 1 : -1);
-			const maxPage = Math.ceil(trackList.length / 15);
-			trackList.forEach(person => list.push(`[${person.id}] **${person.name}** ${getEmotes.getEmote(person.element)}`));
+			const getlist = page => {
+				const list = [];
+				for (let i = (page * 20) - 20; i < page * 20; i++) {
+					if (trackList[i]) {
+						list.push(`[${trackList[i].id}] **${trackList[i].name}** ${getEmotes.getEmote(trackList[i].element)}`);
+					}
+				}
+				return list;
+			};
 
-			for (let i = (page * 15) - 15; i < page * 15; i++) {
-				newlist.push(list[i]);
-			}
+			trackList.sort((char1, char2) => (char1.name > char2.name) ? 1 : -1);
+			const maxPage = Math.ceil(trackList.length / 20);
+			let list = getlist(page);
+
 			if (list.length > 0 && page <= maxPage) {
+				const name = 'You are currently spending countless hours building:';
 				const embed = new Discord.MessageEmbed()
 					.setTitle(`${author.username}'s Tracking List`)
 					.setColor('#00FF97')
 					.setFooter(`Page ${page} of ${maxPage}`)
 					.addFields(
 						{
-							name: 'You are currently spending countless hours building:',
-							value: newlist,
-							inline: true,
+							name: name,
+							value: list,
 						});
-				message.channel.send(embed);
+				const msg = await message.channel.send(embed);
+
+				if (maxPage > 1) {
+					await msg.react('⏮️');
+					await msg.react('◀️');
+					await msg.react('▶️');
+					await msg.react('⏭️');
+
+					const leftleftfilter = (reaction, user) => { return reaction.emoji.name === '⏮️' && user.id === id; };
+					const leftfilter = (reaction, user) => { return reaction.emoji.name === '◀️' && user.id === id; };
+					const rightfilter = (reaction, user) => { return reaction.emoji.name === '▶️' && user.id === id; };
+					const rightrightfilter = (reaction, user) => { return reaction.emoji.name === '⏭️' && user.id === id; };
+
+					const leftleft = msg.createReactionCollector(leftleftfilter, { idle: 30000, dispose: true });
+					const left = msg.createReactionCollector(leftfilter, { idle: 30000, dispose: true });
+					const right = msg.createReactionCollector(rightfilter, { idle: 30000, dispose: true });
+					const rightright = msg.createReactionCollector(rightrightfilter, { idle: 30000, dispose: true });
+
+					leftleft.on('collect', r => {
+						r.users.remove(message.author.id);
+						page = 1;
+						embed.setFooter(`Page ${page} of ${maxPage}`);
+						list = getlist(page);
+						embed.fields = [];
+						embed.addField(name, list);
+						msg.edit(embed);
+					});
+
+					left.on('collect', r => {
+						r.users.remove(message.author.id);
+						page--;
+						if (page < 1) {
+							page = 1;
+						}
+						embed.setFooter(`Page ${page} of ${maxPage}`);
+						list = getlist(page);
+						embed.fields = [];
+						embed.addField(name, list);
+						msg.edit(embed);
+					});
+
+					right.on('collect', r => {
+						r.users.remove(message.author.id);
+						page++;
+						if (page > maxPage) {
+							page = maxPage;
+						}
+						embed.setFooter(`Page ${page} of ${maxPage}`);
+						list = getlist(page);
+						embed.fields = [];
+						embed.addField(name, list);
+						msg.edit(embed);
+					});
+
+					rightright.on('collect', r => {
+						r.users.remove(message.author.id);
+						page = maxPage;
+						embed.setFooter(`Page ${page} of ${maxPage}`);
+						list = getlist(page);
+						embed.fields = [];
+						embed.addField(name, list);
+						msg.edit(embed);
+					});
+				}
 			} else if (page > maxPage) {
 				const maxpageembed = new Discord.MessageEmbed()
 					.setTitle(`${author.username}'s Tracking List`)

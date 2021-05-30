@@ -36,16 +36,16 @@ module.exports = {
 		if (page > 0 && page <= maxPage) {
 			const name = 'A→Z\n[ID] [Name] [Element]';
 			let list = getlist(page);
-			const charfield = {
-				name: name,
-				value: list,
-			};
 
 			const embed = new Discord.MessageEmbed()
 				.setTitle('__Supported Character List__')
 				.setColor('#00FF97')
-				.addFields(charfield)
-				.setFooter(`Page ${page} of ${maxPage}`);
+				.setFooter(`Page ${page} of ${maxPage}`)
+				.addFields({
+					name: name,
+					value: list,
+				});
+
 			if (message) {
 				const msg = await message.channel.send(embed);
 
