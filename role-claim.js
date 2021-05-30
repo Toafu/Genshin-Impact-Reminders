@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 const Discord = require('discord.js');
 const firstMessage = require('./first-message');
 
