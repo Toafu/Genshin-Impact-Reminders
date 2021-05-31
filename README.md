@@ -12,15 +12,28 @@ Users can input which characters and weapons they need to track, and each day, t
 
 •Server time zone support!
 
-
-•Custom message support so you can remember that one thing you always forget
+•Custom message slot so you can remember that one thing you always forget
 
 ## How can I use this bot?
 Join the Discord server with this link: https://discord.gg/JpUuxQRxnV
+
+## Getting Started - Important Commands (Default prefix `b!`)
+
+`b!help` will open an interactive help menu. Select the reaction that corresponds with the type of command you need. Information about the command and how to use it will be provided.
+
+`b!characters` will display the list of supported characters and `b!weapons` will display the list of supported weapons.
+
+`b!add <Character Name/ID>` and `b!remove <Character Name/ID>` add and remove characters from your tracking list, respectively.
+
+`b!equip <Weapon Name/ID>` and `b!unequip <Weapon Name/ID>` do likewise but for weapons.
+
+Once you are done creating your tracking lists, run `b!agenda` to receive an agenda similar to the image at the top of this README.
 
 ## What Makes This Bot Run
 •Discord.js | Javascript
 
 •Heroku Deployment for Hosting
+
+•MongoDB for database queries
 
 THIS IS CURRENTLY A WORK IN PROGRESS
