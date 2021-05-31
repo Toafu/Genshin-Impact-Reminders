@@ -13,7 +13,7 @@ Users can input which characters and weapons they need to track, and each day, t
 Join the Discord server with this link: https://discord.gg/JpUuxQRxnV
 
 ## What Makes This Bot Run
-•Discord.js / Javascript
-•Heroku Deployment for Hosting
+Discord.js / Javascript
+Heroku Deployment for Hosting
 
 THIS IS CURRENTLY A WORK IN PROGRESS
