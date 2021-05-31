@@ -1,4 +1,4 @@
-# Genshin Impact Reminders Discord Bot
+# Genshin Impact Reminders Discord Bot (Work in Progress)
 
 <img src=https://user-images.githubusercontent.com/71936834/120138497-36993000-c19c-11eb-8cce-7a301f7e62f7.png>
 
@@ -25,7 +25,7 @@ Join the Discord server with this link: https://discord.gg/JpUuxQRxnV
 
 `b!add <Character Name/ID>` and `b!remove <Character Name/ID>` add and remove characters from your tracking list, respectively.
 
-`b!equip <Weapon Name/ID>` and `b!unequip <Weapon Name/ID>` do likewise but for weapons.
+`b!equip <Weapon Name/ID>` and `b!unequip <Weapon Name/ID>` does likewise but for weapons.
 
 Once you are done creating your tracking lists, run `b!agenda` to receive an agenda similar to the image at the top of this README.
 
@@ -35,5 +35,3 @@ Once you are done creating your tracking lists, run `b!agenda` to receive an age
 •Heroku Deployment for Hosting
 
 •MongoDB for database queries
-
-THIS IS CURRENTLY A WORK IN PROGRESS
