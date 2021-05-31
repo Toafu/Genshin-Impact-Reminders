@@ -604,7 +604,7 @@ module.exports = {
 				}
 			} else if (page > maxPage) {
 				const invalidpageembed = new Discord.MessageEmbed()
-					.setTitle('__Supported Character List__')
+					.setTitle(title)
 					.setColor('#00FF97')
 					.addFields(
 						{
