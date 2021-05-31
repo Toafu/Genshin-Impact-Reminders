@@ -1,5 +1,7 @@
 # Genshin Impact Reminders Discord Bot
 
+[image](https://user-images.githubusercontent.com/71936834/120138497-36993000-c19c-11eb-8cce-7a301f7e62f7.png)
+
 In Genshin Impact, certain characters and weapons need certain materials that can only be obtained on certain days. This Discord bot aggregates all that information together into one place.
 Users can input which characters and weapons they need to track, and each day, they can request an agenda that tells them what they can do.
 
@@ -8,7 +10,8 @@ Users can input which characters and weapons they need to track, and each day, t
 
 •Detailed descriptions of characters and weapons with (soon™) additional information about recommended builds and strategies
 
-•Server time zone support
+•Server time zone support!
+
 
 •Custom message support so you can remember that one thing you always forget
 
