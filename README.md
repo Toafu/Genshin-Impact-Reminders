@@ -10,7 +10,7 @@ Users can input which characters and weapons they need to track, and each day, t
 
 •Detailed descriptions of characters and weapons with (soon™) additional information about recommended builds and strategies
 
-•Server time zone support!
+•Dynamic server time zone support
 
 •Custom message slot so you can remember that one thing you always forget
 
