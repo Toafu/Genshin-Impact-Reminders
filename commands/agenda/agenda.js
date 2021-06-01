@@ -337,17 +337,21 @@ module.exports = {
 					message.channel.send(nothingtodayembed);
 				}
 			} else if (page > maxPage) {
-				const invalidpageembed = new Discord.MessageEmbed()
-					.setTitle(title)
-					.setColor('#00FF97')
-					.addFields(
-						{
-							name: 'hol up',
-							value: `Your agenda only has **${maxPage}** page(s) today.`,
-							inline: true,
-						})
-					.setFooter('>:(');
-				message.channel.send(invalidpageembed);
+				if (maxPage === 0) {
+					message.channel.send(nothingtodayembed);
+				} else {
+					const invalidpageembed = new Discord.MessageEmbed()
+						.setTitle(title)
+						.setColor('#00FF97')
+						.addFields(
+							{
+								name: 'hol up',
+								value: `Your agenda only has **${maxPage}** page(s) today.`,
+								inline: true,
+							})
+						.setFooter('>:(');
+					message.channel.send(invalidpageembed);
+				}
 			} else {
 				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
 			}
@@ -481,17 +485,21 @@ module.exports = {
 					message.channel.send(nothingtodayembed);
 				}
 			} else if (page > maxPage) {
-				const invalidpageembed = new Discord.MessageEmbed()
-					.setTitle(title)
-					.setColor('#00FF97')
-					.addFields(
-						{
-							name: 'hol up',
-							value: `Your agenda only has **${maxPage}** page(s) today.`,
-							inline: true,
-						})
-					.setFooter('>:(');
-				message.channel.send(invalidpageembed);
+				if (maxPage === 0) {
+					message.channel.send(nothingtodayembed);
+				} else {
+					const invalidpageembed = new Discord.MessageEmbed()
+						.setTitle(title)
+						.setColor('#00FF97')
+						.addFields(
+							{
+								name: 'hol up',
+								value: `Your agenda only has **${maxPage}** page(s) today.`,
+								inline: true,
+							})
+						.setFooter('>:(');
+					message.channel.send(invalidpageembed);
+				}
 			} else {
 				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
 			}
