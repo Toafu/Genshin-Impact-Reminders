@@ -3,6 +3,10 @@ const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const savedWeaponSchema = require('@schemas/savedweapon-schema');
 const savedMessageSchema = require('@schemas/custommessage-schema');
 const timezoneSchema = require('@schemas/timezone-schema');
+const getChar = require('@helper/getChars');
+const characters = getChar.getChars();
+const getWeapon = require('@helper/getWeapons.js');
+const weapons = getWeapon.getWeapons();
 const today = require('@helper/today');
 
 module.exports = {
@@ -35,7 +39,6 @@ module.exports = {
 		const title = `Welcome to your Genshin Impact agenda.\nToday is ${day}, ${hours}:${minutes} ${server} server time.\nStill out of resin? Oh well ¯\\_(ツ)_/¯`;
 		const logo = 'https://media.discordapp.net/attachments/424627903876169729/838122787083649055/4936.png?width=720&height=405';
 
-
 		const nocharstoday = {
 			name: 'None of your characters\' talent materials can be farmed today (or you aren\'t tracking any yet!).',
 			value: 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>',
@@ -65,6 +68,31 @@ module.exports = {
 					value: 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>',
 					inline: false,
 				});
+
+		const getmaterials = () => {
+			const materials = [];
+			for (let i = 0; i < characters.length; i++) {
+				if (characters[i].days.includes(day) && !materials.includes(`${characters[i].talent} Books`)) {
+					if (characters[i].name === 'Traveler') {
+						continue;
+					}
+					materials.push(`${characters[i].talent} Books`);
+				}
+			}
+			for (let i = 0; i < weapons.length; i++) {
+				if (weapons[i].days.includes(day) && !materials.includes(weapons[i].mat)) {
+					materials.push(weapons[i].mat);
+				}
+			}
+			return materials;
+		};
+
+		const materials = getmaterials();
+
+		const availablematerials = {
+			name: '__At a Glance: Today\'s Materials__',
+			value: materials,
+		};
 
 		const gettodaysChars = (todaysChars, charresult) => {
 			for (let i = 0; i < charresult[0].savedCharacters.length; i++) {
@@ -148,12 +176,13 @@ module.exports = {
 				value: finalweplist,
 			};
 			agendaembed.fields = [];
-			if (finalcharlist.length > 0) {
+			agendaembed.addFields(availablematerials);
+			if ((finalcharlist.length > 0 && typeof finalcharlist === 'object') || (page > 1 && typeof finalcharlist === 'string')) {
 				agendaembed.addFields(charfield);
 			} else {
 				agendaembed.addFields(nocharstoday);
 			}
-			if (finalweplist.length > 0) {
+			if ((finalweplist.length > 0 && typeof finalweplist === 'object') || (page > 1 && typeof finalweplist === 'string')) {
 				agendaembed.addFields(wepfield);
 			} else {
 				agendaembed.addFields(nowepstoday);
@@ -190,7 +219,7 @@ module.exports = {
 			customtitle = '__Your Custom Message__';
 		}
 
-		const charname = 'Today\'s Talents';
+		const charname = '__Today\'s Talents__';
 		const wepname = '__Today\'s Weapons__';
 
 		const leftleftfilter = (reaction, user) => { return reaction.emoji.name === '⏮️' && user.id === id; };
