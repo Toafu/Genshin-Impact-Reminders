@@ -28,7 +28,22 @@ module.exports = {
 				.setColor('#00FF97')
 				.addFields(
 					{
-						name: 'Talent Info',
+						name: 'Role',
+						value: characters[index].role,
+						inline: true,
+					},
+					{
+						name: 'Focused Stat(s)',
+						value: `${characters[index].stat}`,
+						inline: true,
+					},
+					{
+						name: 'Prioritized Talent',
+						value: characters[index].focus,
+						inline: true,
+					},
+					{
+						name: 'Talent Book Info',
 						value: `•**${characters[index].talent}** books can be farmed on **${characters[index].days.replace(/["]+/g, '')}** at **${characters[index].location}**.`,
 						inline: true,
 					},
@@ -37,7 +52,12 @@ module.exports = {
 						value: `•To ascend ${characters[index].name}, you'll need the **${characters[index].boss}** and **${characters[index].stone}** \
 						from normal bosses, **${characters[index].resource}**, and **${characters[index].loot}**.`,
 						inline: false,
-					});
+					},
+					{
+						name: 'Maybe Useful Tips/Strategies',
+						value: characters[index].tip,
+					})
+				.setFooter('You don\'t have to follow these tips. Play the way you want to play!');
 			if (message) {
 				message.channel.send(embed);
 			}

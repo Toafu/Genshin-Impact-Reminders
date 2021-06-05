@@ -1,6 +1,6 @@
 const fs = require('fs'); //contains readFile()
 
-const characterRead = (name, element, talent, days, id, img, boss, stone, resource, loot, location) => {
+const characterRead = (name, element, talent, days, id, img, boss, stone, resource, loot, location, role, stat, focus, tip) => {
 	return {
 		name,
 		element,
@@ -13,6 +13,10 @@ const characterRead = (name, element, talent, days, id, img, boss, stone, resour
 		resource,
 		loot,
 		location,
+		role,
+		stat,
+		focus,
+		tip,
 	};
 };
 const getChars = () => {
@@ -24,8 +28,8 @@ const getChars = () => {
 		let i = 0;
 
 		while(word.length > 0) {
-			characters[i] = (characterRead(word[0], word[1], word[2], word[3], i, word[4], word[5], word[6], word[7], word[8], word[9]));
-			word.splice(0, 10);
+			characters[i] = (characterRead(word[0], word[1], word[2], word[3], i, word[4], word[5], word[6], word[7], word[8], word[9], word[10], word[11], word[12], word[13]));
+			word.splice(0, 14);
 			i += 1;
 		}
 		//console.log(characters);
