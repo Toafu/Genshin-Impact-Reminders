@@ -8,7 +8,7 @@ Users can input which characters and weapons they need to track, and each day, t
 ## Features
 •Daily agenda that displays available talent and ascension materials and where to find them
 
-•Detailed descriptions of characters and weapons with (soon™) additional information about recommended builds and strategies
+•Detailed descriptions of characters and weapons with additional information about recommended builds and strategies.
 
 •Dynamic server time zone support
 
@@ -28,6 +28,12 @@ Join the Discord server with this link: https://discord.gg/JpUuxQRxnV
 `b!equip <Weapon Name/ID>` and `b!unequip <Weapon Name/ID>` does likewise but for weapons.
 
 Once you are done creating your tracking lists, run `b!agenda` to receive an agenda similar to the image at the top of this README.
+
+For example, if I need talent books for Zhongli:  
+`b!add Zhongli`  
+Maybe I need to ascend the Staff of Homa as well:  
+`b!equip Staff of Homa`  
+Once I add and equip everything I need, `b!agenda` will compile this information.
 
 ## What Makes This Bot Run
 •Discord.js | Javascript
