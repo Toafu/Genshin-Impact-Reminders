@@ -63,7 +63,7 @@ client.on('ready', async () => {
 
 	client.user.setPresence({
 		activity: {
-			name: 'b!help',
+			name: 'b!help | b!tutorial',
 			type: 0,
 		},
 	});

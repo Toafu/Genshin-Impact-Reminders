@@ -41,7 +41,11 @@ module.exports = {
 		} else {
 			const querytest = Number(query);
 			if (Number.isNaN(querytest) === true) {
-				index = characters.findIndex(person => person.name.toLowerCase() === query);
+				if (query === 'childe') {
+					index = 25;
+				} else {
+					index = characters.findIndex(person => person.name.toLowerCase() === query);
+				}
 			} else {
 				index = querytest;
 			}
