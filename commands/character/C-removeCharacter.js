@@ -34,38 +34,58 @@ module.exports = {
 					});
 			message.channel.send(removeallembed);
 		} else {
-			const querytest = Number(query);
-			if (Number.isNaN(querytest) === true) {
-				if (query === 'childe') {
-					index = 25;
-				} else {
-					index = characters.findIndex(person => person.name.toLowerCase() === query);
-				}
+			let queries;
+			if (query.includes('/')) {
+				queries = query.split('/');
 			} else {
-				index = querytest;
+				queries = [query];
 			}
 
-			if(index >= 0 && index < characters.length) {
-				await savedCharacterSchema.findOneAndUpdate({
-					_id: id,
-				}, {
-					$pull: { savedCharacters: characters[index] },
-				}, {
-					upsert: true,
-				}).exec();
-				const embed = new Discord.MessageEmbed()
-					.setColor('#00FF97')
-					.setAuthor(message.author.username)
-					.addFields(
-						{
-							name: 'Removing Character',
-							value: `You are no longer tracking **${characters[index].name}** ${getEmotes.getEmote(characters[index].element)}`,
-							inline: true,
-						});
-				message.channel.send(embed);
-			} else {
-				message.channel.send(`Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`);
+			let success = [];
+			const fail = [];
+			for (const item of queries) {
+				const querytest = Number(item);
+				if (Number.isNaN(querytest) === true) {
+					if (item === 'childe') {
+						index = 25;
+					} else {
+						index = characters.findIndex(person => person.name.toLowerCase() === item);
+					}
+				} else {
+					index = querytest;
+				}
+
+				if(index >= 0 && index < characters.length) {
+					await savedCharacterSchema.findOneAndUpdate({
+						_id: id,
+					}, {
+						$pull: { savedCharacters: characters[index] },
+					}, {
+						upsert: true,
+					}).exec();
+					success.push(`**${characters[index].name}** ${getEmotes.getEmote(characters[index].element)}`);
+				} else {
+					fail.push(item);
+				}
 			}
+			if (success.length === 2) {
+				success = success.toString().replace(',', ' and ');
+			} else if (success.length > 2) {
+				success[success.length - 1] = 'and ' + success[success.length - 1];
+				success = success.toString().replace(/,/g, ', ');
+			}
+
+			const embed = new Discord.MessageEmbed()
+				.setColor('#00FF97')
+				.setAuthor(message.author.username);
+			if (success.length > 0) {
+				embed.addField('Removing Characters', `You are no longer tracking ${success}`);
+			}
+			if (fail.length > 0) {
+				embed.addField('We couldn\'t add these characters due to a typo or invalid ID:', fail)
+					.setFooter('Use the  tracking  command if you need help with spelling or finding IDs.');
+			}
+			message.channel.send(embed);
 		}
 	},
 };
