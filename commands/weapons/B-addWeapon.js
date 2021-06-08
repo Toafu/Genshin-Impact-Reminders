@@ -7,7 +7,7 @@ module.exports = {
 	name: 'equip',
 	aliases: 'addweapon',
 	category: 'Weapons',
-	description: 'Adds a weapon to your agenda. `all` equips everything.',
+	description: 'Adds a weapon to your agenda. `all` equips everything. Use slashes for bulk equip. (b!equip 24/The Flute)',
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<ID/Weapon Name>',

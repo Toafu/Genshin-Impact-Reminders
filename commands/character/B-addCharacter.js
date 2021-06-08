@@ -8,7 +8,7 @@ module.exports = {
 	name: 'track',
 	aliases: 'add',
 	category: 'Characters',
-	description: 'Adds a character to your agenda. `all` adds everyone.',
+	description: 'Adds a character to your agenda. `all` adds everyone. Use slashes for bulk add. (b!add 12/Venti)',
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<ID/Character Name>',

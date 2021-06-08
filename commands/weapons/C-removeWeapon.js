@@ -7,7 +7,7 @@ module.exports = {
 	name: 'unequip',
 	aliases: 'removeweapon',
 	category: 'Weapons',
-	description: 'Removes a weapon to your agenda. `all` wipes your character list.',
+	description: 'Removes a weapon to your agenda. `all` wipes your character list. Use slashes for bulk unequip. (b!unequip 24/The Flute)',
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<ID/Weapon Name>',
