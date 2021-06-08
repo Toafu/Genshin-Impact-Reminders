@@ -54,7 +54,6 @@ module.exports = {
 		const nothing = {
 			name: 'You aren\'t tracking anything yet!',
 			value: 'Run b!add or b!equip to start tracking stuff!',
-			inline: true,
 		};
 
 		const nothingtodayembed = new Discord.MessageEmbed()

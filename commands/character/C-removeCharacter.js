@@ -83,7 +83,7 @@ module.exports = {
 			}
 			if (fail.length > 0) {
 				embed.addField('We couldn\'t add these characters due to a typo or invalid ID:', fail)
-					.setFooter('Use the  tracking  command if you need help with spelling or finding IDs.');
+					.setFooter('Use the  tracking  command if you need help with spelling or finding IDs. Use slashes to remove multiple people (b!remove 12/Venti).');
 			}
 			message.channel.send(embed);
 		}
