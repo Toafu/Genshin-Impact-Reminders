@@ -8,7 +8,7 @@ module.exports = {
 	name: 'untrack',
 	aliases: 'remove',
 	category: 'Characters',
-	description: 'Removes a character from your agenda. `all` wipes your character list.',
+	description: 'Removes a character from your agenda. `all` wipes your character list. Use slashes for bulk remove. (b!remove 12/Venti)',
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<ID/Character Name>',
