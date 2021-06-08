@@ -80,7 +80,7 @@ module.exports = {
 			}
 			if (fail.length > 0) {
 				embed.addField('We couldn\'t remove these weapons due to a typo or invalid ID:', fail)
-					.setFooter('Use the  arsenal  command if you need help with spelling or finding IDs.');
+					.setFooter('Use the  arsenal  command if you need help with spelling or finding IDs. Use slashes to remove multiple weapons (b!unequip 24/The Flute).');
 			}
 			message.channel.send(embed);
 		}

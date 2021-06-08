@@ -84,7 +84,7 @@ module.exports = {
 			}
 			if (fail.length > 0) {
 				embed.addField('We couldn\'t add these weapons due to a typo or invalid ID:', fail)
-					.setFooter('Use the  weapons  command if you need help with spelling or finding IDs.');
+					.setFooter('Use the  weapons  command if you need help with spelling or finding IDs. Use slashes to add multiple weapons (b!equip 24/The Flute).');
 			}
 			message.channel.send(embed);
 		}
