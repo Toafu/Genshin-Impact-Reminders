@@ -50,7 +50,7 @@ module.exports = {
 			for (const item of queries) {
 				const querytest = Number(item);
 				if (Number.isNaN(querytest) === true) {
-					index = weapons.findIndex(weapon => weapon.name.toLowerCase() === item);
+					index = weapons.findIndex(weapon => weapon.name.toLowerCase() === item || weapon.name.toLowerCase() === `the ${item}`);
 				} else {
 					index = querytest;
 				}
