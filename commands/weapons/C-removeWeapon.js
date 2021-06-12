@@ -30,7 +30,6 @@ module.exports = {
 					{
 						name: 'Removing All Weapons',
 						value: 'You unequipped all weapons.',
-						inline: true,
 					});
 			message.channel.send(removeallembed);
 		} else {

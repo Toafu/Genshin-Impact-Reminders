@@ -20,7 +20,6 @@ module.exports = {
 				{
 					name: `${author.username}, this list is empty.`,
 					value: 'You currently aren\'t tracking anyone. Add some characters with b!add <ID/Character>.',
-					inline: true,
 				});
 
 		const result = await savedCharacterSchema.find({
