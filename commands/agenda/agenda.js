@@ -68,25 +68,20 @@ module.exports = {
 					inline: false,
 				});
 
-		const getmaterials = () => {
-			const materials = [];
-			for (let i = 0; i < characters.length; i++) {
-				if (characters[i].days.includes(day) && !materials.includes(`${characters[i].talent} Books`)) {
-					if (characters[i].name === 'Traveler') {
-						continue;
-					}
-					materials.push(`${characters[i].talent} Books`);
+		const materials = [];
+		for (let i = 0; i < characters.length; i++) {
+			if (characters[i].days.includes(day) && !materials.includes(`${characters[i].talent} Books`)) {
+				if (characters[i].name === 'Traveler') {
+					continue;
 				}
+				materials.push(`${characters[i].talent} Books`);
 			}
-			for (let i = 0; i < weapons.length; i++) {
-				if (weapons[i].days.includes(day) && !materials.includes(weapons[i].mat)) {
-					materials.push(weapons[i].mat);
-				}
+		}
+		for (let i = 0; i < weapons.length; i++) {
+			if (weapons[i].days.includes(day) && !materials.includes(weapons[i].mat)) {
+				materials.push(weapons[i].mat);
 			}
-			return materials;
-		};
-
-		const materials = getmaterials();
+		}
 
 		const availablematerials = {
 			name: '__At a Glance: Today\'s Materials__',
@@ -220,6 +215,7 @@ module.exports = {
 
 		const charname = '__Today\'s Talents__';
 		const wepname = '__Today\'s Weapons__';
+		const locname = '__Places to Go__';
 
 		const leftleftfilter = (reaction, user) => { return reaction.emoji.name === '⏮️' && user.id === id; };
 		const leftfilter = (reaction, user) => { return reaction.emoji.name === '◀️' && user.id === id; };
@@ -256,7 +252,7 @@ module.exports = {
 			};
 
 			const locfield = {
-				name: '__Places to Go__',
+				name: locname,
 				value: loclist,
 			};
 
@@ -375,7 +371,6 @@ module.exports = {
 							{
 								name: 'hol up',
 								value: `Your agenda only has **${maxPage}** page(s) today.`,
-								inline: true,
 							})
 						.setFooter('>:(');
 					message.channel.send(invalidpageembed);
@@ -403,9 +398,8 @@ module.exports = {
 			};
 
 			const locfield = {
-				name: '__Places to Go__',
+				name: locname,
 				value: loclist,
-				inline: false,
 			};
 
 			const footer = `Page ${page} of ${maxPage}`;
@@ -523,7 +517,6 @@ module.exports = {
 							{
 								name: 'hol up',
 								value: `Your agenda only has **${maxPage}** page(s) today.`,
-								inline: true,
 							})
 						.setFooter('>:(');
 					message.channel.send(invalidpageembed);
@@ -534,7 +527,6 @@ module.exports = {
 
 		} else { //If MongoDB found both characters and weapons
 			gettodaysChars(todaysChars, charresult);
-
 			gettodaysWeps(todaysWeps, wepresult);
 
 			if (todaysChars.length === 0 && todaysWeps === 0) {
@@ -573,7 +565,7 @@ module.exports = {
 			};
 
 			const locfield = {
-				name: '__Places to Go__',
+				name: locname,
 				value: loclist,
 			};
 
@@ -646,7 +638,6 @@ module.exports = {
 						{
 							name: 'hol up',
 							value: `Your agenda only has **${maxPage}** page(s) today.`,
-							inline: true,
 						})
 					.setFooter('>:(');
 				message.channel.send(invalidpageembed);

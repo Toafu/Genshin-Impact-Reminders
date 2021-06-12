@@ -30,7 +30,6 @@ module.exports = {
 					{
 						name: 'Removing All Characters',
 						value: 'You are no longer tracking any characters.',
-						inline: true,
 					});
 			message.channel.send(removeallembed);
 		} else {

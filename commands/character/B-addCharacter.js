@@ -35,7 +35,6 @@ module.exports = {
 					{
 						name: 'Tracking All Characters',
 						value: 'I hope you realized what you just did.',
-						inline: true,
 					});
 			message.channel.send(addallcharsembed);
 		} else {

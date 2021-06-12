@@ -118,7 +118,6 @@ module.exports = {
 					{
 						name: 'hol up',
 						value: `We only have **${maxPage}** pages right now! More will come soon.`,
-						inline: true,
 					})
 				.setFooter('>:(');
 			if (message) {

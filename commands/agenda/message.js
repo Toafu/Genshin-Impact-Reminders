@@ -12,8 +12,6 @@ module.exports = {
 		const { author } = message;
 		const { id } = author;
 
-		let result;
-
 		if (args.length > 0) {
 			const customtext = text;
 
@@ -46,7 +44,7 @@ module.exports = {
 				.setDescription(`${message.author.username}, this message will now always appear at the bottom of your agenda: \n\n "${customtext}"`);
 			message.channel.send(updatedembed);
 		} else {
-			result = await savedMessageSchema.find({ _id: id });
+			const result = await savedMessageSchema.find({ _id: id });
 			if (result.length === 0) {
 				const nothingembed = new Discord.MessageEmbed()
 					.setTitle(`${message.author.username}, you currently do not have a custom message set.`)

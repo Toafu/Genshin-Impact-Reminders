@@ -49,6 +49,5 @@ module.exports = {
 			.setTitle('Setting Timezone')
 			.setDescription(`Your agenda will now be based on the ${server.name} server time.`);
 		message.channel.send(embed);
-
 	},
 };

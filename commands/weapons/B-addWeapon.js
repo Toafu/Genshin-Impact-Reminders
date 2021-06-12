@@ -34,7 +34,6 @@ module.exports = {
 					{
 						name: 'Adding All Weapons',
 						value: 'I hope you realized what you just did.',
-						inline: true,
 					});
 			message.channel.send(addallweaponembed);
 		} else {
