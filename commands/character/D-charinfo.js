@@ -48,7 +48,8 @@ module.exports = {
 					},
 					{
 						name: 'Talent Book Info',
-						value: `•**${characters[index].talent}** books can be farmed on **${characters[index].days.replace(/["]+/g, '')}** at **${characters[index].location}**.`,
+						value: `•**${characters[index].talent}** books can be farmed on **${characters[index].days.replace(/["]+/g, '')}** at **${characters[index].location}**.
+								•At Talent Level 6+, you'll need **${getEmotes.getEmote(characters[index].weekly)}** from weekly bosses.`,
 						inline: false,
 					},
 					{
