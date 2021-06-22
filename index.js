@@ -25,7 +25,7 @@ client.on('ready', async () => {
 			useFindAndModify: false,
 		},
 
-		testServers: ['844003091934085140'],
+		testServers: ['844003091934085140', '345711221208514560'],
 
 		disabledDefaultCommands: [
 			'language',
