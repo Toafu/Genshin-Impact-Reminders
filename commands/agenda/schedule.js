@@ -269,7 +269,7 @@ module.exports = {
 				.setAuthor(message.author.username)
 				.addFields(
 					{
-						name: 'Removing Daily Reminder',
+						name: 'Unsubscribing From Daily Reminder',
 						value: 'You will no longer receive your daily agenda in your DMs.',
 					});
 			message.channel.send(stopembed);
