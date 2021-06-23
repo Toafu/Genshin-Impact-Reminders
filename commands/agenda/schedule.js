@@ -289,7 +289,7 @@ module.exports = {
 			'HH:mm',
 			timeZone,
 		);
-		//const hour = extractTime[0] + offset; //For Heroku
+
 		const offset = momentTimezone.tz.zone(timeZone).utcOffset(scheduleDate) / 60; //Positive is behind UTC/Negative in front
 		let GMToffset = offset * -1;
 		if (GMToffset > -1) {
@@ -310,8 +310,8 @@ module.exports = {
 				});
 		message.channel.send(startembed);
 
-		hour = (hour - 5 + offset);
-		//hour += offset;
+		//hour = (hour - 5 + offset);
+		hour += offset;
 		if (hour < 0) {
 			hour += 24;
 		}
