@@ -19,6 +19,7 @@ module.exports = {
 			const now = new Date;
 			const query = {
 				'date.hour': now.getHours(),
+				//'date.hour': now.getHours() - 5,
 				'date.minute': now.getMinutes(),
 			};
 
@@ -296,15 +297,8 @@ module.exports = {
 		}
 
 		const extractTime = time.split(':');
-		const hour = +extractTime[0];
+		let hour = +extractTime[0];
 		const minute = +extractTime[1];
-
-		const schedule = {
-			hour: hour + 5 + GMToffset,
-			//hour: hour + GMToffset,
-			minute,
-			GMToffset,
-		};
 
 		const startembed = new Discord.MessageEmbed()
 			.setColor('#00FF97')
@@ -315,6 +309,18 @@ module.exports = {
 					value: `You will receive your agenda in your DMs at **${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} GMT${GMToffset}**.`,
 				});
 		message.channel.send(startembed);
+
+		hour = (hour - 5 + offset);
+		//hour += offset;
+		if (hour < 0) {
+			hour += 24;
+		}
+
+		const schedule = {
+			hour,
+			minute,
+			offset,
+		};
 
 		await scheduleSchema.findOneAndUpdate({
 			_id: id,
