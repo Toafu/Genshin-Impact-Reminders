@@ -19,6 +19,7 @@ module.exports = {
 			const now = new Date;
 			const query = {
 				'date.hour': now.getHours(),
+				//'date.hour': now.getHours() - 5,
 				'date.minute': now.getMinutes(),
 			};
 
@@ -268,7 +269,7 @@ module.exports = {
 				.setAuthor(message.author.username)
 				.addFields(
 					{
-						name: 'Removing Daily Reminder',
+						name: 'Unsubscribing From Daily Reminder',
 						value: 'You will no longer receive your daily agenda in your DMs.',
 					});
 			message.channel.send(stopembed);
@@ -288,7 +289,7 @@ module.exports = {
 			'HH:mm',
 			timeZone,
 		);
-		//const hour = extractTime[0] + offset; //For Heroku
+
 		const offset = momentTimezone.tz.zone(timeZone).utcOffset(scheduleDate) / 60; //Positive is behind UTC/Negative in front
 		let GMToffset = offset * -1;
 		if (GMToffset > -1) {
@@ -296,15 +297,8 @@ module.exports = {
 		}
 
 		const extractTime = time.split(':');
-		const hour = +extractTime[0];
+		let hour = +extractTime[0];
 		const minute = +extractTime[1];
-
-		const schedule = {
-			hour: hour + 5 + GMToffset,
-			//hour: hour + GMToffset,
-			minute,
-			GMToffset,
-		};
 
 		const startembed = new Discord.MessageEmbed()
 			.setColor('#00FF97')
@@ -315,6 +309,18 @@ module.exports = {
 					value: `You will receive your agenda in your DMs at **${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} GMT${GMToffset}**.`,
 				});
 		message.channel.send(startembed);
+
+		//hour = (hour - 5 + offset);
+		hour += offset;
+		if (hour < 0) {
+			hour += 24;
+		}
+
+		const schedule = {
+			hour,
+			minute,
+			offset,
+		};
 
 		await scheduleSchema.findOneAndUpdate({
 			_id: id,

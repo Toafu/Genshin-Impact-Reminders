@@ -46,13 +46,11 @@ const getNothingFields = () => {
 	const nocharstoday = {
 		name: 'None of your characters\' talent materials can be farmed today (or you aren\'t tracking any yet!).',
 		value: 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>',
-		inline: false,
 	};
 
 	const nowepstoday = {
 		name: 'None of your weapons\' ascension materials can be farmed today (or you aren\'t tracking any yet!).',
 		value: 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>',
-		inline: false,
 	};
 
 	const nothing = {
