@@ -6,7 +6,7 @@ In Genshin Impact, certain characters and weapons need certain materials that ca
 Users can input which characters and weapons they need to track, and each day, they can request an agenda that provides a daily to-do list.
 
 ## Features
-•Daily agenda that displays available talent and ascension materials and where to find them
+•Automated daily agenda that displays available talent and ascension materials and where to find them
 
 •Detailed descriptions of characters and weapons with additional information about recommended builds and strategies.
 
@@ -34,6 +34,8 @@ For example, if I need talent books for Zhongli:
 Maybe I need to ascend the Staff of Homa as well:  
 `b!equip Staff of Homa`  
 Once I add and equip everything I need, `b!agenda` will compile this information.
+
+`b!schedule <Time (24h)> <Timezone>` will schedule your daily agenda to automatically be sent to your DMs at a set time.
 
 ## What Makes This Bot Run
 •Discord.js | Javascript
