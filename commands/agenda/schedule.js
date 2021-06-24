@@ -19,9 +19,11 @@ module.exports = {
 			const now = new Date;
 			const query = {
 				//'date.hour': now.getHours(),
-				'date.hour': now.getHours() + 5, //For Heroku
+				'date.hour': now.getHours() - 5, //For Heroku
 				'date.minute': now.getMinutes(),
 			};
+
+			console.log(`${now.getHours()}:${now.getMinutes()}`);
 
 			const result = await scheduleSchema.find(query);
 
