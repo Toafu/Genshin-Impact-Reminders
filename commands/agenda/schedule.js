@@ -18,8 +18,8 @@ module.exports = {
 		const checkForPosts = async () => {
 			const now = new Date;
 			const query = {
-				'date.hour': now.getHours(),
-				//'date.hour': now.getHours() - 5,
+				//'date.hour': now.getHours(),
+				'date.hour': now.getHours() + 5, //For Heroku
 				'date.minute': now.getMinutes(),
 			};
 
@@ -310,8 +310,7 @@ module.exports = {
 				});
 		message.channel.send(startembed);
 
-		//hour = (hour - 5 + offset);
-		hour += offset;
+		hour = (hour - 5 + offset);
 		if (hour < 0) {
 			hour += 24;
 		}
