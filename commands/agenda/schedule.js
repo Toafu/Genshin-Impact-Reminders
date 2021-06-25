@@ -18,8 +18,8 @@ module.exports = {
 		const checkForPosts = async () => {
 			const now = new Date;
 			const query = {
-				//'date.hour': now.getHours(),
-				'date.hour': now.getHours() + 5, //For Heroku
+				'date.hour': now.getHours(),
+				//'date.hour': now.getHours() + 5, //For Heroku
 				'date.minute': now.getMinutes(),
 			};
 
@@ -278,6 +278,15 @@ module.exports = {
 
 		const [time, timeZone] = args;
 
+		// if (timeZone.includes('GMT+') || timeZone.includes('GMT-')) {
+		// 	const extractOffset = timeZone.split(/[+-]+/);
+		// 	if (timeZone.includes('+')) {
+		// 		const GMToffset = extractOffset[1];
+		// 	} else if (timeZone.includes('-')) {
+		// 		const GMToffset = extractOffset[1] * -1;
+		// 	}
+		// }
+
 		const validTimeZones = momentTimezone.tz.names();
 		if (!validTimeZones.includes(timeZone)) {
 			message.reply('Unknown timezone! Please use one of the following: <https://gist.github.com/AlexzanderFlores/d511a7c7e97b4c3ae60cb6e562f78300>');
@@ -289,7 +298,6 @@ module.exports = {
 			'HH:mm',
 			timeZone,
 		);
-
 		const offset = momentTimezone.tz.zone(timeZone).utcOffset(scheduleDate) / 60; //Positive is behind UTC/Negative in front
 		let GMToffset = offset * -1;
 		if (GMToffset > -1) {
@@ -310,7 +318,7 @@ module.exports = {
 				});
 		message.channel.send(startembed);
 
-		hour = (hour - 5 + offset);
+		hour = hour - 5 + offset;
 		if (hour < 0) {
 			hour += 24;
 		}
