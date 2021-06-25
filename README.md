@@ -1,4 +1,4 @@
-# Genshin Impact Reminders Discord Bot (Work in Progress)
+# Genshin Impact Reminders Discord Bot
 
 <img src=https://user-images.githubusercontent.com/71936834/120877644-54400e00-c57d-11eb-9d3f-62b11ac876f4.png>
 
