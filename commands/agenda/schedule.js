@@ -13,13 +13,13 @@ module.exports = {
 	description: 'Set the time you\'ll receive your agenda daily.',
 	minArgs: 0,
 	maxArgs: 2,
-	expectedArgs: '<HH:MM (24h) or "off"> <Timezone>',
+	expectedArgs: '<HH:MM (24h) or "off"> <Timezone/GMT offset>',
 	init: (client) => {
 		const checkForPosts = async () => {
 			const now = new Date;
 			const query = {
-				//'date.hour': now.getHours(), //For Heroku
-				'date.hour': now.getHours() - 5,
+				'date.hour': now.getHours(), //For Heroku
+				//'date.hour': now.getHours() + 5,
 				'date.minute': now.getMinutes(),
 			};
 
@@ -249,12 +249,12 @@ module.exports = {
 				const offset = result[0].date.offset;
 				const embed = new Discord.MessageEmbed()
 					.setTitle('Check Scheduled Time')
-					.setDescription(`Your agenda will be DM'd to you at **${hour}:${minute} GMT${offset * -1}**.`);
+					.setDescription(`Your agenda will be DM'd to you at **${hour - offset}:${minute} GMT${offset * -1}**.`);
 				message.channel.send(embed);
 			} else {
 				const embed = new Discord.MessageEmbed()
 					.setTitle('Check Scheduled Time')
-					.setDescription('Your agenda hasn\'t been scheduled yet! Run b!schedule <HH:mm (24h)> <Timezone> to automatically receive a daily agenda.');
+					.setDescription('Your agenda hasn\'t been scheduled yet! Run **b!schedule <HH:mm (24h)> <Timezone/GMT Offset>** to automatically receive a daily agenda.');
 				message.channel.send(embed);
 			}
 			return;
@@ -277,36 +277,53 @@ module.exports = {
 		}
 
 		const [time, timeZone] = args;
-
-		// if (timeZone.includes('GMT+') || timeZone.includes('GMT-')) {
-		// 	const extractOffset = timeZone.split(/[+-]+/);
-		// 	if (timeZone.includes('+')) {
-		// 		const GMToffset = extractOffset[1];
-		// 	} else if (timeZone.includes('-')) {
-		// 		const GMToffset = extractOffset[1] * -1;
-		// 	}
-		// }
-
-		const validTimeZones = momentTimezone.tz.names();
-		if (!validTimeZones.includes(timeZone)) {
-			message.reply('Unknown timezone! Please use one of the following: <https://gist.github.com/AlexzanderFlores/d511a7c7e97b4c3ae60cb6e562f78300>');
+		if (time && !timeZone) {
+			message.reply('Please input a valid time zone or a GMT offset.');
 			return;
 		}
+		let GMToffset;
+		let offset;
 
-		const scheduleDate = momentTimezone.tz(
-			`${time}`,
-			'HH:mm',
-			timeZone,
-		);
-		const offset = momentTimezone.tz.zone(timeZone).utcOffset(scheduleDate) / 60; //Positive is behind UTC/Negative in front
-		let GMToffset = offset * -1;
+		if (timeZone.includes('GMT+') || timeZone.includes('GMT-')) {
+			const extractOffset = timeZone.split(/[+-]+/);
+			if (timeZone.includes('+')) {
+				GMToffset = +extractOffset[1];
+				offset = GMToffset * -1;
+			} else if (timeZone.includes('-')) {
+				GMToffset = +extractOffset[1] * -1;
+				offset = GMToffset * -1;
+			}
+		} else {
+			const validTimeZones = momentTimezone.tz.names();
+			if (!validTimeZones.includes(timeZone)) {
+				message.reply('Unknown timezone! Please use a valid GMT offset or one of the following: <https://gist.github.com/AlexzanderFlores/d511a7c7e97b4c3ae60cb6e562f78300>');
+				return;
+			}
+
+			const scheduleDate = momentTimezone.tz(
+				`${time}`,
+				'HH:mm',
+				timeZone,
+			);
+			offset = momentTimezone.tz.zone(timeZone).utcOffset(scheduleDate) / 60; //Positive is behind UTC/Negative in front
+			GMToffset = offset * -1;
+		}
+
 		if (GMToffset > -1) {
 			GMToffset = String(`+${GMToffset}`);
 		}
 
 		const extractTime = time.split(':');
-		let hour = +extractTime[0];
-		const minute = +extractTime[1];
+		let hour = Number(extractTime[0]);
+		if (hour < 0 || hour > 23) {
+			message.reply('Invalid time! Please use a valid hour.');
+			return;
+		}
+		const minute = Number(extractTime[1]);
+		if (minute < 0 || minute > 59) {
+			message.reply('Invalud time! Please use a valid minute.');
+			return;
+		}
 
 		const startembed = new Discord.MessageEmbed()
 			.setColor('#00FF97')
@@ -318,7 +335,7 @@ module.exports = {
 				});
 		message.channel.send(startembed);
 
-		hour = hour - 5 + offset;
+		hour += offset;
 		if (hour < 0) {
 			hour += 24;
 		}
