@@ -11,8 +11,6 @@ module.exports = {
 	maxArgs: 1,
 	expectedArgs: '(page number)',
 	callback: async ({ message, args }) => {
-		const { author } = message;
-		const { id } = author;
 
 		const getlist = page => {
 			const list = [];
@@ -24,10 +22,8 @@ module.exports = {
 			return list;
 		};
 
-		let page;
-		if (args.length === 0) {
-			page = 1;
-		} else {
+		let page = 1;
+		if (args && args.length > 0) {
 			page = +args[0];
 		}
 		const maxPage = Math.ceil(weapons.length / 20);
@@ -46,6 +42,8 @@ module.exports = {
 					})
 				.setFooter(`Page ${page} of ${maxPage}`);
 			if (message) {
+				const { author } = message;
+				const { id } = author;
 				const msg = await message.channel.send(embed);
 
 				await msg.react('⏮️');
