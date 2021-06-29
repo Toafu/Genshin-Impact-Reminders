@@ -36,10 +36,7 @@ module.exports = {
 				.setTitle('__Supported Character List__')
 				.setColor('#00FF97')
 				.setFooter(`Page ${page} of ${maxPage}`)
-				.addFields({
-					name: name,
-					value: list,
-				});
+				.addField(name, list);
 
 			if (message) {
 				const { author } = message;

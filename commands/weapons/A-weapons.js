@@ -11,7 +11,6 @@ module.exports = {
 	maxArgs: 1,
 	expectedArgs: '(page number)',
 	callback: async ({ message, args }) => {
-
 		const getlist = page => {
 			const list = [];
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
@@ -35,11 +34,7 @@ module.exports = {
 			const embed = new Discord.MessageEmbed()
 				.setTitle('__Supported Weapons List__')
 				.setColor('#00FF97')
-				.addFields(
-					{
-						name: name,
-						value: list,
-					})
+				.addField(name, list)
 				.setFooter(`Page ${page} of ${maxPage}`);
 			if (message) {
 				const { author } = message;
