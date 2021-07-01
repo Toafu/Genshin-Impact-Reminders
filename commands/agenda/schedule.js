@@ -244,9 +244,16 @@ module.exports = {
 			const query = { _id: id };
 			const result = await scheduleSchema.find(query);
 			if (result.length > 0) {
-				const hour = String(result[0].date.hour).padStart(2, '0');
+				const hour = result[0].date.hour;
 				const minute = String(result[0].date.minute).padStart(2, '0');
 				const offset = result[0].date.offset * -1;
+				let displayhour = hour + offset;
+				if (displayhour < 0) {
+					displayhour += 24;
+				} else if (displayhour > 0) {
+					displayhour -= 24;
+				}
+				displayhour = String(displayhour).padStart(2, '0');
 				let GMToffset;
 				if (offset > -1) {
 					GMToffset = `+${offset}`;
@@ -255,7 +262,7 @@ module.exports = {
 				}
 				const embed = new Discord.MessageEmbed()
 					.setTitle('Check Scheduled Time')
-					.setDescription(`Your agenda will be DM'd to you at **${hour - (offset * -1)}:${minute} GMT${GMToffset}**.`);
+					.setDescription(`Your agenda will be DM'd to you at **${displayhour}:${minute} GMT${GMToffset}**.`);
 				message.channel.send(embed);
 			} else {
 				const embed = new Discord.MessageEmbed()
