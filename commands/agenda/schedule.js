@@ -246,13 +246,16 @@ module.exports = {
 			if (result.length > 0) {
 				const hour = String(result[0].date.hour).padStart(2, '0');
 				const minute = String(result[0].date.minute).padStart(2, '0');
-				let offset = result[0].date.offset * -1;
+				const offset = result[0].date.offset * -1;
+				let GMToffset;
 				if (offset > -1) {
-					offset = `+${offset}`;
+					GMToffset = `+${offset}`;
+				} else {
+					GMToffset = offset;
 				}
 				const embed = new Discord.MessageEmbed()
 					.setTitle('Check Scheduled Time')
-					.setDescription(`Your agenda will be DM'd to you at **${hour - offset}:${minute} GMT${offset}**.`);
+					.setDescription(`Your agenda will be DM'd to you at **${hour - (offset * -1)}:${minute} GMT${GMToffset}**.`);
 				message.channel.send(embed);
 			} else {
 				const embed = new Discord.MessageEmbed()
