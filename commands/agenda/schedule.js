@@ -344,6 +344,8 @@ module.exports = {
 		hour += offset;
 		if (hour < 0) {
 			hour += 24;
+		} else if (hour > 24) {
+			hour -= 24;
 		}
 
 		const schedule = {
