@@ -240,6 +240,14 @@ module.exports = {
 		const { author } = message;
 		const { id } = author;
 
+		const validatehour = hour => {
+			if (hour < 0) {
+				hour += 24;
+			} else if (hour > 23) {
+				hour -= 24;
+			}
+		};
+
 		if (args.length === 0) {
 			const query = { _id: id };
 			const result = await scheduleSchema.find(query);
@@ -248,11 +256,7 @@ module.exports = {
 				const minute = String(result[0].date.minute).padStart(2, '0');
 				const offset = result[0].date.offset * -1;
 				let displayhour = hour + offset;
-				if (displayhour < 0) {
-					displayhour += 24;
-				} else if (displayhour > 0) {
-					displayhour -= 24;
-				}
+				validatehour(displayhour);
 				displayhour = String(displayhour).padStart(2, '0');
 				let GMToffset;
 				if (offset > -1) {
@@ -349,11 +353,7 @@ module.exports = {
 		message.channel.send(startembed);
 
 		hour += offset;
-		if (hour < 0) {
-			hour += 24;
-		} else if (hour > 24) {
-			hour -= 24;
-		}
+		validatehour(hour);
 
 		const schedule = {
 			hour,
