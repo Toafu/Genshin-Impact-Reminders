@@ -18,8 +18,8 @@ module.exports = {
 		const checkForPosts = async () => {
 			const now = new Date;
 			const query = {
-				'date.hour': now.getHours(), //For Heroku
-				//'date.hour': now.getHours() + 5,
+				//'date.hour': now.getHours(), //For Heroku
+				'date.hour': now.getHours() + 5,
 				'date.minute': now.getMinutes(),
 			};
 
