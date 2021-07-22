@@ -18,8 +18,8 @@ module.exports = {
 		const checkForPosts = async () => {
 			const now = new Date;
 			const query = {
-				'date.hour': now.getHours(), //For Heroku
-				//'date.hour': now.getHours() + 5,
+				//'date.hour': now.getHours(), //For Heroku
+				'date.hour': now.getHours() + 5,
 				'date.minute': now.getMinutes(),
 			};
 
@@ -132,7 +132,7 @@ module.exports = {
 					}
 					sortChars(todaysChars);
 					const charagenda = [];
-					todaysChars.forEach(character => charagenda.push(`•**${character.talent}** books for **${character.name}.**`));
+					todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
 					const maxPage = Math.ceil(todaysChars.length / 10);
 					for (page = 1; page <= maxPage; page++) {
 						const finalcharlist = getfinalcharlist(charagenda, page);
@@ -187,7 +187,7 @@ module.exports = {
 					const charagenda = [];
 					const wepagenda = [];
 
-					todaysChars.forEach(character => charagenda.push(`•**${character.talent}** books for **${character.name}.**`));
+					todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
 					todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}.**`));
 					let maxPage;
 					if (charagenda.length > wepagenda.length) {
