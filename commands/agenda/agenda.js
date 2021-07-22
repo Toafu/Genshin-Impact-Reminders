@@ -228,7 +228,7 @@ module.exports = {
 			}
 			sortChars(todaysChars);
 			const charagenda = [];
-			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** books for **${character.name}.**`));
+			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
 			const maxPage = Math.ceil(todaysChars.length / 10);
 			let finalcharlist = getfinalcharlist(charagenda, page);
 			const loclist = getlocations(todaysChars, todaysWeps);
@@ -381,7 +381,7 @@ module.exports = {
 			const charagenda = [];
 			const wepagenda = [];
 
-			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** books for **${character.name}.**`));
+			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
 			todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}.**`));
 
 			let maxPage;
