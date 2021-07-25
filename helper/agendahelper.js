@@ -70,11 +70,11 @@ exports.getNothingFields = getNothingFields;
 const getMaterials = day => {
 	const materials = [];
 	for (let i = 0; i < characters.length; i++) {
-		if (characters[i].days.includes(day) && !materials.includes(`${characters[i].talent} Books`)) {
+		if (characters[i].days.includes(day) && !materials.includes(`${characters[i].talent}`)) {
 			if (characters[i].name === 'Traveler') {
 				continue;
 			}
-			materials.push(`${characters[i].talent} Books`);
+			materials.push(`${characters[i].talent}`);
 		}
 	}
 	for (let i = 0; i < weapons.length; i++) {
