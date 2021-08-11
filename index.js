@@ -68,6 +68,8 @@ client.on('ready', async () => {
 		},
 	});
 
+	console.log(`This bot is in ${client.guilds.cache.size} servers.`);
+
 	const verificationembed = new Discord.MessageEmbed()
 		.setTitle('Before you enter the server...')
 		.setDescription('We need to make sure you\'re a person! Just hit that check mark below this message. It may take a short bit for the verification process to complete.')
