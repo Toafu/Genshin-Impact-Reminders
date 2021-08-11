@@ -17,18 +17,21 @@ module.exports = {
 
 		switch (text) {
 		case 'NA':
+		case 'na':
 			server = {
 				name: 'NA',
 				offset: -5,
 			};
 			break;
 		case 'EU':
+		case 'eu':
 			server = {
 				name: 'EU',
 				offset: 1,
 			};
 			break;
 		case 'ASIA':
+		case 'asia':
 			server = {
 				name: 'ASIA',
 				offset: 8,
