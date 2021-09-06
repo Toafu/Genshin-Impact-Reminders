@@ -8,7 +8,7 @@ Users can input which characters and weapons they need to track, and each day, t
 ## Features
 •Automated daily agenda that displays available talent and ascension materials and where to find them
 
-•Detailed descriptions of characters and weapons with additional information about recommended builds and strategies.
+•Detailed descriptions of characters and weapons with additional information about recommended builds and strategies
 
 •Dynamic server time zone support
 
