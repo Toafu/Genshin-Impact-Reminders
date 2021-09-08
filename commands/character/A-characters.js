@@ -13,12 +13,13 @@ module.exports = {
 	expectedArgs: '(page number)',
 	callback: async ({ message, args }) => {
 		const getlist = page => {
-			const list = [];
+			const arrayList = [];
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
 				if (characters[i]) {
-					list.push(`[${characters[i].id}] **${characters[i].name}** ${getEmotes.getEmote(characters[i].element)}`);
+					arrayList.push(`[${characters[i].id}] **${characters[i].name}** ${getEmotes.getEmote(characters[i].element)}`);
 				}
 			}
+			const list = arrayList.join('\n');
 			return list;
 		};
 
@@ -41,7 +42,7 @@ module.exports = {
 			if (message) {
 				const { author } = message;
 				const { id } = author;
-				const msg = await message.channel.send(embed);
+				const msg = await message.channel.send({ embeds: [embed] });
 
 				await msg.react('⏮️');
 				await msg.react('◀️');
@@ -53,19 +54,20 @@ module.exports = {
 				const rightfilter = (reaction, user) => { return reaction.emoji.name === '▶️' && user.id === id; };
 				const rightrightfilter = (reaction, user) => { return reaction.emoji.name === '⏭️' && user.id === id; };
 
-				const leftleft = msg.createReactionCollector(leftleftfilter, { idle: 30000, dispose: true });
-				const left = msg.createReactionCollector(leftfilter, { idle: 30000, dispose: true });
-				const right = msg.createReactionCollector(rightfilter, { idle: 30000, dispose: true });
-				const rightright = msg.createReactionCollector(rightrightfilter, { idle: 30000, dispose: true });
+				const leftleft = msg.createReactionCollector({ leftleftfilter, idle: 30000, dispose: true });
+				const left = msg.createReactionCollector({ leftfilter, idle: 30000, dispose: true });
+				const right = msg.createReactionCollector({ rightfilter, idle: 30000, dispose: true });
+				const rightright = msg.createReactionCollector({ rightrightfilter, idle: 30000, dispose: true });
 
-				leftleft.on('collect', r => {
-					r.users.remove(message.author.id);
+				leftleft.on('collect', (reaction, user) => {
+					console.log('LeftLeft');
+					reaction.users.remove(user.id);
 					page = 1;
 					embed.setFooter(`Page ${page} of ${maxPage}`);
 					list = getlist(page);
 					embed.fields = [];
 					embed.addField(name, list);
-					msg.edit(embed);
+					msg.edit({ embeds: [embed] });
 				});
 
 				left.on('collect', r => {
@@ -76,9 +78,9 @@ module.exports = {
 					}
 					embed.setFooter(`Page ${page} of ${maxPage}`);
 					list = getlist(page);
-					embed.fields = [];
-					embed.addField(name, list);
-					msg.edit(embed);
+					embed.spliceFields(0, 1, { name: name, value: list });
+					msg.edit({ embeds: [embed] });
+					console.log('Left');
 				});
 
 				right.on('collect', r => {
@@ -91,7 +93,8 @@ module.exports = {
 					list = getlist(page);
 					embed.fields = [];
 					embed.addField(name, list);
-					msg.edit(embed);
+					msg.edit({ embeds: [embed] });
+					console.log('Right');
 				});
 
 				rightright.on('collect', r => {
@@ -101,8 +104,10 @@ module.exports = {
 					list = getlist(page);
 					embed.fields = [];
 					embed.addField(name, list);
-					msg.edit(embed);
+					msg.edit({ embeds: [embed] });
+					console.log('RightRight');
 				});
+				return;
 			}
 			return embed;
 		} else if (page > maxPage) {
@@ -117,12 +122,14 @@ module.exports = {
 				.setFooter('>:(');
 			if (message) {
 				message.channel.send(embed);
+				return;
 			}
 			return embed;
 		} else {
 			const error = 'Incorrect syntax. Use b!characters (Page Number)';
 			if (message) {
 				message.channel.send(error);
+				return;
 			}
 			return error;
 		}

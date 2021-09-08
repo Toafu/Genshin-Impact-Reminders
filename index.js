@@ -2,8 +2,16 @@ require('module-alias/register');
 
 const Discord = require('discord.js');
 const WOKCommands = require('wokcommands');
+const path = require('path');
+const { Intents } = Discord;
+
 const client = new Discord.Client({
-	partials: ['MESSAGE', 'REACTION'],
+	// These intents are recommended for the built in help menu
+	intents: [
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MESSAGES,
+		Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+	],
 });
 
 require('dotenv').config();
@@ -15,8 +23,8 @@ client.on('ready', async () => {
 	console.log('It has awoken.');
 
 	new WOKCommands(client, {
-		commandsDir: 'commands',
-		messagesPath: 'messages.json',
+		commandsDir: path.join(__dirname, 'commands'),
+		messagesPath: path.join(__dirname, 'messages.json'),
 
 		dbOptions: {
 			keepAlive: true,
@@ -61,12 +69,7 @@ client.on('ready', async () => {
 		.setBotOwner('269910487133716480')
 		.setMongoPath(process.env.DJS_MONGO);
 
-	client.user.setPresence({
-		activity: {
-			name: 'b!help | b!tutorial',
-			type: 0,
-		},
-	});
+	client.user.setPresence({ activities: [{ name: 'CURRENTLY BROKEN' }], status: 'dnd' });
 
 	console.log(`This bot is in ${client.guilds.cache.size} servers.`);
 
