@@ -36,7 +36,8 @@ module.exports = {
 					inline: true,
 				});
 		if (message) {
-			message.channel.send(embed);
+			message.channel.send({ embeds: [embed] });
+			return;
 		}
 		return embed;
 	},

@@ -31,12 +31,8 @@ module.exports = {
 			const addallcharsembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor(message.author.username)
-				.addFields(
-					{
-						name: 'Tracking All Characters',
-						value: 'I hope you realized what you just did.',
-					});
-			message.channel.send(addallcharsembed);
+				.addField('Tracking All Characters', 'I hope you realized what you just did.');
+			message.channel.send({ embeds: [addallcharsembed] });
 		} else {
 			let queries;
 			if (query.includes('/')) {
@@ -46,14 +42,14 @@ module.exports = {
 			}
 
 			let success = [];
-			const fail = [];
+			let fail = [];
 			for (const item of queries) {
 				const querytest = Number(item);
 				if (Number.isNaN(querytest) === true) {
 					if (item === 'childe') {
-						index = 26;
+						index = characters.findIndex(person => person.name.toLowerCase() === 'tartaglia');
 					} else if (item === 'ayaya') {
-						index = 2;
+						index = characters.findIndex(person => person.name.toLowerCase() === 'ayaka');
 					} else {
 						index = characters.findIndex(person => person.name.toLowerCase() === item);
 					}
@@ -88,10 +84,11 @@ module.exports = {
 				embed.addField('Adding Characters', `You are now tracking ${success}`);
 			}
 			if (fail.length > 0) {
+				fail = fail.join('\n');
 				embed.addField('We couldn\'t add these characters due to a typo or invalid ID:', fail)
-					.setFooter('Use the  characters  command if you need help with spelling or finding IDs. Use slashes to add multiple people (b!add 12/Venti).');
+					.setFooter('Use the  characters  command if you need help with spelling or finding IDs. Use slashes to add multiple people (b!add 0/Albedo).');
 			}
-			message.channel.send(embed);
+			message.channel.send({ embeds: [embed] });
 		}
 	},
 };

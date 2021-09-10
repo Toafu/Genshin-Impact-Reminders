@@ -85,7 +85,7 @@ const getMaterials = day => {
 
 	const availablematerials = {
 		name: '__At a Glance: Today\'s Materials__',
-		value: materials,
+		value: materials.join('\n'),
 	};
 
 	return availablematerials;
@@ -123,11 +123,12 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 			if (charagenda[i]) {
 				finalcharlist.push(charagenda[i]);
 			}
-			if (finalcharlist.length === 0) {
-				finalcharlist = 'No more characters to view';
-			}
 		}
-		return finalcharlist;
+		if (finalcharlist.length === 0) {
+			return 'No more characters to view';
+		}
+		//finalcharlist = finalcharlist.join('\n');
+		return finalcharlist.join('\n');
 	};
 
 	const getfinalweplist = (wepagenda, page) => {
@@ -136,15 +137,16 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 			if (wepagenda[i]) {
 				finalweplist.push(wepagenda[i]);
 			}
-			if (finalweplist.length === 0) {
-				finalweplist = 'No more weapons to view';
-			}
 		}
-		return finalweplist;
+		if (finalweplist.length === 0) {
+			return 'No more weapons to view';
+		}
+		// finalweplist = finalweplist.join('\n');
+		return finalweplist.join('\n');
 	};
 
 	const getlocations = (todaysChars, todaysWeps) => {
-		const loclist = [];
+		let loclist = [];
 		if (todaysChars.length > 0) {
 			todaysChars.forEach(character => {
 				if (!loclist.includes(character.location)) {
@@ -160,6 +162,7 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 			});
 		}
 		loclist.sort((loc1, loc2) => loc1 > loc2 ? 1 : -1);
+		loclist = loclist.join('\n');
 		return loclist;
 	};
 
@@ -179,12 +182,12 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		};
 		agendaembed.fields = [];
 		agendaembed.addFields(availablematerials);
-		if ((finalcharlist.length > 0 && typeof finalcharlist === 'object') || (page > 1 && typeof finalcharlist === 'string')) {
+		if (finalcharlist.length > 0) {
 			agendaembed.addFields(charfield);
 		} else {
 			agendaembed.addFields(nocharstoday);
 		}
-		if ((finalweplist.length > 0 && typeof finalweplist === 'object') || (page > 1 && typeof finalweplist === 'string')) {
+		if (finalweplist.length > 0) {
 			agendaembed.addFields(wepfield);
 		} else {
 			agendaembed.addFields(nowepstoday);

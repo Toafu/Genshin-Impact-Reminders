@@ -31,7 +31,7 @@ module.exports = {
 						name: 'Removing All Weapons',
 						value: 'You unequipped all weapons.',
 					});
-			message.channel.send(removeallembed);
+			message.channel.send({ emebds: [removeallembed] });
 		} else {
 			let queries;
 			if (query.includes('/')) {
@@ -41,7 +41,7 @@ module.exports = {
 			}
 
 			let success = [];
-			const fail = [];
+			let fail = [];
 			for (const item of queries) {
 				const querytest = Number(item);
 				if (Number.isNaN(querytest) === true) {
@@ -78,10 +78,11 @@ module.exports = {
 				embed.addField('Removing Weapons', `You have unequipped ${success}`);
 			}
 			if (fail.length > 0) {
+				fail = fail.join('\n');
 				embed.addField('We couldn\'t remove these weapons due to a typo or invalid ID:', fail)
 					.setFooter('Use the  arsenal  command if you need help with spelling or finding IDs. Use slashes to remove multiple weapons (b!unequip 24/The Flute).');
 			}
-			message.channel.send(embed);
+			message.channel.send({ embeds: [embed] });
 		}
 	},
 };

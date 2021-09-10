@@ -30,12 +30,8 @@ module.exports = {
 			const addallweaponembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor(message.author.username)
-				.addFields(
-					{
-						name: 'Adding All Weapons',
-						value: 'I hope you realized what you just did.',
-					});
-			message.channel.send(addallweaponembed);
+				.addField('Adding All Weapons', 'I hope you realized what you just did.');
+			message.channel.send({ embeds: [addallweaponembed] });
 		} else {
 			let queries;
 			if (query.includes('/')) {
@@ -45,7 +41,7 @@ module.exports = {
 			}
 
 			let success = [];
-			const fail = [];
+			let fail = [];
 			for (const item of queries) {
 				const querytest = Number(item);
 				if (Number.isNaN(querytest) === true) {
@@ -82,10 +78,11 @@ module.exports = {
 				embed.addField('Adding Weapons', `You have equipped ${success}`);
 			}
 			if (fail.length > 0) {
+				fail = fail.join('\n');
 				embed.addField('We couldn\'t add these weapons due to a typo or invalid ID:', fail)
 					.setFooter('Use the  weapons  command if you need help with spelling or finding IDs. Use slashes to add multiple weapons (b!equip 24/The Flute).');
 			}
-			message.channel.send(embed);
+			message.channel.send({ embeds: [embed] });
 		}
 	},
 };

@@ -73,11 +73,11 @@ module.exports = {
 			if (customtext) {
 				nonexistantembed.addField(customtitle, customtext);
 			}
-			message.channel.send(nonexistantembed);
+			message.channel.send({ embeds: [nonexistantembed] });
 		} else if (charresult.length === 0 && wepresult.length > 0) { // If MongoDB can find only weapons
 			gettodaysWeps(todaysWeps, wepresult);
 			if (todaysWeps.length === 0) {
-				message.channel.send(nothingtodayembed);
+				message.channel.send({ embeds: [nothingtodayembed] });
 				return;
 			}
 			sortWeps(todaysWeps);
@@ -111,7 +111,7 @@ module.exports = {
 					if (customtext) {
 						agendaembed.addField(customtitle, customtext);
 					}
-					const msg = await message.channel.send(agendaembed);
+					const msg = await message.channel.send({ embeds: [agendaembed] });
 
 					if (maxPage > 1) {
 						await msg.react('⏮️');
@@ -138,7 +138,7 @@ module.exports = {
 							if (customtext) {
 								agendaembed.addField(customtitle, customtext);
 							}
-							msg.edit(agendaembed);
+							msg.edit({ embeds: [agendaembed] });
 						});
 
 						left.on('collect', r => {
@@ -158,7 +158,7 @@ module.exports = {
 							if (customtext) {
 								agendaembed.addField(customtitle, customtext);
 							}
-							msg.edit(agendaembed);
+							msg.edit({ embeds: [agendaembed] });
 						});
 
 						right.on('collect', r => {
@@ -178,7 +178,7 @@ module.exports = {
 							if (customtext) {
 								agendaembed.addField(customtitle, customtext);
 							}
-							msg.edit(agendaembed);
+							msg.edit({ embeds: [agendaembed] });
 						});
 
 						rightright.on('collect', r => {
@@ -195,15 +195,15 @@ module.exports = {
 							if (customtext) {
 								agendaembed.addField(customtitle, customtext);
 							}
-							msg.edit(agendaembed);
+							msg.edit({ embeds: [agendaembed] });
 						});
 					}
 				} else if (finalweplist.length === 0) {
-					message.channel.send(nothingtodayembed);
+					message.channel.send({ embeds: [nothingtodayembed] });
 				}
 			} else if (page > maxPage) {
 				if (maxPage === 0) {
-					message.channel.send(nothingtodayembed);
+					message.channel.send({ embeds: [nothingtodayembed] });
 				} else {
 					const invalidpageembed = new Discord.MessageEmbed()
 						.setTitle(title)
@@ -214,7 +214,7 @@ module.exports = {
 								value: `Your agenda only has **${maxPage}** page(s) today.`,
 							})
 						.setFooter('>:(');
-					message.channel.send(invalidpageembed);
+					message.channel.send({ embeds: [invalidpageembed] });a
 				}
 			} else {
 				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
@@ -223,14 +223,14 @@ module.exports = {
 		} else if (charresult.length > 0 && wepresult.length === 0) { // If MongoDB can find only characters
 			gettodaysChars(todaysChars, charresult);
 			if (todaysChars.length === 0) {
-				message.channel.send(nothingtodayembed);
+				message.channel.send({ embeds: [nothingtodayembed] });
 				return;
 			}
 			sortChars(todaysChars);
 			const charagenda = [];
 			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
 			const maxPage = Math.ceil(todaysChars.length / 10);
-			let finalcharlist = getfinalcharlist(charagenda, page);
+			const finalcharlist = getfinalcharlist(charagenda, page);
 			const loclist = getlocations(todaysChars, todaysWeps);
 
 			let charfield = {
@@ -257,7 +257,7 @@ module.exports = {
 					if (customtext) {
 						agendaembed.addField(customtitle, customtext);
 					}
-					const msg = await message.channel.send(agendaembed);
+					const msg = await message.channel.send({ embeds: [agendaembed] });
 
 					if (maxPage > 1) {
 						await msg.react('⏮️');
@@ -345,11 +345,11 @@ module.exports = {
 						});
 					}
 				} else if (finalcharlist.length === 0) {
-					message.channel.send(nothingtodayembed);
+					message.channel.send({ embeds: [nothingtodayembed] });
 				}
 			} else if (page > maxPage) {
 				if (maxPage === 0) {
-					message.channel.send(nothingtodayembed);
+					message.channel.send({ embeds: [nothingtodayembed] });
 				} else {
 					const invalidpageembed = new Discord.MessageEmbed()
 						.setTitle(title)
@@ -360,7 +360,7 @@ module.exports = {
 								value: `Your agenda only has **${maxPage}** page(s) today.`,
 							})
 						.setFooter('>:(');
-					message.channel.send(invalidpageembed);
+					message.channel.send({ embeds: [invalidpageembed] });
 				}
 			} else {
 				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
@@ -371,7 +371,7 @@ module.exports = {
 			gettodaysWeps(todaysWeps, wepresult);
 
 			if (todaysChars.length === 0 && todaysWeps.length === 0) {
-				message.channel.send(nothingtodayembed);
+				message.channel.send({ embeds: [nothingtodayembed] });
 				return;
 			}
 
@@ -381,8 +381,8 @@ module.exports = {
 			const charagenda = [];
 			const wepagenda = [];
 
-			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
-			todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}.**`));
+			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}**`));
+			todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}**`));
 
 			let maxPage;
 			if (charagenda.length > wepagenda.length) {
@@ -393,8 +393,7 @@ module.exports = {
 
 			const finalcharlist = getfinalcharlist(charagenda, page);
 			const finalweplist = getfinalweplist(wepagenda, page);
-
-			const loclist = getlocations(todaysChars, todaysWeps);
+			const loclist = getlocations(todaysChars, todaysWeps);;
 
 			const charfield = {
 				name: charname,
@@ -421,7 +420,7 @@ module.exports = {
 					.setFooter(footer)
 					.setColor('#00FF97');
 				getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-				const msg = await message.channel.send(agendaembed);
+				const msg = await message.channel.send({ embeds: [agendaembed] });
 
 				if (maxPage > 1) {
 					await msg.react('⏮️');
@@ -439,7 +438,7 @@ module.exports = {
 						page = 1;
 						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
 						getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-						msg.edit(agendaembed);
+						msg.edit({ embeds: [agendaembed] });
 					});
 
 					left.on('collect', r => {
@@ -450,7 +449,7 @@ module.exports = {
 						}
 						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
 						getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-						msg.edit(agendaembed);
+						msg.edit({ embeds: [agendaembed] });
 					});
 
 					right.on('collect', r => {
@@ -461,7 +460,7 @@ module.exports = {
 						}
 						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
 						getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-						msg.edit(agendaembed);
+						msg.edit({ embeds: [agendaembed] });
 					});
 
 					rightright.on('collect', r => {
@@ -469,7 +468,7 @@ module.exports = {
 						page = maxPage;
 						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
 						getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-						msg.edit(agendaembed);
+						msg.edit({ embeds: [agendaembed] });
 					});
 				}
 			} else if (page > maxPage) {
@@ -482,7 +481,7 @@ module.exports = {
 							value: `Your agenda only has **${maxPage}** page(s) today.`,
 						})
 					.setFooter('>:(');
-				message.channel.send(invalidpageembed);
+				message.channel.send({ embeds: [invalidpageembed] });
 			} else {
 				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
 			}

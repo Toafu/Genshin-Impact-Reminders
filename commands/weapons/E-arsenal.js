@@ -37,12 +37,13 @@ module.exports = {
 			}
 
 			const getlist = page => {
-				const list = [];
+				let list = [];
 				for (let i = (page * 20) - 20; i < page * 20; i++) {
 					if (trackList[i]) {
 						list.push(`[${trackList[i].id}] **${trackList[i].name}** (${trackList[i].stars})`);
 					}
 				}
+				list = list.join('\n');
 				return list;
 			};
 
@@ -56,12 +57,8 @@ module.exports = {
 					.setTitle(`${author.username}'s Weapons List`)
 					.setColor('#00FF97')
 					.setFooter(`Page ${page} of ${maxPage}`)
-					.addFields(
-						{
-							name: name,
-							value: list,
-						});
-				const msg = await message.channel.send(embed);
+					.addField(name, list);
+				const msg = await message.channel.send({ embeds: [embed] });
 
 				if (maxPage > 1) {
 					await msg.react('⏮️');
@@ -86,7 +83,7 @@ module.exports = {
 						list = getlist(page);
 						embed.fields = [];
 						embed.addField(name, list);
-						msg.edit(embed);
+						msg.edit({ embeds: embed });
 					});
 
 					left.on('collect', r => {
@@ -99,7 +96,7 @@ module.exports = {
 						list = getlist(page);
 						embed.fields = [];
 						embed.addField(name, list);
-						msg.edit(embed);
+						msg.edit({ embeds: embed });
 					});
 
 					right.on('collect', r => {
@@ -112,7 +109,7 @@ module.exports = {
 						list = getlist(page);
 						embed.fields = [];
 						embed.addField(name, list);
-						msg.edit(embed);
+						msg.edit({ embeds: embed });
 					});
 
 					rightright.on('collect', r => {
@@ -122,11 +119,11 @@ module.exports = {
 						list = getlist(page);
 						embed.fields = [];
 						embed.addField(name, list);
-						msg.edit(embed);
+						msg.edit({ embeds: embed });
 					});
 				}
 			} else if (list.length === 0) {
-				message.channel.send(emptyembed);
+				message.channel.send({ embeds: [emptyembed] });
 			} else if (page > maxPage) {
 				const maxpageembed = new Discord.MessageEmbed()
 					.setTitle(`${author.username}'s Tracking List`)
@@ -137,12 +134,12 @@ module.exports = {
 							value: `You only have **${maxPage}** page(s) worth of tracked weapons!`,
 						})
 					.setFooter('>:(');
-				message.channel.send(maxpageembed);
+				message.channel.send({ embeds: [maxpageembed] });
 			} else {
-				message.channel.send(emptyembed);
+				message.channel.send({ embeds: [emptyembed] });
 			}
 		} else {
-			message.channel.send(emptyembed);
+			message.channel.send({ embeds: [emptyembed] });
 		}
 	},
 };

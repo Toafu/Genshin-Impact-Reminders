@@ -55,13 +55,15 @@ module.exports = {
 						inline: false,
 					});
 			if (message) {
-				message.channel.send(embed);
+				message.channel.send({ emebds: [embed] });
+				return;
 			}
 			return embed;
 		} else {
 			const error = `Please use a valid ID [\`0-${weapons.length - 1}\`] or weapon name.`;
 			if (message) {
 				message.channel.send(error);
+				return;
 			}
 			return error;
 		}

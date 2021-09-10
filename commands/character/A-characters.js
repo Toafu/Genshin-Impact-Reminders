@@ -49,15 +49,15 @@ module.exports = {
 				await msg.react('▶️');
 				await msg.react('⏭️');
 
-				const leftleftfilter = (reaction, user) => { return reaction.emoji.name === '⏮️' && user.id === id; };
+				const leftleftfilter = (reaction, user) => { return reaction.emoji.name === '⏮️' && user.id === id };
 				const leftfilter = (reaction, user) => { return reaction.emoji.name === '◀️' && user.id === id; };
 				const rightfilter = (reaction, user) => { return reaction.emoji.name === '▶️' && user.id === id; };
 				const rightrightfilter = (reaction, user) => { return reaction.emoji.name === '⏭️' && user.id === id; };
 
-				const leftleft = msg.createReactionCollector({ leftleftfilter, idle: 30000, dispose: true });
-				const left = msg.createReactionCollector({ leftfilter, idle: 30000, dispose: true });
-				const right = msg.createReactionCollector({ rightfilter, idle: 30000, dispose: true });
-				const rightright = msg.createReactionCollector({ rightrightfilter, idle: 30000, dispose: true });
+				const leftleft = msg.createReactionCollector({ leftleftfilter, time: 15000 });
+				const left = msg.createReactionCollector({ leftfilter, time: 15000 });
+				const right = msg.createReactionCollector({ rightfilter, time: 15000 });
+				const rightright = msg.createReactionCollector({ rightrightfilter, time: 15000 });
 
 				leftleft.on('collect', (reaction, user) => {
 					console.log('LeftLeft');
@@ -83,8 +83,8 @@ module.exports = {
 					console.log('Left');
 				});
 
-				right.on('collect', r => {
-					r.users.remove(message.author.id);
+				right.on('collect', reaction => {
+					reaction.users.remove(message.author.id);
 					page++;
 					if (page > maxPage) {
 						page = maxPage;

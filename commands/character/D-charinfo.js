@@ -66,7 +66,8 @@ module.exports = {
 					})
 				.setFooter('You don\'t have to follow these tips. Play the way you want to play!');
 			if (message) {
-				message.channel.send(embed);
+				message.channel.send({ embeds: [embed] });
+				return;
 			}
 			return embed;
 		} else {

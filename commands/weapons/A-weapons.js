@@ -12,12 +12,13 @@ module.exports = {
 	expectedArgs: '(page number)',
 	callback: async ({ message, args }) => {
 		const getlist = page => {
-			const list = [];
+			const arrayList = [];
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
 				if (weapons[i]) {
-					list.push(`[${weapons[i].id}] **${weapons[i].name}** (${weapons[i].stars})`);
+					arrayList.push(`[${weapons[i].id}] **${weapons[i].name}** (${weapons[i].stars})`);
 				}
 			}
+			const list = arrayList.join('\n');
 			return list;
 		};
 
@@ -101,6 +102,7 @@ module.exports = {
 					embed.addField(name, list);
 					msg.edit(embed);
 				});
+				return;
 			}
 			return embed;
 		} else if (page > maxPage) {
@@ -114,13 +116,14 @@ module.exports = {
 					})
 				.setFooter('>:(');
 			if (message) {
-				message.channel.send(embed);
+				message.channel.send({ embeds: [embed] });
 			}
 			return embed;
 		} else {
 			const error = 'Incorrect syntax. Use b!weapons (Page Number)';
 			if (message) {
 				message.channel.send(error);
+				return;
 			}
 			return error;
 		}

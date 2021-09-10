@@ -38,12 +38,13 @@ module.exports = {
 			}
 
 			const getlist = page => {
-				const list = [];
+				let list = [];
 				for (let i = (page * 20) - 20; i < page * 20; i++) {
 					if (trackList[i]) {
 						list.push(`[${trackList[i].id}] **${trackList[i].name}** ${getEmotes.getEmote(trackList[i].element)}`);
 					}
 				}
+				list = list.join('\n');
 				return list;
 			};
 
@@ -57,12 +58,8 @@ module.exports = {
 					.setTitle(`${author.username}'s Tracking List`)
 					.setColor('#00FF97')
 					.setFooter(`Page ${page} of ${maxPage}`)
-					.addFields(
-						{
-							name: name,
-							value: list,
-						});
-				const msg = await message.channel.send(embed);
+					.addField(name, list);
+				const msg = await message.channel.send({ embeds: [embed] });
 
 				if (maxPage > 1) {
 					await msg.react('⏮️');
@@ -137,12 +134,12 @@ module.exports = {
 							inline: false,
 						})
 					.setFooter('>:(');
-				message.channel.send(maxpageembed);
+				message.channel.send({ embeds: [maxpageembed] });
 			} else {
-				message.channel.send(emptyembed);
+				message.channel.send({ embeds: [emptyembed] });
 			}
 		} else {
-			message.channel.send(emptyembed);
+			message.channel.send({ embeds: [emptyembed] });
 		}
 	},
 };

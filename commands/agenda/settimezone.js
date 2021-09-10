@@ -51,6 +51,6 @@ module.exports = {
 		const embed = new Discord.MessageEmbed()
 			.setTitle('Setting Timezone')
 			.setDescription(`Your agenda will now be based on the ${server.name} server time.`);
-		message.channel.send(embed);
+		message.channel.send({ embeds: [embed] });
 	},
 };

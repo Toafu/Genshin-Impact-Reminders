@@ -23,7 +23,7 @@ module.exports = {
 					.setTitle(`${message.author.username}, you have removed your custom message.`)
 					.setColor('#00FF97')
 					.setDescription('This field will be omitted from your agenda.');
-				message.channel.send(clearembed);
+				message.channel.send({ embeds: [clearembed] });
 				return;
 			}
 
@@ -42,7 +42,7 @@ module.exports = {
 				.setTitle('Updated Custom Message Text')
 				.setColor('#00FF97')
 				.setDescription(`${message.author.username}, this message will now always appear at the bottom of your agenda: \n\n "${customtext}"`);
-			message.channel.send(updatedembed);
+			message.channel.send({ emebds: [updatedembed] });
 		} else {
 			const result = await savedMessageSchema.find({ _id: id });
 			if (result.length === 0) {
@@ -50,13 +50,13 @@ module.exports = {
 					.setTitle(`${message.author.username}, you currently do not have a custom message set.`)
 					.setColor('#00FF97')
 					.setDescription('Add one with `b!message` and it will appear at the bottom of your agenda.');
-				message.channel.send(nothingembed);
+				message.channel.send({ emebds: [nothingembed] });
 			} else {
 				const showembed = new Discord.MessageEmbed()
 					.setTitle(`${message.author.username}, this message is currently showing at the bottom of your agenda:`)
 					.setColor('#00FF97')
 					.setDescription(result[0].savedMessage);
-				message.channel.send(showembed);
+				message.channel.send({ emebds: [showembed] });
 			}
 		}
 	},

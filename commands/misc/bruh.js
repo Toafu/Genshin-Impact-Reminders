@@ -1,4 +1,3 @@
-/* eslint-disable no-empty-pattern */
 module.exports = {
 	slash: 'both',
 	name: 'bruh',

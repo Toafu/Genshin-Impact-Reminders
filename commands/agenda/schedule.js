@@ -21,6 +21,7 @@ module.exports = {
 				//'date.hour': now.getHours(), //For Heroku
 				'date.hour': now.getHours() + 5,
 				'date.minute': now.getMinutes(),
+				'date.seconds' : 0,
 			};
 
 			const result = await scheduleSchema.find(query);
@@ -78,13 +79,13 @@ module.exports = {
 						nonexistantembed.addField(customtitle, customtext);
 					}
 					client.users.fetch(id).then(user => {
-						user.send(nonexistantembed);
+						user.send({ embeds: [nonexistantembed] });
 					});
 				} else if (charresult.length === 0 && wepresult.length > 0) { // If MongoDB can find only weapons
 					gettodaysWeps(todaysWeps, wepresult);
 					if (todaysWeps.length === 0) {
 						client.users.fetch(id).then(user => {
-							user.send(nothingtodayembed);
+							user.send({ embeds: [nothingtodayembed] });
 						});
 						return;
 					}
@@ -119,14 +120,14 @@ module.exports = {
 							agendaembed.addField(customtitle, customtext);
 						}
 						client.users.fetch(id).then(user => {
-							user.send(agendaembed);
+							user.send({embeds: [agendaembed] });
 						});
 					}
 				} else if (charresult.length > 0 && wepresult.length === 0) { // If MongoDB can find only characters
 					gettodaysChars(todaysChars, charresult);
 					if (todaysChars.length === 0) {
 						client.users.fetch(id).then(user => {
-							user.send(nothingtodayembed);
+							user.send({embeds: [nothingtodayembed] });
 						});
 						return;
 					}
@@ -162,11 +163,11 @@ module.exports = {
 								agendaembed.addField(customtitle, customtext);
 							}
 							client.users.fetch(id).then(user => {
-								user.send(agendaembed);
+								user.send({ embeds: [agendaembed] });
 							});
 						} else if (finalcharlist.length === 0) {
 							client.users.fetch(id).then(user => {
-								user.send(nothingtodayembed);
+								user.send({ embeds: [nothingtodayembed] });
 							});
 						}
 					}
@@ -176,7 +177,7 @@ module.exports = {
 
 					if (todaysChars.length === 0 && todaysWeps.length === 0) {
 						client.users.fetch(id).then(user => {
-							user.send(nothingtodayembed);
+							user.send({ embeds: [nothingtodayembed] });
 						});
 						return;
 					}
@@ -225,7 +226,7 @@ module.exports = {
 							.setColor('#00FF97')
 							.addFields(charfield, wepfield, locfield);
 						client.users.fetch(id).then(user => {
-							user.send(agendaembed);
+							user.send({ embeds: [agendaembed] });
 						});
 					}
 				}
@@ -251,6 +252,8 @@ module.exports = {
 		if (args.length === 0) {
 			const query = { _id: id };
 			const result = await scheduleSchema.find(query);
+			const embed = new Discord.MessageEmbed()
+					.setTitle('Check Scheduled Time');
 			if (result.length > 0) {
 				const hour = result[0].date.hour;
 				const minute = String(result[0].date.minute).padStart(2, '0');
@@ -264,16 +267,11 @@ module.exports = {
 				} else {
 					GMToffset = offset;
 				}
-				const embed = new Discord.MessageEmbed()
-					.setTitle('Check Scheduled Time')
-					.setDescription(`Your agenda will be DM'd to you at **${displayhour}:${minute} GMT${GMToffset}**.`);
-				message.channel.send(embed);
+				embed.setDescription(`Your agenda will be DM'd to you at **${displayhour}:${minute} GMT${GMToffset}**.`);
 			} else {
-				const embed = new Discord.MessageEmbed()
-					.setTitle('Check Scheduled Time')
-					.setDescription('Your agenda hasn\'t been scheduled yet! Run **b!schedule <HH:mm (24h)> <Timezone/GMT Offset>** to automatically receive a daily agenda.');
-				message.channel.send(embed);
+				embed.setDescription('Your agenda hasn\'t been scheduled yet! Run **b!schedule <HH:mm (24h)> <Timezone/GMT Offset>** to automatically receive a daily agenda.');
 			}
+			message.channel.send({ embeds: [embed] });
 			return;
 		}
 
@@ -289,7 +287,7 @@ module.exports = {
 						name: 'Unsubscribing From Daily Reminder',
 						value: 'You will no longer receive your daily agenda in your DMs.',
 					});
-			message.channel.send(stopembed);
+			message.channel.send({ embeds: [stopembed] });
 			return;
 		}
 
@@ -338,7 +336,7 @@ module.exports = {
 		}
 		const minute = Number(extractTime[1]);
 		if (minute < 0 || minute > 59) {
-			message.reply('Invalud time! Please use a valid minute.');
+			message.reply('Invalid time! Please use a valid minute.');
 			return;
 		}
 
@@ -350,7 +348,7 @@ module.exports = {
 					name: 'Scheduling Daily Reminder',
 					value: `You will receive your agenda in your DMs at **${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} GMT${GMToffset}**.`,
 				});
-		message.channel.send(startembed);
+		message.channel.send({ embeds: [startembed] });
 
 		hour += offset;
 		validatehour(hour);
