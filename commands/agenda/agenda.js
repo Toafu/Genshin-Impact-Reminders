@@ -112,7 +112,7 @@ module.exports = {
 						agendaembed.addField(customtitle, customtext);
 					}
 					const msg = await message.channel.send({ embeds: [agendaembed] });
-
+					/*
 					if (maxPage > 1) {
 						await msg.react('⏮️');
 						await msg.react('◀️');
@@ -198,6 +198,7 @@ module.exports = {
 							msg.edit({ embeds: [agendaembed] });
 						});
 					}
+					*/
 				} else if (finalweplist.length === 0) {
 					message.channel.send({ embeds: [nothingtodayembed] });
 				}
@@ -258,7 +259,7 @@ module.exports = {
 						agendaembed.addField(customtitle, customtext);
 					}
 					const msg = await message.channel.send({ embeds: [agendaembed] });
-
+					/*
 					if (maxPage > 1) {
 						await msg.react('⏮️');
 						await msg.react('◀️');
@@ -344,6 +345,7 @@ module.exports = {
 							msg.edit(agendaembed);
 						});
 					}
+					*/
 				} else if (finalcharlist.length === 0) {
 					message.channel.send({ embeds: [nothingtodayembed] });
 				}
@@ -421,7 +423,7 @@ module.exports = {
 					.setColor('#00FF97');
 				getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
 				const msg = await message.channel.send({ embeds: [agendaembed] });
-
+				/*
 				if (maxPage > 1) {
 					await msg.react('⏮️');
 					await msg.react('◀️');
@@ -471,6 +473,7 @@ module.exports = {
 						msg.edit({ embeds: [agendaembed] });
 					});
 				}
+				*/
 			} else if (page > maxPage) {
 				const invalidpageembed = new Discord.MessageEmbed()
 					.setTitle(title)

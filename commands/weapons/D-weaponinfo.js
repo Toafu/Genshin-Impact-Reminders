@@ -55,7 +55,7 @@ module.exports = {
 						inline: false,
 					});
 			if (message) {
-				message.channel.send({ emebds: [embed] });
+				message.channel.send({ embeds: [embed] });
 				return;
 			}
 			return embed;

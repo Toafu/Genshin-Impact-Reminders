@@ -40,8 +40,8 @@ module.exports = {
 			if (message) {
 				const { author } = message;
 				const { id } = author;
-				const msg = await message.channel.send(embed);
-
+				const msg = await message.channel.send({ embeds: [embed] });
+				/*
 				await msg.react('⏮️');
 				await msg.react('◀️');
 				await msg.react('▶️');
@@ -64,7 +64,7 @@ module.exports = {
 					list = getlist(page);
 					embed.fields = [];
 					embed.addField(name, list);
-					msg.edit(embed);
+					msg.edit({ embeds: [embed] });
 				});
 
 				left.on('collect', r => {
@@ -77,7 +77,7 @@ module.exports = {
 					list = getlist(page);
 					embed.fields = [];
 					embed.addField(name, list);
-					msg.edit(embed);
+					msg.edit({ embeds: [embed] });
 				});
 
 				right.on('collect', r => {
@@ -90,7 +90,7 @@ module.exports = {
 					list = getlist(page);
 					embed.fields = [];
 					embed.addField(name, list);
-					msg.edit(embed);
+					msg.edit({ embeds: [embed] });
 				});
 
 				rightright.on('collect', r => {
@@ -100,8 +100,9 @@ module.exports = {
 					list = getlist(page);
 					embed.fields = [];
 					embed.addField(name, list);
-					msg.edit(embed);
+					msg.edit({ embeds: [embed] });
 				});
+				*/
 				return;
 			}
 			return embed;

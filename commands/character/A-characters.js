@@ -43,7 +43,7 @@ module.exports = {
 				const { author } = message;
 				const { id } = author;
 				const msg = await message.channel.send({ embeds: [embed] });
-
+				/*
 				await msg.react('⏮️');
 				await msg.react('◀️');
 				await msg.react('▶️');
@@ -107,6 +107,7 @@ module.exports = {
 					msg.edit({ embeds: [embed] });
 					console.log('RightRight');
 				});
+				*/
 				return;
 			}
 			return embed;

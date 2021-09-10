@@ -60,7 +60,7 @@ module.exports = {
 					.setFooter(`Page ${page} of ${maxPage}`)
 					.addField(name, list);
 				const msg = await message.channel.send({ embeds: [embed] });
-
+				/*
 				if (maxPage > 1) {
 					await msg.react('⏮️');
 					await msg.react('◀️');
@@ -84,7 +84,7 @@ module.exports = {
 						list = getlist(page);
 						embed.fields = [];
 						embed.addField(name, list);
-						msg.edit(embed);
+						msg.edit({ embeds: [embed] });
 					});
 
 					left.on('collect', r => {
@@ -97,7 +97,7 @@ module.exports = {
 						list = getlist(page);
 						embed.fields = [];
 						embed.addField(name, list);
-						msg.edit(embed);
+						msg.edit({ embeds: [embed] });
 					});
 
 					right.on('collect', r => {
@@ -110,7 +110,7 @@ module.exports = {
 						list = getlist(page);
 						embed.fields = [];
 						embed.addField(name, list);
-						msg.edit(embed);
+						msg.edit({ embeds: [embed] });
 					});
 
 					rightright.on('collect', r => {
@@ -120,9 +120,10 @@ module.exports = {
 						list = getlist(page);
 						embed.fields = [];
 						embed.addField(name, list);
-						msg.edit(embed);
+						msg.edit({ embeds: [embed] });
 					});
 				}
+				*/
 			} else if (page > maxPage) {
 				const maxpageembed = new Discord.MessageEmbed()
 					.setTitle(`${author.username}'s Tracking List`)
@@ -131,7 +132,6 @@ module.exports = {
 						{
 							name: 'hol up',
 							value: `You only have **${maxPage}** page(s) worth of tracked characters!`,
-							inline: false,
 						})
 					.setFooter('>:(');
 				message.channel.send({ embeds: [maxpageembed] });

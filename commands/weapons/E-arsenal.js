@@ -59,7 +59,7 @@ module.exports = {
 					.setFooter(`Page ${page} of ${maxPage}`)
 					.addField(name, list);
 				const msg = await message.channel.send({ embeds: [embed] });
-
+				/*
 				if (maxPage > 1) {
 					await msg.react('⏮️');
 					await msg.react('◀️');
@@ -122,6 +122,7 @@ module.exports = {
 						msg.edit({ embeds: embed });
 					});
 				}
+				*/
 			} else if (list.length === 0) {
 				message.channel.send({ embeds: [emptyembed] });
 			} else if (page > maxPage) {
