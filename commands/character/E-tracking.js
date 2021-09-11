@@ -57,11 +57,7 @@ module.exports = {
 					.setTitle(`${author.username}'s Tracking List`)
 					.setColor('#00FF97')
 					.setFooter(`Page ${page} of ${maxPage}`)
-					.addFields(
-						{
-							name: name,
-							value: list,
-						});
+					.addField(name, list);
 				const msg = await message.channel.send(embed);
 
 				if (maxPage > 1) {
@@ -134,7 +130,6 @@ module.exports = {
 						{
 							name: 'hol up',
 							value: `You only have **${maxPage}** page(s) worth of tracked characters!`,
-							inline: false,
 						})
 					.setFooter('>:(');
 				message.channel.send(maxpageembed);

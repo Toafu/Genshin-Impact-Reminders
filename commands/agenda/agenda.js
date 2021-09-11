@@ -82,7 +82,7 @@ module.exports = {
 			}
 			sortWeps(todaysWeps);
 			const wepagenda = [];
-			todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}.**`));
+			todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}**`));
 			const maxPage = Math.ceil(todaysWeps.length / 10);
 			let finalweplist = getfinalweplist(wepagenda, page);
 			const loclist = getlocations(todaysChars, todaysWeps);
@@ -228,7 +228,7 @@ module.exports = {
 			}
 			sortChars(todaysChars);
 			const charagenda = [];
-			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
+			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}**`));
 			const maxPage = Math.ceil(todaysChars.length / 10);
 			let finalcharlist = getfinalcharlist(charagenda, page);
 			const loclist = getlocations(todaysChars, todaysWeps);
@@ -381,8 +381,8 @@ module.exports = {
 			const charagenda = [];
 			const wepagenda = [];
 
-			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
-			todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}.**`));
+			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}**`));
+			todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}**`));
 
 			let maxPage;
 			if (charagenda.length > wepagenda.length) {
