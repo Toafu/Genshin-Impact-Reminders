@@ -27,10 +27,20 @@ module.exports = {
 			.setColor('#00FF97')
 			.addField('You don\'t need to farm today (or you aren\'t tracking anything yet!).', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
 
+		const invalidpageembed = new Discord.MessageEmbed()
+					.setTitle(title)
+					.setColor('#00FF97')
+					.addFields(
+						{
+							name: 'hol up',
+							value: `Your agenda only has **${maxPage}** page(s) today.`,
+						})
+					.setFooter('>:(');
+
 		const availablematerials = ahelp.getMaterials(day);
 
 		let page;
-		if (args.length === 0) {
+		if (!args) {
 			page = 1;
 		} else {
 			page = +args[0];
@@ -206,16 +216,7 @@ module.exports = {
 				if (maxPage === 0) {
 					message.channel.send({ embeds: [nothingtodayembed] });
 				} else {
-					const invalidpageembed = new Discord.MessageEmbed()
-						.setTitle(title)
-						.setColor('#00FF97')
-						.addFields(
-							{
-								name: 'hol up',
-								value: `Your agenda only has **${maxPage}** page(s) today.`,
-							})
-						.setFooter('>:(');
-					message.channel.send({ embeds: [invalidpageembed] });a
+					message.channel.send({ embeds: [invalidpageembed] });
 				}
 			} else {
 				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
@@ -229,7 +230,7 @@ module.exports = {
 			}
 			sortChars(todaysChars);
 			const charagenda = [];
-			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
+			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}**`));
 			const maxPage = Math.ceil(todaysChars.length / 10);
 			const finalcharlist = getfinalcharlist(charagenda, page);
 			const loclist = getlocations(todaysChars, todaysWeps);
@@ -353,15 +354,6 @@ module.exports = {
 				if (maxPage === 0) {
 					message.channel.send({ embeds: [nothingtodayembed] });
 				} else {
-					const invalidpageembed = new Discord.MessageEmbed()
-						.setTitle(title)
-						.setColor('#00FF97')
-						.addFields(
-							{
-								name: 'hol up',
-								value: `Your agenda only has **${maxPage}** page(s) today.`,
-							})
-						.setFooter('>:(');
 					message.channel.send({ embeds: [invalidpageembed] });
 				}
 			} else {
@@ -475,15 +467,6 @@ module.exports = {
 				}
 				*/
 			} else if (page > maxPage) {
-				const invalidpageembed = new Discord.MessageEmbed()
-					.setTitle(title)
-					.setColor('#00FF97')
-					.addFields(
-						{
-							name: 'hol up',
-							value: `Your agenda only has **${maxPage}** page(s) today.`,
-						})
-					.setFooter('>:(');
 				message.channel.send({ embeds: [invalidpageembed] });
 			} else {
 				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');

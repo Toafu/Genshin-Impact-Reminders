@@ -33,7 +33,6 @@ module.exports = {
 				{
 					name: 'This bot is a __**Work In Progress**__ and is defaults to **NA** server time!',
 					value: 'Stuff is probably not going to work. Please contact `Toafu#4965` if something doesn\'t work as expected.',
-					inline: true,
 				});
 		if (message) {
 			message.channel.send({ embeds: [embed] });

@@ -31,7 +31,7 @@ module.exports = {
 			const trackList = [];
 			let page;
 			dblist.forEach(person => trackList.push(person));
-			if (args.length === 0) {
+			if (args) {
 				page = 1;
 			} else {
 				page = +args[0];

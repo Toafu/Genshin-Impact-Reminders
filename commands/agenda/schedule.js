@@ -21,7 +21,7 @@ module.exports = {
 				//'date.hour': now.getHours(), //For Heroku
 				'date.hour': now.getHours() + 5,
 				'date.minute': now.getMinutes(),
-				'date.seconds' : 0,
+				//'date.second' : 0,
 			};
 
 			const result = await scheduleSchema.find(query);
