@@ -12,10 +12,10 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<id or weapon name>',
-	callback: ({ message, text }) => {
+	testOnly: true,
+	callback: ({ message, text, interaction: msgInt }) => {
 		let index;
 		const query = text.toLowerCase().replace(/[’‘]/g, '\'');
-
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
 			index = weapons.findIndex(weapon => weapon.name.toLowerCase() === query || weapon.name.toLowerCase() === `the ${query}`);
@@ -58,14 +58,15 @@ module.exports = {
 				message.channel.send({ embeds: [embed] });
 				return;
 			}
-			return embed;
+			msgInt.reply({ embeds: [embed] });
+			return;
 		} else {
 			const error = `Please use a valid ID [\`0-${weapons.length - 1}\`] or weapon name.`;
 			if (message) {
 				message.channel.send(error);
 				return;
 			}
-			return error;
+			msgInt.reply(error);
 		}
 	},
 };

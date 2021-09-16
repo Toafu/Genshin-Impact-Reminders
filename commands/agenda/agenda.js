@@ -6,14 +6,28 @@ const timezoneSchema = require('@schemas/timezone-schema');
 const ahelp = require('@helper/agendahelper');
 
 module.exports = {
+	slash: 'both',
 	name: 'agenda',
 	category: 'Agenda',
 	description: 'View what materials you can farm for your tracked characters and weapons. Default page 1.',
 	minArgs: 0,
 	maxArgs: 1,
-	callback: async ({ message, args }) => {
-		const { author } = message;
-		const { id } = author;
+	expectedArgs: '(page number)',
+	testOnly: true,
+	callback: async ({ message, args, interaction: msgInt, channel }) => {
+		let id;
+		if (message) {
+			id = message.author.id;
+		} else {
+			id = msgInt.user.id;
+		}
+
+		let author;
+		if (message) {
+			author = message.author.username;
+		} else {
+			author = msgInt.user.username;
+		}
 
 		const zone = await timezoneSchema.find({ _id: id });
 		const { server, offset } = ahelp.getTimeZone(zone);
@@ -23,24 +37,14 @@ module.exports = {
 		const nothingtodayembed = new Discord.MessageEmbed()
 			.setTitle(title)
 			.setThumbnail(logo)
-			.setAuthor(message.author.username)
+			.setAuthor(author)
 			.setColor('#00FF97')
 			.addField('You don\'t need to farm today (or you aren\'t tracking anything yet!).', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
-
-		const invalidpageembed = new Discord.MessageEmbed()
-					.setTitle(title)
-					.setColor('#00FF97')
-					.addFields(
-						{
-							name: 'hol up',
-							value: `Your agenda only has **${maxPage}** page(s) today.`,
-						})
-					.setFooter('>:(');
 
 		const availablematerials = ahelp.getMaterials(day);
 
 		let page;
-		if (!args) {
+		if (!args[0]) {
 			page = 1;
 		} else {
 			page = +args[0];
@@ -68,34 +72,44 @@ module.exports = {
 		const wepname = '__Today\'s Weapons__';
 		const locname = '__Places to Go__';
 
-		const leftleftfilter = (reaction, user) => { return reaction.emoji.name === '⏮️' && user.id === id; };
-		const leftfilter = (reaction, user) => { return reaction.emoji.name === '◀️' && user.id === id; };
-		const rightfilter = (reaction, user) => { return reaction.emoji.name === '▶️' && user.id === id; };
-		const rightrightfilter = (reaction, user) => { return reaction.emoji.name === '⏭️' && user.id === id; };
-
 		if (charresult.length === 0 && wepresult.length === 0) { // If MongoDB has nothing on the user
 			const nonexistantembed = new Discord.MessageEmbed()
 				.setTitle(title)
 				.setThumbnail(logo)
-				.setAuthor(message.author.username)
+				.setAuthor(author)
 				.setColor('#00FF97')
 				.addFields(nothing);
 			if (customtext) {
 				nonexistantembed.addField(customtitle, customtext);
 			}
-			message.channel.send({ embeds: [nonexistantembed] });
+			if (message) {
+				message.channel.send({ embeds: [nonexistantembed] });
+			} else {
+				msgInt.reply({ embeds: [nonexistantembed] });
+			}
 		} else if (charresult.length === 0 && wepresult.length > 0) { // If MongoDB can find only weapons
 			gettodaysWeps(todaysWeps, wepresult);
 			if (todaysWeps.length === 0) {
-				message.channel.send({ embeds: [nothingtodayembed] });
+				if (message) {
+					message.channel.send({ embeds: [nothingtodayembed] });
+				} else {
+					msgInt.reply({ embeds: [nothingtodayembed] });
+				}
 				return;
 			}
 			sortWeps(todaysWeps);
 			const wepagenda = [];
 			todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}.**`));
 			const maxPage = Math.ceil(todaysWeps.length / 10);
+
 			let finalweplist = getfinalweplist(wepagenda, page);
 			const loclist = getlocations(todaysChars, todaysWeps);
+
+			const invalidpageembed = new Discord.MessageEmbed()
+			.setTitle(title)
+			.setColor('#00FF97')
+			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
+			.setFooter('>:(');
 
 			let wepfield = {
 				name: wepname,
@@ -109,123 +123,183 @@ module.exports = {
 
 			const footer = `Page ${page} of ${maxPage}`;
 
+			if (maxPage === 0) {
+				if (message) {
+					message.channel.send({ embeds: [nothingtodayembed] });
+				} else {
+					msgInt.reply({ embeds: [nothingtodayembed] });
+				}
+				return;
+			}
+
 			if (page > 0 && page <= maxPage) {
 				if (wepagenda.length > 0) {
 					const agendaembed = new Discord.MessageEmbed()
 						.setTitle(title)
 						.setThumbnail(logo)
-						.setAuthor(message.author.username)
+						.setAuthor(author)
 						.setFooter(footer)
 						.setColor('#00FF97')
 						.addFields(nocharstoday, wepfield, locfield);
 					if (customtext) {
 						agendaembed.addField(customtitle, customtext);
 					}
-					const msg = await message.channel.send({ embeds: [agendaembed] });
-					/*
+
 					if (maxPage > 1) {
-						await msg.react('⏮️');
-						await msg.react('◀️');
-						await msg.react('▶️');
-						await msg.react('⏭️');
+						const row = new MessageActionRow()
+							.addComponents(
+								new MessageButton()
+									.setCustomId('first_page')
+									.setLabel('First Page')
+									.setStyle('PRIMARY')
+							)
+							.addComponents(
+								new MessageButton()
+									.setCustomId('prev_page')
+									.setLabel('Previous Page')
+									.setStyle('PRIMARY')
+							)
+							.addComponents(
+								new MessageButton()
+									.setCustomId('next_page')
+									.setLabel('Next Page')
+									.setStyle('PRIMARY')
+							)
+							.addComponents(
+								new MessageButton()
+									.setCustomId('last_page')
+									.setLabel('Last Page')
+									.setStyle('PRIMARY')
+							);
 
-						const leftleft = msg.createReactionCollector(leftleftfilter, { idle: 30000, dispose: true });
-						const left = msg.createReactionCollector(leftfilter, { idle: 30000, dispose: true });
-						const right = msg.createReactionCollector(rightfilter, { idle: 30000, dispose: true });
-						const rightright = msg.createReactionCollector(rightrightfilter, { idle: 30000, dispose: true });
+						let filter;
+						if (message) {
+							await message.channel.send({
+								embeds: [agendaembed],
+								components: [row],
+							});
 
-						leftleft.on('collect', r => {
-							r.users.remove(message.author.id);
-							page = 1;
-							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-							finalweplist = getfinalweplist(wepagenda, page);
-							wepfield = {
-								name: wepname,
-								value: finalweplist,
+							filter = (btnInt) => {
+								return message.author.id === btnInt.user.id;
 							};
-							agendaembed.fields = [];
-							agendaembed.addFields(nocharstoday, wepfield, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							msg.edit({ embeds: [agendaembed] });
+						} else {
+							await msgInt.reply({
+								embeds: [agendaembed],
+								components: [row],
+							});
+
+							filter = (btnInt) => {
+								return msgInt.user.id === btnInt.user.id;
+							};
+						}
+
+						const collector = channel.createMessageComponentCollector({
+							filter,
+							time: 1000 * 10,
 						});
 
-						left.on('collect', r => {
-							r.users.remove(message.author.id);
-							page--;
-							if (page < 1) {
+						collector.on('collect', async i => {
+							if (i.customId === 'first_page') {
 								page = 1;
-							}
-							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-							finalweplist = getfinalweplist(wepagenda, page);
-							wepfield = {
-								name: wepname,
-								value: finalweplist,
+								agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+								finalweplist = getfinalweplist(wepagenda, page);
+								wepfield = {
+									name: wepname,
+									value: finalweplist,
+								};
+								agendaembed.fields = [];
+								agendaembed.addFields(nocharstoday, wepfield, locfield);
+								if (customtext) {
+									agendaembed.addField(customtitle, customtext);
+								}
+								await i.update({ embeds: [agendaembed], components: [row] });
 							};
-							agendaembed.fields = [];
-							agendaembed.addFields(nocharstoday, wepfield, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							msg.edit({ embeds: [agendaembed] });
-						});
-
-						right.on('collect', r => {
-							r.users.remove(message.author.id);
-							page++;
-							if (page > maxPage) {
+							if (i.customId === 'prev_page') {
+								page--;
+								if (page < 1) {
+									page = 1;
+								}
+								agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+								finalweplist = getfinalweplist(wepagenda, page);
+								wepfield = {
+									name: wepname,
+									value: finalweplist,
+								};
+								agendaembed.fields = [];
+								agendaembed.addFields(nocharstoday, wepfield, locfield);
+								if (customtext) {
+									agendaembed.addField(customtitle, customtext);
+								}
+								await i.update({ embeds: [agendaembed], components: [row] });
+							};
+							if (i.customId === 'next_page') {
+								page++;
+								if (page > maxPage) {
+									page = maxPage;
+								}
+								agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+								finalweplist = getfinalweplist(wepagenda, page);
+								wepfield = {
+									name: wepname,
+									value: finalweplist,
+								};
+								agendaembed.fields = [];
+								agendaembed.addFields(nocharstoday, wepfield, locfield);
+								if (customtext) {
+									agendaembed.addField(customtitle, customtext);
+								}
+								await i.update({ embeds: [agendaembed], components: [row] });
+							};
+							if (i.customId === 'last_page') {
 								page = maxPage;
-							}
-							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-							finalweplist = getfinalweplist(wepagenda, page);
-							wepfield = {
-								name: wepname,
-								value: finalweplist,
+								agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+								finalweplist = getfinalweplist(wepagenda, page);
+								wepfield = {
+									name: wepname,
+									value: finalweplist,
+								};
+								agendaembed.fields = [];
+								agendaembed.addFields(nocharstoday, wepfield, locfield);
+								if (customtext) {
+									agendaembed.addField(customtitle, customtext);
+								}
+								await i.update({ embeds: [agendaembed], components: [row] });
 							};
-							agendaembed.fields = [];
-							agendaembed.addFields(nocharstoday, wepfield, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							msg.edit({ embeds: [agendaembed] });
-						});
-
-						rightright.on('collect', r => {
-							r.users.remove(message.author.id);
-							page = maxPage;
-							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-							finalweplist = getfinalweplist(wepagenda, page);
-							wepfield = {
-								name: wepname,
-								value: finalweplist,
-							};
-							agendaembed.fields = [];
-							agendaembed.addFields(nocharstoday, wepfield, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							msg.edit({ embeds: [agendaembed] });
 						});
 					}
-					*/
+					if (message) {
+						message.channel.send({ embeds: [agendaembed] });
+					} else {
+						msgInt.reply({ embeds: [agendaembed] });
+					}
 				} else if (finalweplist.length === 0) {
-					message.channel.send({ embeds: [nothingtodayembed] });
+					if (message) {
+						message.channel.send({ embeds: [nothingtodayembed] });
+					} else {
+						msgInt.reply({ embeds: [nothingtodayembed] });
+					}
 				}
 			} else if (page > maxPage) {
-				if (maxPage === 0) {
-					message.channel.send({ embeds: [nothingtodayembed] });
-				} else {
+				if (message) {
 					message.channel.send({ embeds: [invalidpageembed] });
+				} else {
+					msgInt.reply({ embeds: [invalidpageembed] });
 				}
 			} else {
-				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
+				if (message) {
+					message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
+				} else {
+					msgInt.reply('Incorrect syntax. Use b!agenda (Page Number)');
+				}
 			}
-
 		} else if (charresult.length > 0 && wepresult.length === 0) { // If MongoDB can find only characters
 			gettodaysChars(todaysChars, charresult);
 			if (todaysChars.length === 0) {
-				message.channel.send({ embeds: [nothingtodayembed] });
+				if (message) {
+					message.channel.send({ embeds: [nothingtodayembed] });
+				} else {
+					msgInt.reply({ embeds: [nothingtodayembed] });
+				}
 				return;
 			}
 			sortChars(todaysChars);
@@ -234,6 +308,12 @@ module.exports = {
 			const maxPage = Math.ceil(todaysChars.length / 10);
 			const finalcharlist = getfinalcharlist(charagenda, page);
 			const loclist = getlocations(todaysChars, todaysWeps);
+
+			const invalidpageembed = new Discord.MessageEmbed()
+			.setTitle(title)
+			.setColor('#00FF97')
+			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
+			.setFooter('>:(');
 
 			let charfield = {
 				name: charname,
@@ -247,117 +327,174 @@ module.exports = {
 
 			const footer = `Page ${page} of ${maxPage}`;
 
+			if (maxPage === 0) {
+				if (message) {
+					message.channel.send({ embeds: [nothingtodayembed] });
+				} else {
+					msgInt.reply({ embeds: [nothingtodayembed] });
+				}
+				return;
+			}
+
 			if (page > 0 && page <= maxPage) {
 				if (charagenda.length > 0) {
 					const agendaembed = new Discord.MessageEmbed()
 						.setTitle(title)
 						.setThumbnail(logo)
-						.setAuthor(message.author.username)
+						.setAuthor(author)
 						.setFooter(footer)
 						.setColor('#00FF97')
 						.addFields(charfield, nowepstoday, locfield);
 					if (customtext) {
 						agendaembed.addField(customtitle, customtext);
 					}
-					const msg = await message.channel.send({ embeds: [agendaembed] });
-					/*
+
 					if (maxPage > 1) {
-						await msg.react('⏮️');
-						await msg.react('◀️');
-						await msg.react('▶️');
-						await msg.react('⏭️');
+						const row = new MessageActionRow()
+							.addComponents(
+								new MessageButton()
+									.setCustomId('first_page')
+									.setLabel('First Page')
+									.setStyle('PRIMARY')
+							)
+							.addComponents(
+								new MessageButton()
+									.setCustomId('prev_page')
+									.setLabel('Previous Page')
+									.setStyle('PRIMARY')
+							)
+							.addComponents(
+								new MessageButton()
+									.setCustomId('next_page')
+									.setLabel('Next Page')
+									.setStyle('PRIMARY')
+							)
+							.addComponents(
+								new MessageButton()
+									.setCustomId('last_page')
+									.setLabel('Last Page')
+									.setStyle('PRIMARY')
+							);
 
-						const leftleft = msg.createReactionCollector(leftleftfilter, { idle: 30000, dispose: true });
-						const left = msg.createReactionCollector(leftfilter, { idle: 30000, dispose: true });
-						const right = msg.createReactionCollector(rightfilter, { idle: 30000, dispose: true });
-						const rightright = msg.createReactionCollector(rightrightfilter, { idle: 30000, dispose: true });
+						let filter;
+						if (message) {
+							await message.channel.send({
+								embeds: [agendaembed],
+								components: [row],
+							});
 
-						leftleft.on('collect', r => {
-							r.users.remove(message.author.id);
-							page = 1;
-							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-							finalcharlist = getfinalcharlist(charagenda, page);
-							charfield = {
-								name: charname,
-								value: finalcharlist,
+							filter = (btnInt) => {
+								return message.author.id === btnInt.user.id;
 							};
-							agendaembed.fields = [];
-							agendaembed.addFields(charfield, nowepstoday, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							msg.edit(agendaembed);
+						} else {
+							await msgInt.reply({
+								embeds: [agendaembed],
+								components: [row],
+							});
+
+							filter = (btnInt) => {
+								return msgInt.user.id === btnInt.user.id;
+							};
+						}
+
+						const collector = channel.createMessageComponentCollector({
+							filter,
+							time: 1000 * 10,
 						});
 
-						left.on('collect', r => {
-							r.users.remove(message.author.id);
-							page--;
-							if (page < 1) {
+						collector.on('collect', async i => {
+							if (i.customId === 'first_page') {
 								page = 1;
-							}
-							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-							finalcharlist = getfinalcharlist(charagenda, page);
-							charfield = {
-								name: charname,
-								value: finalcharlist,
+								agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+								finalcharlist = getfinalcharlist(charagenda, page);
+								charfield = {
+									name: charname,
+									value: finalcharlist,
+								};
+								agendaembed.fields = [];
+								agendaembed.addFields(charfield, nowepstoday, locfield);
+								if (customtext) {
+									agendaembed.addField(customtitle, customtext);
+								}
+								await i.update({ embeds: [agendaembed], components: [row] });
 							};
-							agendaembed.fields = [];
-							agendaembed.addFields(charfield, nowepstoday, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							msg.edit(agendaembed);
-						});
-
-						right.on('collect', r => {
-							r.users.remove(message.author.id);
-							page++;
-							if (page > maxPage) {
+							if (i.customId === 'prev_page') {
+								page--;
+								if (page < 1) {
+									page = 1;
+								}
+								agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+								finalcharlist = getfinalcharlist(charagenda, page);
+								charfield = {
+									name: charname,
+									value: finalcharlist,
+								};
+								agendaembed.fields = [];
+								agendaembed.addFields(charfield, nowepstoday, locfield);
+								if (customtext) {
+									agendaembed.addField(customtitle, customtext);
+								}
+								await i.update({ embeds: [agendaembed], components: [row] });
+							};
+							if (i.customId === 'next_page') {
+								page++;
+								if (page > maxPage) {
+									page = maxPage;
+								}
+								agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+								finalcharlist = getfinalcharlist(charagenda, page);
+								charfield = {
+									name: charname,
+									value: finalcharlist,
+								};
+								agendaembed.fields = [];
+								agendaembed.addFields(charfield, nowepstoday, locfield);
+								if (customtext) {
+									agendaembed.addField(customtitle, customtext);
+								}
+								await i.update({ embeds: [agendaembed], components: [row] });
+							};
+							if (i.customId === 'last_page') {
 								page = maxPage;
-							}
-							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-							finalcharlist = getfinalcharlist(charagenda, page);
-							charfield = {
-								name: charname,
-								value: finalcharlist,
+								agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+								finalcharlist = getfinalcharlist(charagenda, page);
+								charfield = {
+									name: charname,
+									value: finalcharlist,
+								};
+								agendaembed.fields = [];
+								agendaembed.addFields(charfield, nowepstoday, locfield);
+								if (customtext) {
+									agendaembed.addField(customtitle, customtext);
+								}
+								await i.update({ embeds: [agendaembed], components: [row] });
 							};
-							agendaembed.fields = [];
-							agendaembed.addFields(charfield, nowepstoday, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							msg.edit(agendaembed);
-						});
-
-						rightright.on('collect', r => {
-							r.users.remove(message.author.id);
-							page = maxPage;
-							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-							finalcharlist = getfinalcharlist(charagenda, page);
-							charfield = {
-								name: charname,
-								value: finalcharlist,
-							};
-							agendaembed.fields = [];
-							agendaembed.addFields(charfield, nowepstoday, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							msg.edit(agendaembed);
 						});
 					}
-					*/
+					if (message) {
+						message.channel.send({ embeds: [agendaembed] });
+					} else {
+						msgInt.reply({ embeds: [agendaembed] });
+					}
 				} else if (finalcharlist.length === 0) {
-					message.channel.send({ embeds: [nothingtodayembed] });
+					if (message) {
+						message.channel.send({ embeds: [nothingtodayembed] });
+					} else {
+						msgInt.reply({ embeds: [nothingtodayembed] });
+					}
 				}
 			} else if (page > maxPage) {
-				if (maxPage === 0) {
-					message.channel.send({ embeds: [nothingtodayembed] });
-				} else {
+				if (message) {
 					message.channel.send({ embeds: [invalidpageembed] });
+				} else {
+					msgInt.reply({ embeds: [invalidpageembed] });
 				}
 			} else {
-				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
+				if (message) {
+					message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
+				} else {
+					msgInt.reply('Incorrect syntax. Use b!agenda (Page Number)');
+				}
 			}
 
 		} else { //If MongoDB found both characters and weapons
@@ -365,7 +502,11 @@ module.exports = {
 			gettodaysWeps(todaysWeps, wepresult);
 
 			if (todaysChars.length === 0 && todaysWeps.length === 0) {
-				message.channel.send({ embeds: [nothingtodayembed] });
+				if (message) {
+					message.channel.send({ embeds: [nothingtodayembed] });
+				} else {
+					msgInt.reply({ embeds: [nothingtodayembed] });
+				}
 				return;
 			}
 
@@ -387,7 +528,13 @@ module.exports = {
 
 			const finalcharlist = getfinalcharlist(charagenda, page);
 			const finalweplist = getfinalweplist(wepagenda, page);
-			const loclist = getlocations(todaysChars, todaysWeps);;
+			const loclist = getlocations(todaysChars, todaysWeps);
+
+			const invalidpageembed = new Discord.MessageEmbed()
+			.setTitle(title)
+			.setColor('#00FF97')
+			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
+			.setFooter('>:(');
 
 			const charfield = {
 				name: charname,
@@ -410,66 +557,114 @@ module.exports = {
 				const agendaembed = new Discord.MessageEmbed()
 					.setTitle(title)
 					.setThumbnail(logo)
-					.setAuthor(message.author.username)
+					.setAuthor(author)
 					.setFooter(footer)
 					.setColor('#00FF97');
 				getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-				const msg = await message.channel.send({ embeds: [agendaembed] });
-				/*
+
 				if (maxPage > 1) {
-					await msg.react('⏮️');
-					await msg.react('◀️');
-					await msg.react('▶️');
-					await msg.react('⏭️');
+					const row = new MessageActionRow()
+						.addComponents(
+							new MessageButton()
+								.setCustomId('first_page')
+								.setLabel('First Page')
+								.setStyle('PRIMARY')
+						)
+						.addComponents(
+							new MessageButton()
+								.setCustomId('prev_page')
+								.setLabel('Previous Page')
+								.setStyle('PRIMARY')
+						)
+						.addComponents(
+							new MessageButton()
+								.setCustomId('next_page')
+								.setLabel('Next Page')
+								.setStyle('PRIMARY')
+						)
+						.addComponents(
+							new MessageButton()
+								.setCustomId('last_page')
+								.setLabel('Last Page')
+								.setStyle('PRIMARY')
+						);
 
-					const leftleft = msg.createReactionCollector(leftleftfilter, { idle: 30000, dispose: true });
-					const left = msg.createReactionCollector(leftfilter, { idle: 30000, dispose: true });
-					const right = msg.createReactionCollector(rightfilter, { idle: 30000, dispose: true });
-					const rightright = msg.createReactionCollector(rightrightfilter, { idle: 30000, dispose: true });
+					let filter;
+					if (message) {
+						await message.channel.send({
+							embeds: [agendaembed],
+							components: [row],
+						});
 
-					leftleft.on('collect', r => {
-						r.users.remove(message.author.id);
-						page = 1;
-						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-						getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-						msg.edit({ embeds: [agendaembed] });
+						filter = (btnInt) => {
+							return message.author.id === btnInt.user.id;
+						};
+					} else {
+						await msgInt.reply({
+							embeds: [agendaembed],
+							components: [row],
+						});
+
+						filter = (btnInt) => {
+							return msgInt.user.id === btnInt.user.id;
+						};
+					}
+
+					const collector = channel.createMessageComponentCollector({
+						filter,
+						time: 1000 * 10,
 					});
 
-					left.on('collect', r => {
-						r.users.remove(message.author.id);
-						page--;
-						if (page < 1) {
+					collector.on('collect', async i => {
+						if (i.customId === 'first_page') {
 							page = 1;
-						}
-						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-						getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-						msg.edit({ embeds: [agendaembed] });
-					});
-
-					right.on('collect', r => {
-						r.users.remove(message.author.id);
-						page++;
-						if (page > maxPage) {
+							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+							getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
+							await i.update({ embeds: [agendaembed], components: [row] });
+						};
+						if (i.customId === 'prev_page') {
+							page--;
+							if (page < 1) {
+								page = 1;
+							}
+							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+							getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
+							await i.update({ embeds: [agendaembed], components: [row] });
+						};
+						if (i.customId === 'next_page') {
+							page++;
+							if (page > maxPage) {
+								page = maxPage;
+							}
+							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+							getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
+							await i.update({ embeds: [agendaembed], components: [row] });
+						};
+						if (i.customId === 'last_page') {
 							page = maxPage;
-						}
-						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-						getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-						msg.edit({ embeds: [agendaembed] });
-					});
-
-					rightright.on('collect', r => {
-						r.users.remove(message.author.id);
-						page = maxPage;
-						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
-						getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
-						msg.edit({ embeds: [agendaembed] });
+							agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+							getfields(agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield);
+							await i.update({ embeds: [agendaembed], components: [row] });
+						};
 					});
 				}
-				*/
+				if (message) {
+					message.channel.send({ embeds: [agendaembed] });
+				} else {
+					msgInt.reply({ embeds: [agendaembed] });
+				}
 			} else if (page > maxPage) {
-				message.channel.send({ embeds: [invalidpageembed] });
+				if (message) {
+					message.channel.send({ embeds: [invalidpageembed] });
+				} else {
+					msgInt.reply({ embeds: [invalidpageembed] });
+				}
 			} else {
-				message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
+				if (message) {
+					message.channel.send('Incorrect syntax. Use b!agenda (Page Number)');
+				} else {
+					msgInt.reply('Incorrect syntax. Use b!agenda (Page Number)');
+				}
 			}
 		}
 	},

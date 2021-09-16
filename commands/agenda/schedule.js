@@ -8,12 +8,14 @@ const momentTimezone = require('moment-timezone');
 const ahelp = require('@helper/agendahelper');
 
 module.exports = {
+	slash: 'both',
 	name: 'schedule',
 	category: 'Agenda',
 	description: 'Set the time you\'ll receive your agenda daily.',
 	minArgs: 0,
 	maxArgs: 2,
-	expectedArgs: '<HH:MM (24h) or "off"> <Timezone/GMT offset>',
+	expectedArgs: '<hh mm or off> <timezone or gmt offset>',
+	testOnly: true,
 	init: (client) => {
 		const checkForPosts = async () => {
 			const now = new Date;
@@ -21,7 +23,6 @@ module.exports = {
 				//'date.hour': now.getHours(), //For Heroku
 				'date.hour': now.getHours() + 5,
 				'date.minute': now.getMinutes(),
-				//'date.second' : 0,
 			};
 
 			const result = await scheduleSchema.find(query);
@@ -120,14 +121,14 @@ module.exports = {
 							agendaembed.addField(customtitle, customtext);
 						}
 						client.users.fetch(id).then(user => {
-							user.send({embeds: [agendaembed] });
+							user.send({ embeds: [agendaembed] });
 						});
 					}
 				} else if (charresult.length > 0 && wepresult.length === 0) { // If MongoDB can find only characters
 					gettodaysChars(todaysChars, charresult);
 					if (todaysChars.length === 0) {
 						client.users.fetch(id).then(user => {
-							user.send({embeds: [nothingtodayembed] });
+							user.send({ embeds: [nothingtodayembed] });
 						});
 						return;
 					}
@@ -237,7 +238,7 @@ module.exports = {
 
 		checkForPosts();
 	},
-	callback: async ({ message, args, text }) => {
+	callback: async ({ message, args, text, interaction: msgInt }) => {
 		const { author } = message;
 		const { id } = author;
 
@@ -271,7 +272,11 @@ module.exports = {
 			} else {
 				embed.setDescription('Your agenda hasn\'t been scheduled yet! Run **b!schedule <HH:mm (24h)> <Timezone/GMT Offset>** to automatically receive a daily agenda.');
 			}
-			message.channel.send({ embeds: [embed] });
+			if (message) {
+				message.channel.send({ embeds: [embed] });
+			} else {
+				msgInt.reply({ embeds: [embed] });
+			}
 			return;
 		}
 
@@ -287,7 +292,11 @@ module.exports = {
 						name: 'Unsubscribing From Daily Reminder',
 						value: 'You will no longer receive your daily agenda in your DMs.',
 					});
-			message.channel.send({ embeds: [stopembed] });
+			if (message) {
+				message.channel.send({ embeds: [stopembed] });
+			} else {
+				msgInt.reply({ embeds: [stopembed] });
+			}
 			return;
 		}
 
@@ -331,12 +340,20 @@ module.exports = {
 		const extractTime = time.split(':');
 		let hour = Number(extractTime[0]);
 		if (hour < 0 || hour > 23) {
-			message.reply('Invalid time! Please use a valid hour.');
+			if (message) {
+				message.reply('Invalid time! Please use a valid hour.');
+			} else {
+				msgInt.reply('Invalid time! Please use a valid hour.');
+			}
 			return;
 		}
 		const minute = Number(extractTime[1]);
 		if (minute < 0 || minute > 59) {
-			message.reply('Invalid time! Please use a valid minute.');
+			if (message) {
+				message.reply('Invalid time! Please use a valid minute.');
+			} else {
+				msgInt.reply('Invalid time! Please use a valid minute.');
+			}
 			return;
 		}
 
@@ -348,7 +365,11 @@ module.exports = {
 					name: 'Scheduling Daily Reminder',
 					value: `You will receive your agenda in your DMs at **${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} GMT${GMToffset}**.`,
 				});
-		message.channel.send({ embeds: [startembed] });
+		if (message) {
+			message.channel.send({ embeds: [startembed] });
+		} else {
+			msgInt.send({ embeds: [startembed] });
+		}
 
 		hour += offset;
 		validatehour(hour);

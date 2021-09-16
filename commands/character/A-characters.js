@@ -8,7 +8,7 @@ module.exports = {
 	slash: 'both',
 	name: 'characters',
 	category: 'Characters',
-	description: 'Shows list of supported characters with ID\'s. Default page 1.',
+	description: 'Shows list of supported characters with ID\'s.',
 	minArgs: 0,
 	maxArgs: 1,
 	expectedArgs: '(page number)',

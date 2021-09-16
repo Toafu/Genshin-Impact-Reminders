@@ -8,7 +8,8 @@ module.exports = {
 		const msg = 'A detailed example can be found in the README of this GitHub repository: https://github.com/ToafdaLoaf/Genshin-Impact-Reminders/blob/stable/README.md';
 		if (message) {
 			message.channel.send(msg);
+		} else {
+			return msg;
 		}
-		return msg;
 	},
 };

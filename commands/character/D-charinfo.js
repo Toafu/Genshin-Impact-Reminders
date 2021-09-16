@@ -12,7 +12,8 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<id or character name>',
-	callback: ({ message, text }) => {
+	testOnly: true,
+	callback: ({ message, text, interaction: msgInt }) => {
 		let index;
 		const query = text.toLowerCase();
 		const querytest = Number(query);
@@ -67,15 +68,17 @@ module.exports = {
 				.setFooter('You don\'t have to follow these tips. Play the way you want to play!');
 			if (message) {
 				message.channel.send({ embeds: [embed] });
-				return;
+			} else {
+				msgInt.reply({ embeds: [embed] });
 			}
-			return embed;
+			return;
 		} else {
 			const error = `Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`;
 			if (message) {
 				message.channel.send(error);
+				return;
 			}
-			return error;
+			msgInt.reply(error);
 		}
 	},
 };
