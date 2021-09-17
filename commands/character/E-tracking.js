@@ -35,7 +35,7 @@ module.exports = {
 				{
 					name: `${author}, this list is empty.`,
 					value: 'You currently aren\'t tracking anyone. Add some characters with b!add <ID/Character>.',
-				});			
+				});
 
 		const result = await savedCharacterSchema.find({
 			_id: id,
@@ -74,100 +74,100 @@ module.exports = {
 					.setColor('#00FF97')
 					.setFooter(`Page ${page} of ${maxPage}`)
 					.addField(name, list);
-				
+
 				if (maxPage > 1) {
 					const row = new MessageActionRow()
 						.addComponents(
-					new MessageButton()
-						.setCustomId('first_page')
-						.setLabel('First Page')
-						.setStyle('PRIMARY')
-				)
+							new MessageButton()
+								.setCustomId('first_page')
+								.setLabel('First Page')
+								.setStyle('PRIMARY')
+						)
 						.addComponents(
-					new MessageButton()
-						.setCustomId('prev_page')
-						.setLabel('Previous Page')
-						.setStyle('PRIMARY')
-				)
+							new MessageButton()
+								.setCustomId('prev_page')
+								.setLabel('Previous Page')
+								.setStyle('PRIMARY')
+						)
 						.addComponents(
-					new MessageButton()
-						.setCustomId('next_page')
-						.setLabel('Next Page')
-						.setStyle('PRIMARY')
-				)
+							new MessageButton()
+								.setCustomId('next_page')
+								.setLabel('Next Page')
+								.setStyle('PRIMARY')
+						)
 						.addComponents(
-					new MessageButton()
-						.setCustomId('last_page')
-						.setLabel('Last Page')
-						.setStyle('PRIMARY')
-				)
+							new MessageButton()
+								.setCustomId('last_page')
+								.setLabel('Last Page')
+								.setStyle('PRIMARY')
+						);
 
-				let filter;
-				if (message) {
-					await message.channel.send({
-						embeds: [embed],
-						components: [row],
+					let filter;
+					if (message) {
+						await message.channel.send({
+							embeds: [embed],
+							components: [row],
+						});
+
+						filter = (btnInt) => {
+							return message.author.id === btnInt.user.id;
+						};
+					} else {
+						await msgInt.reply({
+							embeds: [embed],
+							components: [row],
+						});
+
+						filter = (btnInt) => {
+							return msgInt.user.id === btnInt.user.id;
+						};
+					}
+
+					const collector = channel.createMessageComponentCollector({
+						filter,
+						time: 1000 * 10,
 					});
 
-					filter = (btnInt) => {
-						return message.author.id === btnInt.user.id;
-					};
-				} else {
-					await msgInt.reply({
-						embeds: [embed],
-						components: [row],
-					});
-
-					filter = (btnInt) => {
-						return msgInt.user.id === btnInt.user.id;
-					};
-				}
-
-				const collector = channel.createMessageComponentCollector({
-					filter,
-					time: 1000 * 10,
-				});
-
-				collector.on('collect', async i => {
-					if (i.customId === 'first_page') {
-						page = 1;
-						embed.setFooter(`Page ${page} of ${maxPage}`);
-						list = getlist(page);
-						embed.fields = [];
-						embed.addField(name, list);
-						await i.update({ embeds: [embed], components: [row] });
-					};
-					if (i.customId === 'prev_page') {
-						page--;
-						if (page < 1) {
+					collector.on('collect', async i => {
+						if (i.customId === 'first_page') {
 							page = 1;
-						}
-						embed.setFooter(`Page ${page} of ${maxPage}`);
-						list = getlist(page);
-						embed.fields = [];
-						embed.addField(name, list);
-						await i.update({ embeds: [embed], components: [row] });
-					};
-					if (i.customId === 'next_page') {
-						page++;
-						if (page > maxPage) {
+							embed.setFooter(`Page ${page} of ${maxPage}`);
+							list = getlist(page);
+							embed.fields = [];
+							embed.addField(name, list);
+							await i.update({ embeds: [embed], components: [row] });
+						};
+						if (i.customId === 'prev_page') {
+							page--;
+							if (page < 1) {
+								page = 1;
+							}
+							embed.setFooter(`Page ${page} of ${maxPage}`);
+							list = getlist(page);
+							embed.fields = [];
+							embed.addField(name, list);
+							await i.update({ embeds: [embed], components: [row] });
+						};
+						if (i.customId === 'next_page') {
+							page++;
+							if (page > maxPage) {
+								page = maxPage;
+							}
+							embed.setFooter(`Page ${page} of ${maxPage}`);
+							list = getlist(page);
+							embed.fields = [];
+							embed.addField(name, list);
+							await i.update({ embeds: [embed], components: [row] });
+						};
+						if (i.customId === 'last_page') {
 							page = maxPage;
-						}
-						embed.setFooter(`Page ${page} of ${maxPage}`);
-						list = getlist(page);
-						embed.fields = [];
-						embed.addField(name, list);
-						await i.update({ embeds: [embed], components: [row] });
-					};
-					if (i.customId === 'last_page') {
-						page = maxPage;
-						embed.setFooter(`Page ${page} of ${maxPage}`);
-						list = getlist(page);
-						embed.fields = [];
-						embed.addField(name, list);
-						await i.update({ embeds: [embed], components: [row] });
-					};
-				});
+							embed.setFooter(`Page ${page} of ${maxPage}`);
+							list = getlist(page);
+							embed.fields = [];
+							embed.addField(name, list);
+							await i.update({ embeds: [embed], components: [row] });
+						};
+					});
 				}
 
 				if (message) {

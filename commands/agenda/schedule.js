@@ -254,7 +254,7 @@ module.exports = {
 			const query = { _id: id };
 			const result = await scheduleSchema.find(query);
 			const embed = new Discord.MessageEmbed()
-					.setTitle('Check Scheduled Time');
+				.setTitle('Check Scheduled Time');
 			if (result.length > 0) {
 				const hour = result[0].date.hour;
 				const minute = String(result[0].date.minute).padStart(2, '0');

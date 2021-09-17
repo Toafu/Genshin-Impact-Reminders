@@ -30,95 +30,95 @@ const getEmote = string => {
 	let words = string.toString().split(/[\n\t\r\s]+/);
 	for (let i = 0; i < words.length; i++) {
 		switch (words[i]) {
-		case 'Anemo':
-			words[i] = emotes.Anemo;
-			break;
-		case 'Cryo':
-			words[i] = emotes.Cryo;
-			break;
-		case 'Hydro':
-			words[i] = emotes.Hydro;
-			break;
-		case 'Electro':
-			words[i] = emotes.Electro;
-			break;
-		case 'Dendro':
-			words[i] = emotes.Dendro;
-			break;
-		case 'Pyro':
-			words[i] = emotes.Pyro;
-			break;
-		case 'Geo':
-			words[i] = emotes.Geo;
-			break;
-		case 'Decarabian\'s':
-			words[i] = `Decarabian's Stones ${emotes.Decarabian}`;
-			words.splice(i + 1, 1);
-			break;
-		case 'Dandelion':
-			words[i] = `Dandelion Gladiator Chains ${emotes.Chain}`;
-			words.splice(i + 1, 2);
-			break;
-		case 'Boreal':
-			words[i] = `Boreal Wolf's Teeth ${emotes.Tooth}`;
-			words.splice(i + 1, 2);
-			break;
-		case 'Guyun':
-			words[i] = `Guyun Stones ${emotes.Guyun}`;
-			words.splice(i + 1, 1);
-			break;
-		case 'Mist':
-			words[i] = `Mist Veiled Elixir ${emotes.Elixir}`;
-			words.splice(i + 1, 2);
-			break;
-		case 'Aerosiderite':
-			words[i] = `Aerosiderite ${emotes.Aerosiderite}`;
-			break;
-		case 'Dvalin\'s':
-			if (words[i + 1] === 'Sigh') {
-				words[i + 1] = `Sighs ${emotes.Sigh}`;
-			} else if (words[i + 1] === 'Plumes') {
-				words[i + 1] = `Plume ${emotes.Plume}`;
-			} else if (words[i + 1] === 'Claw') {
-				words[i + 1] = `Claws ${emotes.Claw}`;
-			}
-			break;
-		case 'Ring':
-			words[i] = `Rings of Boreas ${emotes.Ring}`;
-			words.splice(i + 1, 2);
-			break;
-		case 'Spirit':
-			words[i] = `Spirit Lockets of Boreas ${emotes.Locket}`;
-			words.splice(i + 1, 3);
-			break;
-		case 'Tail':
-			words[i] = `Tails of Boreas ${emotes.Tail}`;
-			words.splice(i + 1, 2);
-			break;
-		case 'Tusk':
-			words[i] = `Tusks of Monoceros Caeli ${emotes.Tusk}`;
-			words.splice(i + 1, 3);
-			break;
-		case 'Shard':
-			words[i] = `Shards of a Foul Legacy ${emotes.Shard}`;
-			words.splice(i + 1, 4);
-			break;
-		case 'Shadow':
-			words[i] = `Shadows of the Warrior ${emotes.Shadow}`;
-			words.splice(i + 1, 3);
-			break;
-		case 'Dragon':
-			words[i] = `Dragon Lord's Crowns ${emotes.Crown}`;
-			words.splice(i + 1, 2);
-			break;
-		case 'Bloodjade':
-			words[i] = `Bloodjade Branches ${emotes.Branch}`;
-			words.splice(i + 1, 1);
-			break;
-		case 'Gilded':
-			words[i] = `Gilded Scales ${emotes.Scale}`;
-			words.splice(i + 1, 1);
-			break;
+			case 'Anemo':
+				words[i] = emotes.Anemo;
+				break;
+			case 'Cryo':
+				words[i] = emotes.Cryo;
+				break;
+			case 'Hydro':
+				words[i] = emotes.Hydro;
+				break;
+			case 'Electro':
+				words[i] = emotes.Electro;
+				break;
+			case 'Dendro':
+				words[i] = emotes.Dendro;
+				break;
+			case 'Pyro':
+				words[i] = emotes.Pyro;
+				break;
+			case 'Geo':
+				words[i] = emotes.Geo;
+				break;
+			case 'Decarabian\'s':
+				words[i] = `Decarabian's Stones ${emotes.Decarabian}`;
+				words.splice(i + 1, 1);
+				break;
+			case 'Dandelion':
+				words[i] = `Dandelion Gladiator Chains ${emotes.Chain}`;
+				words.splice(i + 1, 2);
+				break;
+			case 'Boreal':
+				words[i] = `Boreal Wolf's Teeth ${emotes.Tooth}`;
+				words.splice(i + 1, 2);
+				break;
+			case 'Guyun':
+				words[i] = `Guyun Stones ${emotes.Guyun}`;
+				words.splice(i + 1, 1);
+				break;
+			case 'Mist':
+				words[i] = `Mist Veiled Elixir ${emotes.Elixir}`;
+				words.splice(i + 1, 2);
+				break;
+			case 'Aerosiderite':
+				words[i] = `Aerosiderite ${emotes.Aerosiderite}`;
+				break;
+			case 'Dvalin\'s':
+				if (words[i + 1] === 'Sigh') {
+					words[i + 1] = `Sighs ${emotes.Sigh}`;
+				} else if (words[i + 1] === 'Plumes') {
+					words[i + 1] = `Plume ${emotes.Plume}`;
+				} else if (words[i + 1] === 'Claw') {
+					words[i + 1] = `Claws ${emotes.Claw}`;
+				}
+				break;
+			case 'Ring':
+				words[i] = `Rings of Boreas ${emotes.Ring}`;
+				words.splice(i + 1, 2);
+				break;
+			case 'Spirit':
+				words[i] = `Spirit Lockets of Boreas ${emotes.Locket}`;
+				words.splice(i + 1, 3);
+				break;
+			case 'Tail':
+				words[i] = `Tails of Boreas ${emotes.Tail}`;
+				words.splice(i + 1, 2);
+				break;
+			case 'Tusk':
+				words[i] = `Tusks of Monoceros Caeli ${emotes.Tusk}`;
+				words.splice(i + 1, 3);
+				break;
+			case 'Shard':
+				words[i] = `Shards of a Foul Legacy ${emotes.Shard}`;
+				words.splice(i + 1, 4);
+				break;
+			case 'Shadow':
+				words[i] = `Shadows of the Warrior ${emotes.Shadow}`;
+				words.splice(i + 1, 3);
+				break;
+			case 'Dragon':
+				words[i] = `Dragon Lord's Crowns ${emotes.Crown}`;
+				words.splice(i + 1, 2);
+				break;
+			case 'Bloodjade':
+				words[i] = `Bloodjade Branches ${emotes.Branch}`;
+				words.splice(i + 1, 1);
+				break;
+			case 'Gilded':
+				words[i] = `Gilded Scales ${emotes.Scale}`;
+				words.splice(i + 1, 1);
+				break;
 		}
 	}
 

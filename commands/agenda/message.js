@@ -10,7 +10,7 @@ module.exports = {
 	maxArgs: 200,
 	expectedArgs: '(Message)',
 	testOnly: true,
-	callback:  async ({ message, args, text, interaction: msgInt }) => {
+	callback: async ({ message, args, text, interaction: msgInt }) => {
 		let id;
 		if (message) {
 			id = message.author.id;
@@ -40,7 +40,7 @@ module.exports = {
 				} else {
 					msgInt.reply({ embeds: [clearembed] });
 				}
-				
+
 				return;
 			}
 
@@ -68,7 +68,7 @@ module.exports = {
 			} else {
 				msgInt.reply({ embeds: [updatedembed] });
 			}
-			
+
 		} else {
 			const result = await savedMessageSchema.find({ _id: id });
 			if (result.length === 0) {
@@ -81,18 +81,18 @@ module.exports = {
 				} else {
 					msgInt.reply({ embeds: [nothingembed] });
 				}
-				
+
 			} else {
 				const showembed = new Discord.MessageEmbed()
 					.setTitle(`${author}, this message is currently showing at the bottom of your agenda:`)
 					.setColor('#00FF97')
 					.setDescription(result[0].savedMessage);
 				if (message) {
-					message.channel.send({ embeds: [showembed] });	
+					message.channel.send({ embeds: [showembed] });
 				} else {
 					msgInt.reply({ embeds: [showembed] });
 				}
-				
+
 			}
 		}
 	},

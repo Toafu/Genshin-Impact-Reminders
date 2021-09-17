@@ -71,7 +71,7 @@ module.exports = {
 				index = querytest;
 			}
 
-			if(index >= 0 && index < characters.length) {
+			if (index >= 0 && index < characters.length) {
 				await savedCharacterSchema.findOneAndUpdate({
 					_id: id,
 				}, {

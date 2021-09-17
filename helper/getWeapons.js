@@ -24,13 +24,13 @@ const getWeapons = () => {
 		const text = data.toString();
 		const word = text.split(/[\n\t\r]+/);
 		let i = 0;
-		while(word.length > 0) {
+		while (word.length > 0) {
 			weapons[i] = (weaponRead(word[0], word[1], word[2], i, word[3], word[4], word[5], word[6], word[7], word[8], word[9], word[10], word[11]));
 			word.splice(0, 12);
 			i += 1;
 		}
 		weapons.forEach(weapon => {
-			if(weapon.passive.startsWith('"')) {
+			if (weapon.passive.startsWith('"')) {
 				weapon.passive = weapon.passive.substring(1, weapon.passive.length - 1);
 			}
 		});

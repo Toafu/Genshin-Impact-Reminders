@@ -106,10 +106,10 @@ module.exports = {
 			const loclist = getlocations(todaysChars, todaysWeps);
 
 			const invalidpageembed = new Discord.MessageEmbed()
-			.setTitle(title)
-			.setColor('#00FF97')
-			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
-			.setFooter('>:(');
+				.setTitle(title)
+				.setColor('#00FF97')
+				.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
+				.setFooter('>:(');
 
 			let wepfield = {
 				name: wepname,
@@ -310,10 +310,10 @@ module.exports = {
 			const loclist = getlocations(todaysChars, todaysWeps);
 
 			const invalidpageembed = new Discord.MessageEmbed()
-			.setTitle(title)
-			.setColor('#00FF97')
-			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
-			.setFooter('>:(');
+				.setTitle(title)
+				.setColor('#00FF97')
+				.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
+				.setFooter('>:(');
 
 			let charfield = {
 				name: charname,
@@ -531,10 +531,10 @@ module.exports = {
 			const loclist = getlocations(todaysChars, todaysWeps);
 
 			const invalidpageembed = new Discord.MessageEmbed()
-			.setTitle(title)
-			.setColor('#00FF97')
-			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
-			.setFooter('>:(');
+				.setTitle(title)
+				.setColor('#00FF97')
+				.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
+				.setFooter('>:(');
 
 			const charfield = {
 				name: charname,

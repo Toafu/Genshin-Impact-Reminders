@@ -28,7 +28,7 @@ module.exports = {
 		} else {
 			author = msgInt.user.username;
 		}
-		
+
 		const query = text.toLowerCase();
 		let index;
 
@@ -76,7 +76,7 @@ module.exports = {
 				index = querytest;
 			}
 
-			if(index >= 0 && index < characters.length) {
+			if (index >= 0 && index < characters.length) {
 				await savedCharacterSchema.findOneAndUpdate({
 					_id: id,
 				}, {
@@ -95,7 +95,7 @@ module.exports = {
 			success[success.length - 1] = 'and ' + success[success.length - 1];
 			success = success.toString().replace(/,/g, ', ');
 		}
-		
+
 		const embed = new Discord.MessageEmbed()
 			.setColor('#00FF97')
 			.setAuthor(author);

@@ -42,9 +42,9 @@ module.exports = {
 				.addField('Removing All Weapons', 'You unequipped all weapons.');
 			if (message) {
 				message.channel.send({ embeds: [removeallembed] });
-				return;
+			} else {
+				msgInt.reply({ embeds: [removeallembed] });
 			}
-			msgInt.reply({ embeds: [removeallembed] });f
 			return;
 		}
 
@@ -65,7 +65,7 @@ module.exports = {
 				index = querytest;
 			}
 
-			if(index >= 0 && index < weapons.length) {
+			if (index >= 0 && index < weapons.length) {
 				await savedWeaponSchema.findOneAndUpdate({
 					_id: id,
 				}, {

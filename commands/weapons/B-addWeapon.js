@@ -44,10 +44,10 @@ module.exports = {
 				.setColor('#00FF97')
 				.setAuthor(author)
 				.addField('Adding All Weapons', 'I hope you realized what you just did.');
-				if (message) {
-					message.channel.send({ embeds: [addallweaponsembed] });
-					return;
-				}
+			if (message) {
+				message.channel.send({ embeds: [addallweaponsembed] });
+				return;
+			}
 			msgInt.reply({ embeds: [addallweaponsembed] });
 			return;
 		}
@@ -69,7 +69,7 @@ module.exports = {
 				index = querytest;
 			}
 
-			if(index >= 0 && index < weapons.length) {
+			if (index >= 0 && index < weapons.length) {
 				await savedWeaponSchema.findOneAndUpdate({
 					_id: id,
 				}, {

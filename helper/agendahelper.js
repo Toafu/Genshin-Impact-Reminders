@@ -95,7 +95,7 @@ exports.getMaterials = getMaterials;
 const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, customtitle, customtext) => {
 	const gettodaysChars = (todaysChars, charresult) => {
 		for (let i = 0; i < charresult[0].savedCharacters.length; i++) {
-			if(charresult[0].savedCharacters[i].days.includes(day)) {
+			if (charresult[0].savedCharacters[i].days.includes(day)) {
 				todaysChars.push(charresult[0].savedCharacters[i]);
 			}
 		}
@@ -103,7 +103,7 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 
 	const gettodaysWeps = (todaysWeps, wepresult) => {
 		for (let i = 0; i < wepresult[0].savedWeapons.length; i++) {
-			if(wepresult[0].savedWeapons[i].days.includes(day)) {
+			if (wepresult[0].savedWeapons[i].days.includes(day)) {
 				todaysWeps.push(wepresult[0].savedWeapons[i]);
 			}
 		}

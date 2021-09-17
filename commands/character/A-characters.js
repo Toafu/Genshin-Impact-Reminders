@@ -82,74 +82,74 @@ module.exports = {
 						.setCustomId('last_page')
 						.setLabel('Last Page')
 						.setStyle('PRIMARY')
-				)
+				);
 
-				let filter;
-				if (message) {
-					await message.channel.send({
-						embeds: [embed],
-						components: [row],
-					});
-
-					filter = (btnInt) => {
-						return message.author.id === btnInt.user.id;
-					};
-				} else {
-					await msgInt.reply({
-						embeds: [embed],
-						components: [row],
-					});
-
-					filter = (btnInt) => {
-						return msgInt.user.id === btnInt.user.id;
-					};
-				}
-
-				const collector = channel.createMessageComponentCollector({
-					filter,
-					time: 1000 * 10,
+			let filter;
+			if (message) {
+				await message.channel.send({
+					embeds: [embed],
+					components: [row],
 				});
 
-				collector.on('collect', async i => {
-					if (i.customId === 'first_page') {
+				filter = (btnInt) => {
+					return message.author.id === btnInt.user.id;
+				};
+			} else {
+				await msgInt.reply({
+					embeds: [embed],
+					components: [row],
+				});
+
+				filter = (btnInt) => {
+					return msgInt.user.id === btnInt.user.id;
+				};
+			}
+
+			const collector = channel.createMessageComponentCollector({
+				filter,
+				time: 1000 * 10,
+			});
+
+			collector.on('collect', async i => {
+				if (i.customId === 'first_page') {
+					page = 1;
+					embed.setFooter(`Page ${page} of ${maxPage}`);
+					list = getlist(page);
+					embed.fields = [];
+					embed.addField(name, list);
+					await i.update({ embeds: [embed], components: [row] });
+				};
+				if (i.customId === 'prev_page') {
+					page--;
+					if (page < 1) {
 						page = 1;
-						embed.setFooter(`Page ${page} of ${maxPage}`);
-						list = getlist(page);
-						embed.fields = [];
-						embed.addField(name, list);
-						await i.update({ embeds: [embed], components: [row] });
-					};
-					if (i.customId === 'prev_page') {
-						page--;
-						if (page < 1) {
-							page = 1;
-						}
-						embed.setFooter(`Page ${page} of ${maxPage}`);
-						list = getlist(page);
-						embed.fields = [];
-						embed.addField(name, list);
-						await i.update({ embeds: [embed], components: [row] });
-					};
-					if (i.customId === 'next_page') {
-						page++;
-						if (page > maxPage) {
-							page = maxPage;
-						}
-						embed.setFooter(`Page ${page} of ${maxPage}`);
-						list = getlist(page);
-						embed.fields = [];
-						embed.addField(name, list);
-						await i.update({ embeds: [embed], components: [row] });
-					};
-					if (i.customId === 'last_page') {
+					}
+					embed.setFooter(`Page ${page} of ${maxPage}`);
+					list = getlist(page);
+					embed.fields = [];
+					embed.addField(name, list);
+					await i.update({ embeds: [embed], components: [row] });
+				};
+				if (i.customId === 'next_page') {
+					page++;
+					if (page > maxPage) {
 						page = maxPage;
-						embed.setFooter(`Page ${page} of ${maxPage}`);
-						list = getlist(page);
-						embed.fields = [];
-						embed.addField(name, list);
-						await i.update({ embeds: [embed], components: [row] });
-					};
-				});
+					}
+					embed.setFooter(`Page ${page} of ${maxPage}`);
+					list = getlist(page);
+					embed.fields = [];
+					embed.addField(name, list);
+					await i.update({ embeds: [embed], components: [row] });
+				};
+				if (i.customId === 'last_page') {
+					page = maxPage;
+					embed.setFooter(`Page ${page} of ${maxPage}`);
+					list = getlist(page);
+					embed.fields = [];
+					embed.addField(name, list);
+					await i.update({ embeds: [embed], components: [row] });
+				};
+			});
 			return;
 		} else if (page > maxPage) {
 			const embed = new Discord.MessageEmbed()
