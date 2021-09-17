@@ -92,7 +92,7 @@ module.exports = {
 					}
 					sortWeps(todaysWeps);
 					const wepagenda = [];
-					todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}.**`));
+					todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}**`));
 					const maxPage = Math.ceil(todaysWeps.length / 10);
 					for (page = 1; page <= maxPage; page++) {
 						const finalweplist = getfinalweplist(wepagenda, page);
@@ -239,8 +239,19 @@ module.exports = {
 		checkForPosts();
 	},
 	callback: async ({ message, args, text, interaction: msgInt }) => {
-		const { author } = message;
-		const { id } = author;
+		let id;
+		if (message) {
+			id = message.author.id;
+		} else {
+			id = msgInt.user.id;
+		}
+
+		let author;
+		if (message) {
+			author = message.author.username;
+		} else {
+			author = msgInt.user.username;
+		}
 
 		const validatehour = hour => {
 			if (hour < 0) {
@@ -286,7 +297,7 @@ module.exports = {
 			});
 			const stopembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
-				.setAuthor(message.author.username)
+				.setAuthor(author)
 				.addFields(
 					{
 						name: 'Unsubscribing From Daily Reminder',
@@ -359,7 +370,7 @@ module.exports = {
 
 		const startembed = new Discord.MessageEmbed()
 			.setColor('#00FF97')
-			.setAuthor(message.author.username)
+			.setAuthor(author)
 			.addFields(
 				{
 					name: 'Scheduling Daily Reminder',
