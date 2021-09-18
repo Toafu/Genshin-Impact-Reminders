@@ -15,7 +15,7 @@ module.exports = {
 	minArgs: 0,
 	maxArgs: 2,
 	expectedArgs: '<hh mm or off> <timezone or gmt offset>',
-	testOnly: true,
+	//testOnly: true,
 	init: (client) => {
 		const checkForPosts = async () => {
 			const now = new Date;

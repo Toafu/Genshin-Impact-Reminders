@@ -10,7 +10,7 @@ module.exports = {
 	minArgs: 0,
 	maxArgs: 1,
 	expectedArgs: '(Page Number)',
-	testOnly: true,
+	//testOnly: true,
 	callback: async ({ message, args, interaction: msgInt, channel }) => {
 		let id;
 		if (message) {

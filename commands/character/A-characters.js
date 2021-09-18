@@ -12,7 +12,7 @@ module.exports = {
 	minArgs: 0,
 	maxArgs: 1,
 	expectedArgs: '(page number)',
-	testOnly: true,
+	//testOnly: true,
 	callback: async ({ message, args, text, interaction: msgInt, channel }) => {
 		const getlist = page => {
 			const arrayList = [];

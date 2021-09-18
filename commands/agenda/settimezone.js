@@ -10,7 +10,7 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: 1,
 	expectedArgs: '<na or eu or asia>',
-	testOnly: true,
+	//testOnly: true,
 	callback: async ({ message, text, interaction: msgInt }) => {
 		let id;
 		if (message) {

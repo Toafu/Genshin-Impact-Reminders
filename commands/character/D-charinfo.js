@@ -12,7 +12,7 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<id or character name>',
-	testOnly: true,
+	//testOnly: true,
 	callback: ({ message, text, interaction: msgInt }) => {
 		let index;
 		const query = text.toLowerCase();

@@ -9,7 +9,7 @@ module.exports = {
 	minArgs: 0,
 	maxArgs: 200,
 	expectedArgs: '(Message)',
-	testOnly: true,
+	//testOnly: true,
 	callback: async ({ message, args, text, interaction: msgInt }) => {
 		let id;
 		if (message) {

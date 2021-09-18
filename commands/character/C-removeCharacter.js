@@ -13,7 +13,7 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: '<id or character name>',
-	testOnly: true,
+	//testOnly: true,
 	callback: async ({ message, text, interaction: msgInt }) => {
 		let id;
 		if (message) {
