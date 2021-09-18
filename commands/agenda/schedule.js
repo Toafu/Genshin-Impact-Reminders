@@ -379,7 +379,7 @@ module.exports = {
 		if (message) {
 			message.channel.send({ embeds: [startembed] });
 		} else {
-			msgInt.send({ embeds: [startembed] });
+			msgInt.reply({ embeds: [startembed] });
 		}
 
 		hour += offset;
