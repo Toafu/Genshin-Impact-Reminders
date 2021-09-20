@@ -127,7 +127,6 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		if (finalcharlist.length === 0) {
 			return 'No more characters to view';
 		}
-		//finalcharlist = finalcharlist.join('\n');
 		return finalcharlist.join('\n');
 	};
 
@@ -141,7 +140,6 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		if (finalweplist.length === 0) {
 			return 'No more weapons to view';
 		}
-		// finalweplist = finalweplist.join('\n');
 		return finalweplist.join('\n');
 	};
 

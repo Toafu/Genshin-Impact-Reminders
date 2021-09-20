@@ -25,9 +25,17 @@ module.exports = {
 			return list;
 		};
 
+		const updateEmbed = (embed, page) => {
+			const name = 'A→Z\n[ID] [Name] [Element]';
+			embed.setFooter(`Page ${page} of ${maxPage}`);
+			list = getlist(page);
+			embed.fields = [];
+			embed.addField(name, list);
+		}
+
 		const maxPage = Math.ceil(characters.length / 20);
 
-		if (text.toLowerCase() === 'all') {
+		if (text.toLowerCase() === 'all' && message) {
 			const name = 'A→Z\n[ID] [Name] [Element]';
 
 			for (let page = 1; page <= maxPage; page++) {
@@ -37,7 +45,6 @@ module.exports = {
 					.setColor('#00FF97')
 					.setFooter(`Page ${page} of ${maxPage}`)
 					.addField(name, list);
-
 				message.channel.send({ embeds: [embed] });
 			}
 			return;
@@ -107,16 +114,13 @@ module.exports = {
 
 			const collector = channel.createMessageComponentCollector({
 				filter,
-				time: 1000 * 10,
+				idle: 1000 * 10,
 			});
 
 			collector.on('collect', async i => {
 				if (i.customId === 'first_page') {
 					page = 1;
-					embed.setFooter(`Page ${page} of ${maxPage}`);
-					list = getlist(page);
-					embed.fields = [];
-					embed.addField(name, list);
+					updateEmbed(embed, page);
 					await i.update({ embeds: [embed], components: [row] });
 				};
 				if (i.customId === 'prev_page') {
@@ -124,10 +128,7 @@ module.exports = {
 					if (page < 1) {
 						page = 1;
 					}
-					embed.setFooter(`Page ${page} of ${maxPage}`);
-					list = getlist(page);
-					embed.fields = [];
-					embed.addField(name, list);
+					updateEmbed(embed, page);
 					await i.update({ embeds: [embed], components: [row] });
 				};
 				if (i.customId === 'next_page') {
@@ -135,18 +136,12 @@ module.exports = {
 					if (page > maxPage) {
 						page = maxPage;
 					}
-					embed.setFooter(`Page ${page} of ${maxPage}`);
-					list = getlist(page);
-					embed.fields = [];
-					embed.addField(name, list);
+					updateEmbed(embed, page);
 					await i.update({ embeds: [embed], components: [row] });
 				};
 				if (i.customId === 'last_page') {
 					page = maxPage;
-					embed.setFooter(`Page ${page} of ${maxPage}`);
-					list = getlist(page);
-					embed.fields = [];
-					embed.addField(name, list);
+					updateEmbed(embed, page);
 					await i.update({ embeds: [embed], components: [row] });
 				};
 			});

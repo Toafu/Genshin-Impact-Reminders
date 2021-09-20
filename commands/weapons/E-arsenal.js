@@ -11,6 +11,14 @@ module.exports = {
 	expectedArgs: '(Page Number)',
 	//testOnly: true,
 	callback: async ({ message, args, interaction: msgInt, channel }) => {
+		const updateEmbed = (embed, page) => {
+			const name = 'You are currently spending countless hours upgrading:'
+			embed.setFooter(`Page ${page} of ${maxPage}`);
+			list = getlist(page);
+			embed.fields = [];
+			embed.addField(name, list);
+		}
+		
 		let id;
 		if (message) {
 			id = message.author.id;
@@ -131,10 +139,7 @@ module.exports = {
 					collector.on('collect', async i => {
 						if (i.customId === 'first_page') {
 							page = 1;
-							embed.setFooter(`Page ${page} of ${maxPage}`);
-							list = getlist(page);
-							embed.fields = [];
-							embed.addField(name, list);
+							updateEmbed(embed, page);
 							await i.update({ embeds: [embed], components: [row] });
 						};
 						if (i.customId === 'prev_page') {
@@ -142,10 +147,7 @@ module.exports = {
 							if (page < 1) {
 								page = 1;
 							}
-							embed.setFooter(`Page ${page} of ${maxPage}`);
-							list = getlist(page);
-							embed.fields = [];
-							embed.addField(name, list);
+							updateEmbed(embed, page);
 							await i.update({ embeds: [embed], components: [row] });
 						};
 						if (i.customId === 'next_page') {
@@ -153,18 +155,12 @@ module.exports = {
 							if (page > maxPage) {
 								page = maxPage;
 							}
-							embed.setFooter(`Page ${page} of ${maxPage}`);
-							list = getlist(page);
-							embed.fields = [];
-							embed.addField(name, list);
+							updateEmbed(embed, page);
 							await i.update({ embeds: [embed], components: [row] });
 						};
 						if (i.customId === 'last_page') {
 							page = maxPage;
-							embed.setFooter(`Page ${page} of ${maxPage}`);
-							list = getlist(page);
-							embed.fields = [];
-							embed.addField(name, list);
+							updateEmbed(embed, page);
 							await i.update({ embeds: [embed], components: [row] });
 						};
 					});
