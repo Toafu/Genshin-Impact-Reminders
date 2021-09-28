@@ -40,7 +40,7 @@ module.exports = {
 			for (let page = 1; page <= maxPage; page++) {
 				let list = getlist(page);
 				const embed = new Discord.MessageEmbed()
-					.setTitle('__Supported Character List__')
+					.setTitle('__Supported Weapons List__')
 					.setColor('#00FF97')
 					.setFooter(`Page ${page} of ${maxPage}`)
 					.addField(name, list);
