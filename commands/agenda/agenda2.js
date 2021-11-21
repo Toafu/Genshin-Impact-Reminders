@@ -8,6 +8,7 @@ const ahelp = require('@helper/agendahelper');
 module.exports = {
 	slash: 'both',
 	name: 'agenda2',
+	aliases: 'testagenda',
 	category: 'Agenda',
 	description: 'View what materials you can farm for your tracked characters and weapons. Default page 1.',
 	minArgs: 0,
