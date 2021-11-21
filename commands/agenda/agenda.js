@@ -9,7 +9,7 @@ module.exports = {
 	slash: 'both',
 	name: 'agenda',
 	category: 'Agenda',
-	description: 'View what materials you can farm for your tracked characters and weapons. Default page 1.',
+	description: 'View what materials you can farm for your tracked characters and weapons.',
 	minArgs: 0,
 	maxArgs: 1,
 	expectedArgs: '(page number)',
@@ -31,7 +31,9 @@ module.exports = {
 
 		const zone = await timezoneSchema.find({ _id: id });
 		const { server, offset } = ahelp.getTimeZone(zone);
-		const { day, title, logo } = ahelp.getTime(server, offset);
+		const { day, agendaday, title, logo } = ahelp.getTime(server, offset);
+		console.log(`Today is actually ${day}.`);
+		console.log(`The materials shown are from ${agendaday}.`);
 		const { nocharstoday, nowepstoday, nothing } = ahelp.getNothingFields();
 
 		const nothingtodayembed = new Discord.MessageEmbed()
@@ -41,7 +43,7 @@ module.exports = {
 			.setColor('#00FF97')
 			.addField('You don\'t need to farm today (or you aren\'t tracking anything yet!).', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
 
-		const availablematerials = ahelp.getMaterials(day);
+		const availablematerials = ahelp.getMaterials(agendaday);
 
 		let page;
 		if (!args[0]) {
@@ -66,7 +68,7 @@ module.exports = {
 			customtitle = '__Your Custom Message__';
 		}
 
-		const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations, getfields } = ahelp.getFunctions(day, page, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
+		const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations, getfields } = ahelp.getFunctions(agendaday, page, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
 
 		const charname = '__Today\'s Talents__';
 		const wepname = '__Today\'s Weapons__';

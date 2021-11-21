@@ -26,6 +26,7 @@ exports.getTimeZone = getTimeZone;
 
 const getTime = (server, offset) => {
 	const day = today.todayIs(offset);
+	const agendaday = today.todayIs(offset - 4);
 	const time = today.timeIs(offset);
 	const hours = String(time.getHours()).padStart(2, '0');
 	const minutes = String(time.getMinutes()).padStart(2, '0');
@@ -35,6 +36,7 @@ const getTime = (server, offset) => {
 
 	const timeInfo = {
 		day,
+		agendaday,
 		title,
 		logo,
 	};
