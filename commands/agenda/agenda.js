@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { MessageActionRow, MessageButton } = Discord;
 const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const savedWeaponSchema = require('@schemas/savedweapon-schema');
 const savedMessageSchema = require('@schemas/custommessage-schema');
@@ -266,12 +267,13 @@ module.exports = {
 								await i.update({ embeds: [agendaembed], components: [row] });
 							};
 						});
-					}
-					if (message) {
-						message.channel.send({ embeds: [agendaembed] });
 					} else {
-						msgInt.reply({ embeds: [agendaembed] });
-					}
+						if (message) {
+							message.channel.send({ embeds: [agendaembed] });
+						} else {
+							msgInt.reply({ embeds: [agendaembed] });
+						}
+					}	
 				} else if (finalweplist.length === 0) {
 					if (message) {
 						message.channel.send({ embeds: [nothingtodayembed] });
@@ -470,11 +472,12 @@ module.exports = {
 								await i.update({ embeds: [agendaembed], components: [row] });
 							};
 						});
-					}
-					if (message) {
-						message.channel.send({ embeds: [agendaembed] });
 					} else {
-						msgInt.reply({ embeds: [agendaembed] });
+						if (message) {
+							message.channel.send({ embeds: [agendaembed] });
+						} else {
+							msgInt.reply({ embeds: [agendaembed] });
+						}
 					}
 				} else if (finalcharlist.length === 0) {
 					if (message) {
@@ -647,11 +650,12 @@ module.exports = {
 							await i.update({ embeds: [agendaembed], components: [row] });
 						};
 					});
-				}
-				if (message) {
-					message.channel.send({ embeds: [agendaembed] });
 				} else {
-					msgInt.reply({ embeds: [agendaembed] });
+					if (message) {
+						message.channel.send({ embeds: [agendaembed] });
+					} else {
+						msgInt.reply({ embeds: [agendaembed] });
+					}
 				}
 			} else if (page > maxPage) {
 				if (message) {

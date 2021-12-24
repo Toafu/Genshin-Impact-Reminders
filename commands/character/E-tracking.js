@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { MessageActionRow, MessageButton } = Discord;
 const savedCharacterSchema = require('@schemas/savedcharacter-schema');
 const getEmotes = require('@helper/getEmote');
 

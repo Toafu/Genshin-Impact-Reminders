@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { MessageActionRow, MessageButton } = Discord;
 const savedWeaponSchema = require('@schemas/savedweapon-schema');
 
 module.exports = {

@@ -6,7 +6,6 @@ const path = require('path');
 const { Intents } = Discord;
 
 const client = new Discord.Client({
-	// These intents are recommended for the built in help menu
 	intents: [
 		Intents.FLAGS.GUILDS,
 		Intents.FLAGS.GUILD_MESSAGES,
