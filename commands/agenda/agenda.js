@@ -308,7 +308,7 @@ module.exports = {
 			const charagenda = [];
 			todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}**`));
 			const maxPage = Math.ceil(todaysChars.length / 10);
-			const finalcharlist = getfinalcharlist(charagenda, page);
+			let finalcharlist = getfinalcharlist(charagenda, page);
 			const loclist = getlocations(todaysChars, todaysWeps);
 
 			const invalidpageembed = new Discord.MessageEmbed()
