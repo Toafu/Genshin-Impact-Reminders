@@ -2,13 +2,13 @@
 
 <img src=https://user-images.githubusercontent.com/71936834/120877644-54400e00-c57d-11eb-9d3f-62b11ac876f4.png>
 
-In Genshin Impact, certain characters and weapons need certain materials that can only be obtained on certain days. This Discord bot aggregates all that information together into one place.
-Users can input which characters and weapons they need to track, and each day, they can request an agenda that provides a daily to-do list.
+In Genshin Impact, all characters and weapons need certain materials that can only be obtained on certain days. This Discord bot aggregates all that information together into one place.
+Users can input which characters and weapons they need to track, and each day, they can request or schedule an agenda that provides a daily to-do list.
 
 ## Features
-•Automated daily agenda that displays available talent and ascension materials and where to find them
+•Automated daily agenda that displays available talent and ascension materials and where to obtain them
 
-•Detailed descriptions of characters and weapons with additional information about recommended builds and strategies.
+•Detailed descriptions of characters and weapons with additional information about recommended builds and strategies
 
 •Dynamic server time zone support
 
@@ -17,25 +17,25 @@ Users can input which characters and weapons they need to track, and each day, t
 ## How can I use this bot?
 Join the Discord server with this link: https://discord.gg/JpUuxQRxnV
 
-## Getting Started - Important Commands (Default prefix `b!`)
+## Getting Started - Important Commands (Default prefix `b!` | Full slash command support)
 
-`b!help` will open an interactive help menu. Select the reaction that corresponds with the type of command you need. Information about the command and how to use it will be provided.
+`help` will open an interactive help menu. Select the reaction that corresponds with the type of command you need. Information about the command and how to use it will be provided.
 
-`b!characters` will display the list of supported characters and `b!weapons` will display the list of supported weapons.
+`characters` will display the list of supported characters and `b!weapons` will display the list of supported weapons.
 
-`b!add <Character Name/ID>` and `b!remove <Character Name/ID>` add and remove characters from your tracking list, respectively.
+`track <Character Name/ID>` and `b!untrack <Character Name/ID>` add and remove characters from your tracking list, respectively.
 
-`b!equip <Weapon Name/ID>` and `b!unequip <Weapon Name/ID>` does likewise but for weapons.
+`equip <Weapon Name/ID>` and `b!unequip <Weapon Name/ID>` does likewise but for weapons.
 
-Once you are done creating your tracking lists, run `b!agenda` to receive an agenda similar to the image at the top of this README.
+`schedule <Time (24h)> <Timezone/GMT Offset>` will schedule your daily agenda to automatically be sent to your Direct Messages.
+
+Once you are done creating your tracking lists, run `agenda` to receive an agenda similar to the image at the top of this README.
 
 For example, if I need talent books for Zhongli:  
-`b!add Zhongli`  
+`b!track Zhongli` | `/track Zhongli`  
 Maybe I need to ascend the Staff of Homa as well:  
-`b!equip Staff of Homa`  
-Once I add and equip everything I need, `b!agenda` will compile this information.
-
-`b!schedule <Time (24h)> <Timezone>` will schedule your daily agenda to automatically be sent to your DMs at a set time.
+`b!equip Staff of Homa` | `/equip Staff of Homa`  
+Once I add and equip everything I need, `b!agenda` | `/agenda` will compile and display today's to-do list.
 
 ## What Makes This Bot Run
 •Discord.js | Javascript
