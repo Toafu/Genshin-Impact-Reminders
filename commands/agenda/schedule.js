@@ -362,6 +362,14 @@ module.exports = {
 			return;
 		}
 		const minute = Number(extractTime[1]);
+		if (isNaN(minute)) {
+			if (message) {
+				message.reply('Invalid format! Make sure to use \`HH:mm\` formatting.');
+			} else {
+				msgInt.reply('Invalid format! Make sure to use \`HH:mm\` formatting.');
+			}
+			return;
+		}
 		if (minute < 0 || minute > 59) {
 			if (message) {
 				message.reply('Invalid time! Please use a valid minute.');
