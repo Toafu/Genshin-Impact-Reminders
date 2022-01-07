@@ -353,20 +353,20 @@ module.exports = {
 
 		const extractTime = time.split(':');
 		let hour = Number(extractTime[0]);
+		const minute = Number(extractTime[1]);
+		if (isNaN(minute) || isNaN(hour)) {
+			if (message) {
+				message.reply('Invalid format! Make sure to use \`HH:mm\` formatting.');
+			} else {
+				msgInt.reply('Invalid format! Make sure to use \`HH:mm\` formatting.');
+			}
+			return;
+		}
 		if (hour < 0 || hour > 23) {
 			if (message) {
 				message.reply('Invalid time! Please use a valid hour.');
 			} else {
 				msgInt.reply('Invalid time! Please use a valid hour.');
-			}
-			return;
-		}
-		const minute = Number(extractTime[1]);
-		if (isNaN(minute)) {
-			if (message) {
-				message.reply('Invalid format! Make sure to use \`HH:mm\` formatting.');
-			} else {
-				msgInt.reply('Invalid format! Make sure to use \`HH:mm\` formatting.');
 			}
 			return;
 		}
