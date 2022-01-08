@@ -113,7 +113,7 @@ module.exports = {
 
 			const collector = channel.createMessageComponentCollector({
 				filter,
-				time: 1000 * 10,
+				idle: 1000 * 10,
 			});
 
 			collector.on('collect', async i => {
