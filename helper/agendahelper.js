@@ -177,6 +177,7 @@ const getFunctions = (day, availablematerials, nocharstoday, nowepstoday, custom
 		wepagenda,
 		locfield,
 	} */
+	//Get or update each page of the agenda
 	const getfields = (agenda, page) => {
 		const { agendaembed, charname, wepname, charagenda, wepagenda, locfield } = agenda;
 		const finalcharlist = getfinalcharlist(charagenda, page);

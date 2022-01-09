@@ -68,7 +68,7 @@ client.on('ready', async () => {
 		.setBotOwner('269910487133716480')
 		.setMongoPath(process.env.DJS_MONGO);
 
-	client.user.setPresence({ activities: [{ name: 'b!help | b!tutorial' }], status: 'dnd' });
+	client.user.setPresence({ activities: [{ name: 'b!help | b!tutorial' }], status: 'online' });
 
 	console.log(`This bot is in ${client.guilds.cache.size} servers.`);
 
