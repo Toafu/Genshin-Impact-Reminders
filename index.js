@@ -81,5 +81,9 @@ client.on('ready', async () => {
 
 	roleClaim(client);
 
+	process.on('unhandledRejection', error => {
+		console.error('Unhandled promise rejection:', error);
+	});
+
 });
 client.login(process.env.DJS_TOKEN);
