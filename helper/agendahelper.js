@@ -42,6 +42,7 @@ const getTime = (server, offset) => {
 };
 exports.getTime = getTime;
 
+//Extract "nothing" fields for agenda
 const getNothingFields = () => {
 	const nocharstoday = {
 		name: 'None of your characters\' talent materials can be farmed today (or you aren\'t tracking any yet!).',
@@ -67,6 +68,7 @@ const getNothingFields = () => {
 };
 exports.getNothingFields = getNothingFields;
 
+//Extract what materials can be obtained today
 const getMaterials = day => {
 	const materials = [];
 	for (let i = 0; i < characters.length; i++) {
@@ -92,7 +94,9 @@ const getMaterials = day => {
 };
 exports.getMaterials = getMaterials;
 
-const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, customtitle, customtext) => {
+//Extract functions used in agenda.js
+const getFunctions = (day, availablematerials, nocharstoday, nowepstoday, customtitle, customtext) => {
+	//Get an array containing today's tracked characters
 	const gettodaysChars = (todaysChars, charresult) => {
 		for (let i = 0; i < charresult[0].savedCharacters.length; i++) {
 			if (charresult[0].savedCharacters[i].days.includes(day)) {
@@ -101,6 +105,7 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		}
 	};
 
+	//Get an array containing today's tracked weapons
 	const gettodaysWeps = (todaysWeps, wepresult) => {
 		for (let i = 0; i < wepresult[0].savedWeapons.length; i++) {
 			if (wepresult[0].savedWeapons[i].days.includes(day)) {
@@ -109,16 +114,17 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		}
 	};
 
+	//Sort characters by alphabetical order
 	const sortChars = todaysChars => {
 		todaysChars.sort((tal1, tal2) => (tal1.talent > tal2.talent) ? 1 : -1);
 	};
 
+	//Sort weapons by alphabetical order
 	const sortWeps = todaysWeps => {
 		todaysWeps.sort((wep1, wep2) => (wep1.mat > wep2.mat) ? 1 : -1);
 	};
 
-	//Returns a string
-	//What if instead it returned the array and we join it at the end?
+	//Final touches to character array
 	const getfinalcharlist = (charagenda, page) => {
 		let finalcharlist = [];
 		for (let i = (page * 10) - 10; i < page * 10; i++) {
@@ -129,6 +135,7 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		return finalcharlist;
 	};
 
+	//Final touches to weapon array
 	const getfinalweplist = (wepagenda, page) => {
 		let finalweplist = [];
 		for (let i = (page * 10) - 10; i < page * 10; i++) {
@@ -139,6 +146,7 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		return finalweplist;
 	};
 
+	//Get location list
 	const getlocations = (todaysChars, todaysWeps) => {
 		let loclist = [];
 		if (todaysChars.length > 0) {

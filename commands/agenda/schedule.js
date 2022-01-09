@@ -20,8 +20,8 @@ module.exports = {
 		const checkForPosts = async () => {
 			const now = new Date;
 			const query = {
-				'date.hour': now.getHours(), //For Heroku
-				//'date.hour': now.getHours() + 5,
+				//'date.hour': now.getHours(), //For Heroku
+				'date.hour': now.getHours() + 5,
 				'date.minute': now.getMinutes(),
 			};
 
@@ -37,13 +37,6 @@ module.exports = {
 					const { nocharstoday, nowepstoday, nothing } = ahelp.getNothingFields();
 
 					const user = await client.users.fetch(id).catch(console.error);
-
-					const nothingtodayembed = new Discord.MessageEmbed()
-						.setTitle(title)
-						.setThumbnail(logo)
-						.setAuthor(user.username)
-						.setColor('#00FF97')
-						.addField('You don\'t need to farm today (or you aren\'t tracking anything yet!).', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
 
 					const availablematerials = ahelp.getMaterials(day);
 
@@ -63,30 +56,59 @@ module.exports = {
 						customtitle = '__Your Custom Message__';
 					}
 
-					const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations } = ahelp.getFunctions(day, page, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
+					const nonexistantembed = new Discord.MessageEmbed()
+						.setTitle(title)
+						.setThumbnail(logo)
+						.setAuthor(user.username)
+						.setColor('#00FF97')
+						.addFields(nothing);
+					if (customtext) {
+						nonexistantembed.addField(customtitle, customtext);
+					}
+
+					const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations } = ahelp.getFunctions(day, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
 
 					const charname = '__Today\'s Talents__';
 					const wepname = '__Today\'s Weapons__';
 					const locname = '__Places to Go__';
 
-					if (charresult.length === 0 && wepresult.length === 0) { // If MongoDB has nothing on the user
-						const nonexistantembed = new Discord.MessageEmbed()
-							.setTitle(title)
-							.setThumbnail(logo)
-							.setAuthor(user.username)
-							.setColor('#00FF97')
-							.addFields(nothing);
-						if (customtext) {
-							nonexistantembed.addField(customtitle, customtext);
-						}
+					const agendaembed = new Discord.MessageEmbed()
+						.setTitle(title)
+						.setThumbnail(logo)
+						.setAuthor(user.username)
+						.setColor('#00FF97');
+
+					if (!charresult[0] && !wepresult[0]) { //No record of user
 						client.users.fetch(id).then(user => {
 							user.send({ embeds: [nonexistantembed] });
 						});
+						return;
+					} else if (charresult[0] && !wepresult[0]) { //If user's character tracking list exists
+						if (!charresult[0].savedCharacters[0] && !wepresult[0]) {
+							client.users.fetch(id).then(user => {
+								user.send({ embeds: [nonexistantembed] });
+							});
+							return;
+						}
+					} else if (wepresult[0] && !charresult[0]) { //If user's weapon tracking list exists
+						if (!wepresult[0].savedWeapons[0] && !charresult[0]) {
+							client.users.fetch(id).then(user => {
+								user.send({ embeds: [nonexistantembed] });
+							});
+							return;
+						}
+					} else if (charresult[0] && wepresult[0]) { //Both user's tracking lists exist
+						if (!charresult[0].savedCharacters[0] && !wepresult[0].savedWeapons[0]) {
+							client.users.fetch(id).then(user => {
+								user.send({ embeds: [nonexistantembed] });
+							});
+							return;
+						}
 					}
 
 					const charagenda = [];
-					let finalcharlist;
-					let charfield = {};
+					// let finalcharlist;
+					// let charfield = {};
 					if (charresult[0]) {
 						gettodaysChars(todaysChars, charresult);
 						if (todaysChars.length === 0) {
@@ -94,18 +116,18 @@ module.exports = {
 						} else {
 							sortChars(todaysChars);
 							todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}**`));
-							finalcharlist = getfinalcharlist(charagenda, page);
-							charfield = {
-								name: charname,
-								value: finalcharlist.join('\n'),
-							};
-							agendaembed.addFields(charfield);
+							// finalcharlist = getfinalcharlist(charagenda, page);
+							// charfield = {
+							// 	name: charname,
+							// 	value: finalcharlist.join('\n'),
+							// };
+							// agendaembed.addFields(charfield);
 						}
 					}
 
 					const wepagenda = [];
-					let finalweplist;
-					let wepfield = {};
+					// let finalweplist;
+					// let wepfield = {};
 					if (wepresult[0]) {
 						gettodaysWeps(todaysWeps, wepresult);
 						if (todaysWeps.length === 0) {
@@ -113,12 +135,12 @@ module.exports = {
 						} else {
 							sortWeps(todaysWeps);
 							todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}**`));
-							finalweplist = getfinalweplist(wepagenda, page);
-							wepfield = {
-								name: wepname,
-								value: finalweplist.join('\n'),
-							};
-							agendaembed.addFields(wepfield);
+							// finalweplist = getfinalweplist(wepagenda, page);
+							// wepfield = {
+							// 	name: wepname,
+							// 	value: finalweplist.join('\n'),
+							// };
+							// agendaembed.addFields(wepfield);
 						}
 					}
 
@@ -128,8 +150,6 @@ module.exports = {
 					} else {
 						maxPage = Math.ceil(todaysWeps.length / 10);
 					}
-
-					const footer = `Page ${page} of ${maxPage}`;
 
 					const loclist = getlocations(todaysChars, todaysWeps);
 					const locfield = {
@@ -147,8 +167,11 @@ module.exports = {
 					};
 
 					for (let page = 1; page < maxPage; ++page) {
-						agendaembed.setFooter(footer);
+						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
 						getfields(agenda, page);
+						client.users.fetch(id).then(user => {
+							user.send({ embeds: [agendaembed] });
+						});
 					}
 				} //For each person
 			}

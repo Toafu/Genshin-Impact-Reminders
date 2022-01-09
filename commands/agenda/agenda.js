@@ -34,6 +34,13 @@ module.exports = {
 		const { day, title, logo } = ahelp.getTime(server, offset);
 		const { nocharstoday, nowepstoday, nothing } = ahelp.getNothingFields();
 
+		const nothingtodayembed = new Discord.MessageEmbed()
+			.setTitle(title)
+			.setThumbnail(logo)
+			.setAuthor(author)
+			.setColor('#00FF97')
+			.addField('You don\'t need to farm today.', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
+
 		const availablematerials = ahelp.getMaterials(day);
 
 		let page;
@@ -59,7 +66,17 @@ module.exports = {
 			customtitle = '__Your Custom Message__';
 		}
 
-		const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations, getfields } = ahelp.getFunctions(day, page, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
+		const nonexistantembed = new Discord.MessageEmbed()
+			.setTitle(title)
+			.setThumbnail(logo)
+			.setAuthor(author)
+			.setColor('#00FF97')
+			.addFields(nothing);
+		if (customtext) {
+			nonexistantembed.addField(customtitle, customtext);
+		}
+
+		const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations, getfields } = ahelp.getFunctions(day, availablematerials, nocharstoday, nowepstoday, customtitle, customtext); 1;
 
 		const charname = '__Today\'s Talents__';
 		const wepname = '__Today\'s Weapons__';
@@ -71,22 +88,40 @@ module.exports = {
 			.setAuthor(author)
 			.setColor('#00FF97');
 
-		if (!charresult[0] && !wepresult[0]) { // If MongoDB has nothing on the user
-			const nonexistantembed = new Discord.MessageEmbed()
-				.setTitle(title)
-				.setThumbnail(logo)
-				.setAuthor(author)
-				.setColor('#00FF97')
-				.addFields(nothing);
-			if (customtext) {
-				nonexistantembed.addField(customtitle, customtext);
-			}
+		if (!charresult[0] && !wepresult[0]) { //No record of user
 			if (message) {
 				message.channel.send({ embeds: [nonexistantembed] });
 			} else {
 				msgInt.reply({ embeds: [nonexistantembed] });
 			}
 			return;
+		} else if (charresult[0] && !wepresult[0]) { //If user's character tracking list exists
+			if (!charresult[0].savedCharacters[0] && !wepresult[0]) {
+				if (message) {
+					message.channel.send({ embeds: [nonexistantembed] });
+				} else {
+					msgInt.reply({ embeds: [nonexistantembed] });
+				}
+				return;
+			}
+		} else if (wepresult[0] && !charresult[0]) { //If user's weapon tracking list exists
+			if (!wepresult[0].savedWeapons[0] && !charresult[0]) {
+				if (message) {
+					message.channel.send({ embeds: [nonexistantembed] });
+				} else {
+					msgInt.reply({ embeds: [nonexistantembed] });
+				}
+				return;
+			}
+		} else if (charresult[0] && wepresult[0]) { //Both user's tracking lists exist
+			if (!charresult[0].savedCharacters[0] && !wepresult[0].savedWeapons[0]) {
+				if (message) {
+					message.channel.send({ embeds: [nonexistantembed] });
+				} else {
+					msgInt.reply({ embeds: [nonexistantembed] });
+				}
+				return;
+			}
 		}
 
 		const charagenda = [];
@@ -134,13 +169,22 @@ module.exports = {
 			maxPage = Math.ceil(todaysWeps.length / 10);
 		}
 
+		if (maxPage === 0) { //The user is tracking but nothing today
+			if (message) {
+				message.channel.send({ embeds: [nothingtodayembed] });
+			} else {
+				msgInt.reply({ embeds: [nothingtodayembed] });
+			}
+			return;
+		}
+
 		const footer = `Page ${page} of ${maxPage}`;
 
 		const loclist = getlocations(todaysChars, todaysWeps);
 		const locfield = {
 			name: locname,
 			value: loclist,
-		}; 
+		};
 		const invalidpageembed = new Discord.MessageEmbed()
 			.setTitle(title)
 			.setColor('#00FF97')
@@ -163,7 +207,7 @@ module.exports = {
 			charagenda,
 			wepagenda,
 			locfield,
-		}
+		};
 
 		if (page > 0 && page <= maxPage) {
 			agendaembed.setFooter(footer);
@@ -226,7 +270,7 @@ module.exports = {
 						page = 1;
 					};
 					if (i.customId === 'prev_page') {
-						if (--page < 1) page = 1; 
+						if (--page < 1) page = 1;
 					};
 					if (i.customId === 'next_page') {
 						if (++page > maxPage) page = maxPage;
