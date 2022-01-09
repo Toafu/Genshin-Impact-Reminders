@@ -76,7 +76,7 @@ module.exports = {
 			nonexistantembed.addField(customtitle, customtext);
 		}
 
-		const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations, getfields } = ahelp.getFunctions(day, availablematerials, nocharstoday, nowepstoday, customtitle, customtext); 1;
+		const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations, getfields } = ahelp.getFunctions(day, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
 
 		const charname = '__Today\'s Talents__';
 		const wepname = '__Today\'s Weapons__';

@@ -66,17 +66,18 @@ module.exports = {
 						nonexistantembed.addField(customtitle, customtext);
 					}
 
-					const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations } = ahelp.getFunctions(day, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
+					const { gettodaysChars,
+						gettodaysWeps,
+						sortChars,
+						sortWeps,
+						getfinalcharlist,
+						getfinalweplist,
+						getlocations,
+						getfields } = ahelp.getFunctions(day, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
 
 					const charname = '__Today\'s Talents__';
 					const wepname = '__Today\'s Weapons__';
 					const locname = '__Places to Go__';
-
-					const agendaembed = new Discord.MessageEmbed()
-						.setTitle(title)
-						.setThumbnail(logo)
-						.setAuthor(user.username)
-						.setColor('#00FF97');
 
 					if (!charresult[0] && !wepresult[0]) { //No record of user
 						client.users.fetch(id).then(user => {
@@ -107,48 +108,21 @@ module.exports = {
 					}
 
 					const charagenda = [];
-					// let finalcharlist;
-					// let charfield = {};
 					if (charresult[0]) {
 						gettodaysChars(todaysChars, charresult);
-						if (todaysChars.length === 0) {
-							agendaembed.addFields(nocharstoday);
-						} else {
+						if (todaysChars.length > 0) {
 							sortChars(todaysChars);
 							todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}**`));
-							// finalcharlist = getfinalcharlist(charagenda, page);
-							// charfield = {
-							// 	name: charname,
-							// 	value: finalcharlist.join('\n'),
-							// };
-							// agendaembed.addFields(charfield);
 						}
 					}
 
 					const wepagenda = [];
-					// let finalweplist;
-					// let wepfield = {};
 					if (wepresult[0]) {
 						gettodaysWeps(todaysWeps, wepresult);
-						if (todaysWeps.length === 0) {
-							agendaembed.addFields(nowepstoday);
-						} else {
+						if (todaysWeps.length > 0) {
 							sortWeps(todaysWeps);
 							todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}**`));
-							// finalweplist = getfinalweplist(wepagenda, page);
-							// wepfield = {
-							// 	name: wepname,
-							// 	value: finalweplist.join('\n'),
-							// };
-							// agendaembed.addFields(wepfield);
 						}
-					}
-
-					let maxPage;
-					if (charagenda.length > wepagenda.length) {
-						maxPage = Math.ceil(todaysChars.length / 10);
-					} else {
-						maxPage = Math.ceil(todaysWeps.length / 10);
 					}
 
 					const loclist = getlocations(todaysChars, todaysWeps);
@@ -157,16 +131,29 @@ module.exports = {
 						value: loclist,
 					};
 
-					const agenda = {
-						agendaembed,
-						charname,
-						wepname,
-						charagenda,
-						wepagenda,
-						locfield,
-					};
+					let maxPage;
+					if (charagenda.length > wepagenda.length) {
+						maxPage = Math.ceil(todaysChars.length / 10);
+					} else {
+						maxPage = Math.ceil(todaysWeps.length / 10);
+					}
 
-					for (let page = 1; page < maxPage; ++page) {
+					for (let page = 1; page <= maxPage; ++page) {
+						const agendaembed = new Discord.MessageEmbed()
+							.setTitle(title)
+							.setThumbnail(logo)
+							.setAuthor(user.username)
+							.setColor('#00FF97');
+
+						const agenda = {
+							agendaembed,
+							charname,
+							wepname,
+							charagenda,
+							wepagenda,
+							locfield,
+						};
+
 						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
 						getfields(agenda, page);
 						client.users.fetch(id).then(user => {
