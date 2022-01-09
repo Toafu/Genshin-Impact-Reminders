@@ -63,7 +63,6 @@ module.exports = {
 						customtitle = '__Your Custom Message__';
 					}
 
-					let page;
 					const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations } = ahelp.getFunctions(day, page, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
 
 					const charname = '__Today\'s Talents__';
@@ -83,158 +82,76 @@ module.exports = {
 						client.users.fetch(id).then(user => {
 							user.send({ embeds: [nonexistantembed] });
 						});
-					} else if (charresult.length === 0 && wepresult.length > 0) { // If MongoDB can find only weapons
-						gettodaysWeps(todaysWeps, wepresult);
-						if (todaysWeps.length === 0) {
-							client.users.fetch(id).then(user => {
-								user.send({ embeds: [nothingtodayembed] });
-							});
-							return;
-						}
-						sortWeps(todaysWeps);
-						const wepagenda = [];
-						todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}**`));
-						const maxPage = Math.ceil(todaysWeps.length / 10);
-						for (page = 1; page <= maxPage; page++) {
-							const finalweplist = getfinalweplist(wepagenda, page);
-							const loclist = getlocations(todaysChars, todaysWeps);
+					}
 
-							const wepfield = {
-								name: wepname,
-								value: finalweplist,
-							};
-
-							const locfield = {
-								name: locname,
-								value: loclist,
-							};
-
-							const footer = `Page ${page} of ${maxPage}`;
-
-							const agendaembed = new Discord.MessageEmbed()
-								.setTitle(title)
-								.setThumbnail(logo)
-								.setAuthor(user.username)
-								.setFooter(footer)
-								.setColor('#00FF97')
-								.addFields(nocharstoday, wepfield, locfield);
-							if (customtext) {
-								agendaembed.addField(customtitle, customtext);
-							}
-							client.users.fetch(id).then(user => {
-								user.send({ embeds: [agendaembed] });
-							});
-						}
-					} else if (charresult.length > 0 && wepresult.length === 0) { // If MongoDB can find only characters
+					const charagenda = [];
+					let finalcharlist;
+					let charfield = {};
+					if (charresult[0]) {
 						gettodaysChars(todaysChars, charresult);
 						if (todaysChars.length === 0) {
-							client.users.fetch(id).then(user => {
-								user.send({ embeds: [nothingtodayembed] });
-							});
-							return;
-						}
-						sortChars(todaysChars);
-						const charagenda = [];
-						todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
-						const maxPage = Math.ceil(todaysChars.length / 10);
-						for (page = 1; page <= maxPage; page++) {
-							const finalcharlist = getfinalcharlist(charagenda, page);
-							if (charagenda.length > 0) {
-								const loclist = getlocations(todaysChars, todaysWeps);
-
-								const charfield = {
-									name: charname,
-									value: finalcharlist,
-								};
-
-								const locfield = {
-									name: locname,
-									value: loclist,
-								};
-
-								const footer = `Page ${page} of ${maxPage}`;
-
-								const agendaembed = new Discord.MessageEmbed()
-									.setTitle(title)
-									.setThumbnail(logo)
-									.setAuthor(user.username)
-									.setFooter(footer)
-									.setColor('#00FF97')
-									.addFields(charfield, nowepstoday, locfield);
-								if (customtext) {
-									agendaembed.addField(customtitle, customtext);
-								}
-								client.users.fetch(id).then(user => {
-									user.send({ embeds: [agendaembed] });
-								});
-							} else if (finalcharlist.length === 0) {
-								client.users.fetch(id).then(user => {
-									user.send({ embeds: [nothingtodayembed] });
-								});
-							}
-						}
-					} else { //If MongoDB found both characters and weapons
-						gettodaysChars(todaysChars, charresult);
-						gettodaysWeps(todaysWeps, wepresult);
-
-						if (todaysChars.length === 0 && todaysWeps.length === 0) {
-							client.users.fetch(id).then(user => {
-								user.send({ embeds: [nothingtodayembed] });
-							});
-							return;
-						}
-
-						sortChars(todaysChars);
-						sortWeps(todaysWeps);
-
-						const charagenda = [];
-						const wepagenda = [];
-
-						todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}.**`));
-						todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}.**`));
-						let maxPage;
-						if (charagenda.length > wepagenda.length) {
-							maxPage = Math.ceil(todaysChars.length / 10);
+							agendaembed.addFields(nocharstoday);
 						} else {
-							maxPage = Math.ceil(todaysWeps.length / 10);
-						}
-						for (page = 1; page <= maxPage; page++) {
-							const finalcharlist = getfinalcharlist(charagenda, page);
-							const finalweplist = getfinalweplist(wepagenda, page);
-							const loclist = getlocations(todaysChars, todaysWeps);
-
-							const charfield = {
+							sortChars(todaysChars);
+							todaysChars.forEach(character => charagenda.push(`•**${character.talent}** for **${character.name}**`));
+							finalcharlist = getfinalcharlist(charagenda, page);
+							charfield = {
 								name: charname,
-								value: finalcharlist,
+								value: finalcharlist.join('\n'),
 							};
-
-							const wepfield = {
-								name: wepname,
-								value: finalweplist,
-							};
-
-							const locfield = {
-								name: locname,
-								value: loclist,
-							};
-
-							const footer = `Page ${page} of ${maxPage}`;
-
-							const agendaembed = new Discord.MessageEmbed()
-								.setTitle(title)
-								.setThumbnail(logo)
-								.setAuthor(user.username)
-								.setFooter(footer)
-								.setColor('#00FF97')
-								.addFields(charfield, wepfield, locfield);
-							client.users.fetch(id).then(user => {
-								user.send({ embeds: [agendaembed] });
-							});
+							agendaembed.addFields(charfield);
 						}
 					}
-				}
-			}
 
+					const wepagenda = [];
+					let finalweplist;
+					let wepfield = {};
+					if (wepresult[0]) {
+						gettodaysWeps(todaysWeps, wepresult);
+						if (todaysWeps.length === 0) {
+							agendaembed.addFields(nowepstoday);
+						} else {
+							sortWeps(todaysWeps);
+							todaysWeps.forEach(character => wepagenda.push(`•**${character.mat}** for **${character.name}**`));
+							finalweplist = getfinalweplist(wepagenda, page);
+							wepfield = {
+								name: wepname,
+								value: finalweplist.join('\n'),
+							};
+							agendaembed.addFields(wepfield);
+						}
+					}
+
+					let maxPage;
+					if (charagenda.length > wepagenda.length) {
+						maxPage = Math.ceil(todaysChars.length / 10);
+					} else {
+						maxPage = Math.ceil(todaysWeps.length / 10);
+					}
+
+					const footer = `Page ${page} of ${maxPage}`;
+
+					const loclist = getlocations(todaysChars, todaysWeps);
+					const locfield = {
+						name: locname,
+						value: loclist,
+					};
+
+					const agenda = {
+						agendaembed,
+						charname,
+						wepname,
+						charagenda,
+						wepagenda,
+						locfield,
+					};
+
+					for (let page = 1; page < maxPage; ++page) {
+						agendaembed.setFooter(footer);
+						getfields(agenda, page);
+					}
+				} //For each person
+			}
 
 			setTimeout(checkForPosts, 1000 * 60);
 		};

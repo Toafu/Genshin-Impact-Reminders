@@ -117,6 +117,8 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		todaysWeps.sort((wep1, wep2) => (wep1.mat > wep2.mat) ? 1 : -1);
 	};
 
+	//Returns a string
+	//What if instead it returned the array and we join it at the end?
 	const getfinalcharlist = (charagenda, page) => {
 		let finalcharlist = [];
 		for (let i = (page * 10) - 10; i < page * 10; i++) {
@@ -124,10 +126,7 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 				finalcharlist.push(charagenda[i]);
 			}
 		}
-		if (finalcharlist.length === 0) {
-			return 'No more characters to view';
-		}
-		return finalcharlist.join('\n');
+		return finalcharlist;
 	};
 
 	const getfinalweplist = (wepagenda, page) => {
@@ -137,10 +136,7 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 				finalweplist.push(wepagenda[i]);
 			}
 		}
-		if (finalweplist.length === 0) {
-			return 'No more weapons to view';
-		}
-		return finalweplist.join('\n');
+		return finalweplist;
 	};
 
 	const getlocations = (todaysChars, todaysWeps) => {
@@ -164,33 +160,42 @@ const getFunctions = (day, page, availablematerials, nocharstoday, nowepstoday, 
 		return loclist;
 	};
 
-	const getfields = (agendaembed, charagenda, wepagenda, finalcharlist, finalweplist, charfield, wepfield, locfield) => {
-		const charname = '__Today\'s Talents__';
-		const wepname = '__Today\'s Weapons__';
-
-		finalcharlist = getfinalcharlist(charagenda, page);
-		charfield = {
-			name: charname,
-			value: finalcharlist,
-		};
-		finalweplist = getfinalweplist(wepagenda, page);
-		wepfield = {
-			name: wepname,
-			value: finalweplist,
-		};
+	//Pass in an agenda object by reference
+	/*const agenda = {
+		agendaembed,
+		charname,
+		wepname,
+		charagenda,
+		wepagenda,
+		locfield,
+	} */
+	const getfields = (agenda, page) => {
+		const { agendaembed, charname, wepname, charagenda, wepagenda, locfield } = agenda;
+		const finalcharlist = getfinalcharlist(charagenda, page);
+		const finalweplist = getfinalweplist(wepagenda, page);
+		
 		agendaembed.fields = [];
 		agendaembed.addFields(availablematerials);
+
 		if (finalcharlist.length > 0) {
-			agendaembed.addFields(charfield);
+			agendaembed.addField(charname, finalcharlist.join('\n'));
 		} else {
-			agendaembed.addFields(nocharstoday);
+			if (page > 1 && charagenda[0]) {
+				agendaembed.addField(charname, 'No more characters to view.');
+			} else {
+				agendaembed.addFields(nocharstoday);
+			}
 		}
 		if (finalweplist.length > 0) {
-			agendaembed.addFields(wepfield);
+			agendaembed.addField(wepname, finalweplist.join('\n'));
 		} else {
-			agendaembed.addFields(nowepstoday);
+			if (page > 1 && wepagenda[0]) {
+				agendaembed.addField(wepname, 'No more weapons to view.');
+			} else {
+				agendaembed.addFields(nowepstoday);
+			}
 		}
-		if (charfield || wepfield) {
+		if (finalcharlist || finalweplist) {
 			agendaembed.addFields(locfield);
 		}
 		if (customtext) {
