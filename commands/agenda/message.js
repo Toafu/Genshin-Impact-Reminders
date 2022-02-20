@@ -40,7 +40,6 @@ module.exports = {
 				} else {
 					msgInt.reply({ embeds: [clearembed] });
 				}
-
 				return;
 			}
 
@@ -92,7 +91,6 @@ module.exports = {
 				} else {
 					msgInt.reply({ embeds: [showembed] });
 				}
-
 			}
 		}
 	},

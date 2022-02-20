@@ -16,16 +16,12 @@ module.exports = {
 	expectedArgs: '(page number)',
 	callback: async ({ message, args, interaction: msgInt, channel }) => {
 		let id;
-		if (message) {
-			id = message.author.id;
-		} else {
-			id = msgInt.user.id;
-		}
-
 		let author;
 		if (message) {
+			id = message.author.id;
 			author = message.author.username;
 		} else {
+			id = msgInt.user.id;
 			author = msgInt.user.username;
 		}
 
