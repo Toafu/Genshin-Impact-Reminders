@@ -120,30 +120,18 @@ module.exports = {
 			collector.on('collect', async i => {
 				if (i.customId === 'first_page') {
 					page = 1;
-					updateEmbed(embed, page);
-					await i.update({ embeds: [embed], components: [row] });
 				};
 				if (i.customId === 'prev_page') {
-					page--;
-					if (page < 1) {
-						page = 1;
-					}
-					updateEmbed(embed, page);
-					await i.update({ embeds: [embed], components: [row] });
+					if (--page < 1) page = 1;
 				};
 				if (i.customId === 'next_page') {
-					page++;
-					if (page > maxPage) {
-						page = maxPage;
-					}
-					updateEmbed(embed, page);
-					await i.update({ embeds: [embed], components: [row] });
+					if (++page > maxPage) page = maxPage;
 				};
 				if (i.customId === 'last_page') {
 					page = maxPage;
-					updateEmbed(embed, page);
-					await i.update({ embeds: [embed], components: [row] });
 				};
+				updateEmbed(embed, page);
+				await i.update({ embeds: [embed], components: [row] });
 			});
 			return;
 		} else if (page > maxPage) {

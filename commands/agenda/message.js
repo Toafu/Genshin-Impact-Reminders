@@ -12,16 +12,12 @@ module.exports = {
 	//testOnly: true,
 	callback: async ({ message, args, text, interaction: msgInt }) => {
 		let id;
-		if (message) {
-			id = message.author.id;
-		} else {
-			id = msgInt.user.id;
-		}
-
 		let author;
 		if (message) {
+			id = message.author.id;
 			author = message.author.username;
 		} else {
+			id = msgInt.user.id;
 			author = msgInt.user.username;
 		}
 
@@ -52,12 +48,12 @@ module.exports = {
 				return;
 			}
 			await savedMessageSchema.findOneAndUpdate({
-				_id: id,
-			}, {
-				savedMessage: customtext,
-			}, {
-				upsert: true,
-			});
+					_id: id,
+				}, {
+					savedMessage: customtext,
+				}, {
+					upsert: true,
+				});
 			const updatedembed = new Discord.MessageEmbed()
 				.setTitle('Updated Custom Message Text')
 				.setColor('#00FF97')
