@@ -13,10 +13,22 @@ module.exports = {
 	expectedArgs: '(Page Number)',
 	//testOnly: true,
 	callback: async ({ message, args, interaction: msgInt, channel }) => {
-		const updateEmbed = (embed, page) => {
+		//Take an empty array and push the current page's entries. Convert to string to make Discord.js happy.
+		const getlist = (page, trackList) => {
+			let list = [];
+			for (let i = (page * 20) - 20; i < page * 20; i++) {
+				if (trackList[i]) {
+					list.push(`[${trackList[i].id}] **${trackList[i].name}** ${getEmotes.getEmote(trackList[i].element)}`);
+				}
+			}
+			list = list.join('\n');
+			return list;
+		};
+		
+		const updateEmbed = (embed, page, maxPage, trackList) => {
 			const name = 'You are currently spending countless hours building:';
-			embed.setFooter(`Page ${page} of ${maxPage}`);
-			list = getlist(page);
+			embed.setFooter({text: `Page ${page} of ${maxPage}`});
+			list = getlist(page, trackList);
 			embed.fields = [];
 			embed.addField(name, list);
 		};
@@ -47,16 +59,6 @@ module.exports = {
 		});
 
 		if (result.length > 0) {
-			const getlist = page => {
-				let list = [];
-				for (let i = (page * 20) - 20; i < page * 20; i++) {
-					if (trackList[i]) {
-						list.push(`[${trackList[i].id}] **${trackList[i].name}** ${getEmotes.getEmote(trackList[i].element)}`);
-					}
-				}
-				list = list.join('\n');
-				return list;
-			};
 
 			const dblist = result[0].savedCharacters;
 			const trackList = [];
@@ -70,14 +72,14 @@ module.exports = {
 
 			trackList.sort((char1, char2) => (char1.name > char2.name) ? 1 : -1);
 			const maxPage = Math.ceil(trackList.length / 20);
-			let list = getlist(page);
+			let list = getlist(page, trackList);
 
 			if (list.length > 0 && page <= maxPage) {
 				const name = 'You are currently spending countless hours building:';
 				const embed = new Discord.MessageEmbed()
 					.setTitle(title)
 					.setColor('#00FF97')
-					.setFooter(`Page ${page} of ${maxPage}`)
+					.setFooter({text: `Page ${page} of ${maxPage}`})
 					.addField(name, list);
 
 				if (maxPage > 1) {
@@ -130,7 +132,7 @@ module.exports = {
 
 					const collector = channel.createMessageComponentCollector({
 						filter,
-						time: 1000 * 10,
+						idle: 1000 * 10,
 					});
 
 					collector.on('collect', async i => {
@@ -138,25 +140,17 @@ module.exports = {
 							page = 1;
 						};
 						if (i.customId === 'prev_page') {
-							page--;
-							if (page < 1) page = 1;
+							if (--page < 1) page = 1;
 						};
 						if (i.customId === 'next_page') {
-							page++;
-							if (page > maxPage) page = maxPage;
+							if  (++page > maxPage) page = maxPage;
 						};
 						if (i.customId === 'last_page') {
 							page = maxPage;
 						};
-						updateEmbed(embed, page);
+						updateEmbed(embed, page, maxPage, trackList);
 						await i.update({ embeds: [embed], components: [row] });
 					});
-				}
-
-				if (message) {
-					message.channel.send({ embeds: [embed] });
-				} else {
-					msgInt.reply({ embeds: [embed] });
 				}
 				return;
 			} else if (page > maxPage) {
@@ -168,7 +162,7 @@ module.exports = {
 							name: 'hol up',
 							value: `You only have **${maxPage}** page(s) worth of tracked characters!`,
 						})
-					.setFooter('>:(');
+					.setFooter({text: '>:('});
 				if (message) {
 					message.channel.send({ embeds: [maxpageembed] });
 				} else {

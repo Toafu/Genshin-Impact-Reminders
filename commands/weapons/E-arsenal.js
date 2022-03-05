@@ -14,7 +14,7 @@ module.exports = {
 	callback: async ({ message, args, interaction: msgInt, channel }) => {
 		const updateEmbed = (embed, page) => {
 			const name = 'You are currently spending countless hours upgrading:'
-			embed.setFooter(`Page ${page} of ${maxPage}`);
+			embed.setFooter({text: `Page ${page} of ${maxPage}`});
 			list = getlist(page);
 			embed.fields = [];
 			embed.addField(name, list);
@@ -77,7 +77,7 @@ module.exports = {
 				const embed = new Discord.MessageEmbed()
 					.setTitle(title)
 					.setColor('#00FF97')
-					.setFooter(`Page ${page} of ${maxPage}`)
+					.setFooter({text: `Page ${page} of ${maxPage}`})
 					.addField(name, list);
 
 				if (maxPage > 1) {
@@ -150,11 +150,6 @@ module.exports = {
 						await i.update({ embeds: [embed], components: [row] });
 					});
 				}
-				if (message) {
-					message.channel.send({ embeds: [embed] });
-				} else {
-					msgInt.reply({ embeds: [embed] });
-				}
 				return;
 			} else if (page > maxPage) {
 				const maxpageembed = new Discord.MessageEmbed()
@@ -165,7 +160,7 @@ module.exports = {
 							name: 'hol up',
 							value: `You only have **${maxPage}** page(s) worth of tracked weapons!`,
 						})
-					.setFooter('>:(');
+					.setFooter({text: '>:('});
 				if (message) {
 					message.channel.send({ embeds: [maxpageembed] });
 				} else {

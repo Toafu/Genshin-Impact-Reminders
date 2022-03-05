@@ -20,8 +20,8 @@ module.exports = {
 		const checkForPosts = async () => {
 			const now = new Date;
 			const query = {
-				'date.hour': now.getHours(), //For Heroku
-				//'date.hour': now.getHours() + 5,
+				//'date.hour': now.getHours(), //For Heroku
+				'date.hour': now.getHours() + 5,
 				'date.minute': now.getMinutes(),
 			};
 
@@ -59,7 +59,7 @@ module.exports = {
 					const nonexistantembed = new Discord.MessageEmbed()
 						.setTitle(title)
 						.setThumbnail(logo)
-						.setAuthor(user.username)
+						.setAuthor({name: user.username})
 						.setColor('#00FF97')
 						.addFields(nothing);
 					if (customtext) {
@@ -80,29 +80,21 @@ module.exports = {
 					const locname = '__Places to Go__';
 
 					if (!charresult[0] && !wepresult[0]) { //No record of user
-						client.users.fetch(id).then(user => {
-							user.send({ embeds: [nonexistantembed] });
-						});
+						user.send({ embeds: [nonexistantembed] });
 						return;
 					} else if (charresult[0] && !wepresult[0]) { //If user's character tracking list exists
 						if (!charresult[0].savedCharacters[0] && !wepresult[0]) {
-							client.users.fetch(id).then(user => {
-								user.send({ embeds: [nonexistantembed] });
-							});
+							user.send({ embeds: [nonexistantembed] });
 							return;
 						}
 					} else if (wepresult[0] && !charresult[0]) { //If user's weapon tracking list exists
 						if (!wepresult[0].savedWeapons[0] && !charresult[0]) {
-							client.users.fetch(id).then(user => {
-								user.send({ embeds: [nonexistantembed] });
-							});
+							user.send({ embeds: [nonexistantembed] });
 							return;
 						}
 					} else if (charresult[0] && wepresult[0]) { //Both user's tracking lists exist
 						if (!charresult[0].savedCharacters[0] && !wepresult[0].savedWeapons[0]) {
-							client.users.fetch(id).then(user => {
-								user.send({ embeds: [nonexistantembed] });
-							});
+							user.send({ embeds: [nonexistantembed] });
 							return;
 						}
 					}
@@ -131,7 +123,7 @@ module.exports = {
 						value: loclist,
 					};
 
-					let maxPage;
+					let maxPage
 					if (charagenda.length > wepagenda.length) {
 						maxPage = Math.ceil(todaysChars.length / 10);
 					} else {
@@ -142,7 +134,7 @@ module.exports = {
 						const agendaembed = new Discord.MessageEmbed()
 							.setTitle(title)
 							.setThumbnail(logo)
-							.setAuthor(user.username)
+							.setAuthor({name: user.username})
 							.setColor('#00FF97');
 
 						const agenda = {
@@ -154,11 +146,9 @@ module.exports = {
 							locfield,
 						};
 
-						agendaembed.setFooter(`Page ${page} of ${maxPage}`);
+						agendaembed.setFooter({text: `Page ${page} of ${maxPage}`});
 						getfields(agenda, page);
-						client.users.fetch(id).then(user => {
-							user.send({ embeds: [agendaembed] });
-						});
+						user.send({ embeds: [agendaembed] });
 					}
 				} //For each person
 			}
@@ -223,7 +213,7 @@ module.exports = {
 			});
 			const stopembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
-				.setAuthor(author)
+				.setAuthor({name: author})
 				.addFields(
 					{
 						name: 'Unsubscribing From Daily Reminder',
@@ -304,7 +294,7 @@ module.exports = {
 
 		const startembed = new Discord.MessageEmbed()
 			.setColor('#00FF97')
-			.setAuthor(author)
+			.setAuthor({name: author})
 			.addFields(
 				{
 					name: 'Scheduling Daily Reminder',

@@ -34,7 +34,7 @@ module.exports = {
 			});
 			const removeallembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
-				.setAuthor(author)
+				.setAuthor({name: author})
 				.addField('Removing All Weapons', 'You unequipped all weapons.');
 			if (message) {
 				message.channel.send({ embeds: [removeallembed] });
@@ -84,14 +84,14 @@ module.exports = {
 
 		const embed = new Discord.MessageEmbed()
 			.setColor('#00FF97')
-			.setAuthor(author);
+			.setAuthor({name: author});
 		if (success.length > 0) {
 			embed.addField('Removing Weapons', `You have unequipped ${success}`);
 		}
 		if (fail.length > 0) {
 			fail = fail.join('\n');
 			embed.addField('We couldn\'t remove these weapons due to a typo or invalid ID:', fail)
-				.setFooter('Use the  arsenal  command if you need help with spelling or finding IDs. Use slashes to remove multiple weapons (b!unequip 24/The Flute).');
+				.setFooter({text: 'Use the  arsenal  command if you need help with spelling or finding IDs. Use slashes to remove multiple weapons (b!unequip 24/The Flute).'});
 		}
 		if (message) {
 			message.channel.send({ embeds: [embed] });
