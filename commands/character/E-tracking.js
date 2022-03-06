@@ -24,10 +24,10 @@ module.exports = {
 			list = list.join('\n');
 			return list;
 		};
-		
+
 		const updateEmbed = (embed, page, maxPage, trackList) => {
 			const name = 'You are currently spending countless hours building:';
-			embed.setFooter({text: `Page ${page} of ${maxPage}`});
+			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page, trackList);
 			embed.fields = [];
 			embed.addField(name, list);
@@ -79,7 +79,7 @@ module.exports = {
 				const embed = new Discord.MessageEmbed()
 					.setTitle(title)
 					.setColor('#00FF97')
-					.setFooter({text: `Page ${page} of ${maxPage}`})
+					.setFooter({ text: `Page ${page} of ${maxPage}` })
 					.addField(name, list);
 
 				if (maxPage > 1) {
@@ -143,7 +143,7 @@ module.exports = {
 							if (--page < 1) page = 1;
 						};
 						if (i.customId === 'next_page') {
-							if  (++page > maxPage) page = maxPage;
+							if (++page > maxPage) page = maxPage;
 						};
 						if (i.customId === 'last_page') {
 							page = maxPage;
@@ -162,7 +162,7 @@ module.exports = {
 							name: 'hol up',
 							value: `You only have **${maxPage}** page(s) worth of tracked characters!`,
 						})
-					.setFooter({text: '>:('});
+					.setFooter({ text: '>:(' });
 				if (message) {
 					message.channel.send({ embeds: [maxpageembed] });
 				} else {

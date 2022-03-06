@@ -65,7 +65,7 @@ module.exports = {
 						name: 'Maybe Useful Tips/Strategies',
 						value: characters[index].tip,
 					})
-				.setFooter({text: 'You don\'t have to follow these tips. Play the way you want to play!'});
+				.setFooter({ text: 'You don\'t have to follow these tips. Play the way you want to play!' });
 			if (message) {
 				message.channel.send({ embeds: [embed] });
 			} else {

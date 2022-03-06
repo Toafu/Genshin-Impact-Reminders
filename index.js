@@ -75,7 +75,7 @@ client.on('ready', async () => {
 	const verificationembed = new Discord.MessageEmbed()
 		.setTitle('Before you enter the server...')
 		.setDescription('We need to make sure you\'re a person! Just hit that check mark below this message. It may take a short bit for the verification process to complete.')
-		.setFooter({text: 'You got this!'});
+		.setFooter({ text: 'You got this!' });
 
 	firstMessage(client, '844208376828788771', verificationembed, ['<:check:844677239827726346>']);
 

@@ -48,12 +48,12 @@ module.exports = {
 				return;
 			}
 			await savedMessageSchema.findOneAndUpdate({
-					_id: id,
-				}, {
-					savedMessage: customtext,
-				}, {
-					upsert: true,
-				});
+				_id: id,
+			}, {
+				savedMessage: customtext,
+			}, {
+				upsert: true,
+			});
 			const updatedembed = new Discord.MessageEmbed()
 				.setTitle('Updated Custom Message Text')
 				.setColor('#00FF97')

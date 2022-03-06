@@ -14,7 +14,7 @@ module.exports = {
 	//testOnly: true,
 	callback: async ({ message, args, text, interaction: msgInt, channel }) => {
 		const footer = `Page ${page} of ${maxPage}`;
-		
+
 		const getlist = page => {
 			const arrayList = [];
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
@@ -28,11 +28,11 @@ module.exports = {
 
 		const updateEmbed = (embed, page) => {
 			const name = 'A→Z\n[ID] [Name] [Rarity]';
-			embed.setFooter({text: footer});
+			embed.setFooter({ text: footer });
 			list = getlist(page);
 			embed.fields = [];
 			embed.addField(name, list);
-		}
+		};
 
 		const maxPage = Math.ceil(weapons.length / 20);
 
@@ -44,7 +44,7 @@ module.exports = {
 				const embed = new Discord.MessageEmbed()
 					.setTitle('__Supported Weapons List__')
 					.setColor('#00FF97')
-					.setFooter({text: footer})
+					.setFooter({ text: footer })
 					.addField(name, list);
 				message.channel.send({ embeds: [embed] });
 			}
@@ -64,7 +64,7 @@ module.exports = {
 				.setTitle('__Supported Weapons List__')
 				.setColor('#00FF97')
 				.addField(name, list)
-				.setFooter({text: footer});
+				.setFooter({ text: footer });
 
 			const row = new MessageActionRow()
 				.addComponents(
@@ -146,7 +146,7 @@ module.exports = {
 						name: 'hol up',
 						value: `We only have **${maxPage}** pages right now! More will come soon.`,
 					})
-				.setFooter({text: '>:('});
+				.setFooter({ text: '>:(' });
 			if (message) {
 				message.channel.send({ embeds: [embed] });
 			}

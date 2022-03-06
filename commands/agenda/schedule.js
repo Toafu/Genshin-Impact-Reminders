@@ -59,7 +59,7 @@ module.exports = {
 					const nonexistantembed = new Discord.MessageEmbed()
 						.setTitle(title)
 						.setThumbnail(logo)
-						.setAuthor({name: user.username})
+						.setAuthor({ name: user.username })
 						.setColor('#00FF97')
 						.addFields(nothing);
 					if (customtext) {
@@ -123,18 +123,13 @@ module.exports = {
 						value: loclist,
 					};
 
-					let maxPage
-					if (charagenda.length > wepagenda.length) {
-						maxPage = Math.ceil(todaysChars.length / 10);
-					} else {
-						maxPage = Math.ceil(todaysWeps.length / 10);
-					}
+					const maxPage = Math.max(Math.ceil(todaysChars.length / 10), Math.ceil(todaysWeps.length / 10));
 
 					for (let page = 1; page <= maxPage; ++page) {
 						const agendaembed = new Discord.MessageEmbed()
 							.setTitle(title)
 							.setThumbnail(logo)
-							.setAuthor({name: user.username})
+							.setAuthor({ name: user.username })
 							.setColor('#00FF97');
 
 						const agenda = {
@@ -146,16 +141,14 @@ module.exports = {
 							locfield,
 						};
 
-						agendaembed.setFooter({text: `Page ${page} of ${maxPage}`});
+						agendaembed.setFooter({ text: `Page ${page} of ${maxPage}` });
 						getfields(agenda, page);
 						user.send({ embeds: [agendaembed] });
 					}
 				} //For each person
 			}
-
 			setTimeout(checkForPosts, 1000 * 60);
 		};
-
 		checkForPosts();
 	},
 	callback: async ({ message, args, text, interaction: msgInt }) => {
@@ -213,7 +206,7 @@ module.exports = {
 			});
 			const stopembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
-				.setAuthor({name: author})
+				.setAuthor({ name: author })
 				.addFields(
 					{
 						name: 'Unsubscribing From Daily Reminder',
@@ -294,7 +287,7 @@ module.exports = {
 
 		const startembed = new Discord.MessageEmbed()
 			.setColor('#00FF97')
-			.setAuthor({name: author})
+			.setAuthor({ name: author })
 			.addFields(
 				{
 					name: 'Scheduling Daily Reminder',

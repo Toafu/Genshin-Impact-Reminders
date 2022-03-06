@@ -12,14 +12,14 @@ module.exports = {
 	expectedArgs: '(Page Number)',
 	//testOnly: true,
 	callback: async ({ message, args, interaction: msgInt, channel }) => {
-		const updateEmbed = (embed, page) => {
-			const name = 'You are currently spending countless hours upgrading:'
-			embed.setFooter({text: `Page ${page} of ${maxPage}`});
+		const updateEmbed = (embed, page, maxPage) => {
+			const name = 'You are currently spending countless hours upgrading:';
+			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page);
 			embed.fields = [];
 			embed.addField(name, list);
-		}
-		
+		};
+
 		let id;
 		let author;
 		if (message) {
@@ -53,6 +53,7 @@ module.exports = {
 		}
 
 		if (result.length > 0) {
+			const trackList = [];
 			const getlist = page => {
 				let list = [];
 				for (let i = (page * 20) - 20; i < page * 20; i++) {
@@ -65,7 +66,6 @@ module.exports = {
 			};
 
 			const dblist = result[0].savedWeapons;
-			const trackList = [];
 			dblist.forEach(weapon => trackList.push(weapon));
 
 			trackList.sort((wep1, wep2) => (wep1.id > wep2.id) ? 1 : -1);
@@ -77,7 +77,7 @@ module.exports = {
 				const embed = new Discord.MessageEmbed()
 					.setTitle(title)
 					.setColor('#00FF97')
-					.setFooter({text: `Page ${page} of ${maxPage}`})
+					.setFooter({ text: `Page ${page} of ${maxPage}` })
 					.addField(name, list);
 
 				if (maxPage > 1) {
@@ -130,7 +130,7 @@ module.exports = {
 
 					const collector = channel.createMessageComponentCollector({
 						filter,
-						time: 1000 * 10,
+						idle: 1000 * 10,
 					});
 
 					collector.on('collect', async i => {
@@ -146,7 +146,7 @@ module.exports = {
 						if (i.customId === 'last_page') {
 							page = maxPage;
 						};
-						updateEmbed(embed, page);
+						updateEmbed(embed, page, maxPage);
 						await i.update({ embeds: [embed], components: [row] });
 					});
 				}
@@ -160,7 +160,7 @@ module.exports = {
 							name: 'hol up',
 							value: `You only have **${maxPage}** page(s) worth of tracked weapons!`,
 						})
-					.setFooter({text: '>:('});
+					.setFooter({ text: '>:(' });
 				if (message) {
 					message.channel.send({ embeds: [maxpageembed] });
 				} else {

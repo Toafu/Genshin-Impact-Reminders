@@ -14,13 +14,13 @@ module.exports = {
 		const msg = await message.channel.send('Updating database...');
 		if (message.author.id.toString() === '269910487133716480') {
 			for (let i = 0; i < characters.length; i++) {
-				const query = { 'savedCharacters.name': { $all: [ characters[i].name ] } };
-				const update = { $set: { 'savedCharacters.$' : characters[i] } };
+				const query = { 'savedCharacters.name': { $all: [characters[i].name] } };
+				const update = { $set: { 'savedCharacters.$': characters[i] } };
 				await savedCharacterSchema.updateMany(query, update);
 			}
 			for (let i = 0; i < weapons.length; i++) {
-				const query = { 'savedWeapons.name': { $all: [ weapons[i].name ] } };
-				const update = { $set: { 'savedWeapons.$' : weapons[i] } };
+				const query = { 'savedWeapons.name': { $all: [weapons[i].name] } };
+				const update = { $set: { 'savedWeapons.$': weapons[i] } };
 				await savedWeaponSchema.updateMany(query, update);
 			}
 			msg.edit('Successfully updated database.');

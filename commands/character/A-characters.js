@@ -29,11 +29,11 @@ module.exports = {
 
 		const updateEmbed = (embed, page) => {
 			const name = 'A→Z\n[ID] [Name] [Element]';
-			embed.setFooter({text: footer});
+			embed.setFooter({ text: footer });
 			list = getlist(page);
 			embed.fields = [];
 			embed.addField(name, list);
-		}
+		};
 
 		const maxPage = Math.ceil(characters.length / 20);
 
@@ -45,7 +45,7 @@ module.exports = {
 				const embed = new Discord.MessageEmbed()
 					.setTitle('__Supported Character List__')
 					.setColor('#00FF97')
-					.setFooter({text: footer})
+					.setFooter({ text: footer })
 					.addField(name, list);
 				message.channel.send({ embeds: [embed] });
 			}
@@ -64,7 +64,7 @@ module.exports = {
 			const embed = new Discord.MessageEmbed()
 				.setTitle('__Supported Character List__')
 				.setColor('#00FF97')
-				.setFooter({text: footer})
+				.setFooter({ text: footer })
 				.addField(name, list);
 
 			const row = new MessageActionRow()
@@ -145,7 +145,7 @@ module.exports = {
 						name: 'hol up',
 						value: `We only have **${maxPage}** pages right now! More will come soon.`,
 					})
-				.setFooter({text: '>:('});
+				.setFooter({ text: '>:(' });
 			if (message) {
 				message.channel.send({ embeds: [embed] });
 				return;

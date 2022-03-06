@@ -33,7 +33,7 @@ module.exports = {
 		const nothingtodayembed = new Discord.MessageEmbed()
 			.setTitle(title)
 			.setThumbnail(logo)
-			.setAuthor({name: author})
+			.setAuthor({ name: author })
 			.setColor('#00FF97')
 			.addField('You don\'t need to farm today.', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
 
@@ -65,7 +65,7 @@ module.exports = {
 		const nonexistantembed = new Discord.MessageEmbed()
 			.setTitle(title)
 			.setThumbnail(logo)
-			.setAuthor({name: author})
+			.setAuthor({ name: author })
 			.setColor('#00FF97')
 			.addFields(nothing);
 		if (customtext) {
@@ -81,7 +81,7 @@ module.exports = {
 		const agendaembed = new Discord.MessageEmbed()
 			.setTitle(title)
 			.setThumbnail(logo)
-			.setAuthor({name: author})
+			.setAuthor({ name: author })
 			.setColor('#00FF97');
 
 		if (!charresult[0] && !wepresult[0]) { //No record of user
@@ -180,7 +180,7 @@ module.exports = {
 			.setTitle(title)
 			.setColor('#00FF97')
 			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
-			.setFooter({text: '>:('});
+			.setFooter({ text: '>:(' });
 
 		if (page > maxPage) {
 			if (message) {
@@ -201,7 +201,7 @@ module.exports = {
 		};
 
 		if (page > 0 && page <= maxPage) {
-			agendaembed.setFooter({text: footer});
+			agendaembed.setFooter({ text: footer });
 			getfields(agenda, page);
 			if (maxPage > 1) {
 				const row = new MessageActionRow()
@@ -269,7 +269,7 @@ module.exports = {
 					if (i.customId === 'last_page') {
 						page = maxPage;
 					};
-					agendaembed.setFooter({text: footer});
+					agendaembed.setFooter({ text: footer });
 					getfields(agenda, page);
 					await i.update({ embeds: [agendaembed], components: [row] });
 				});
