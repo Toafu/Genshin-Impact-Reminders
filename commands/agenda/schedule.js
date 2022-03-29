@@ -80,21 +80,21 @@ module.exports = {
 					const locname = '__Places to Go__';
 
 					if (!charresult[0] && !wepresult[0]) { //No record of user
-						user.send({ embeds: [nonexistantembed] });
+						user.send({ embeds: [nonexistantembed] }).catch(console.error);
 						return;
 					} else if (charresult[0] && !wepresult[0]) { //If user's character tracking list exists
 						if (!charresult[0].savedCharacters[0] && !wepresult[0]) {
-							user.send({ embeds: [nonexistantembed] });
+							user.send({ embeds: [nonexistantembed] }).catch(console.error);
 							return;
 						}
 					} else if (wepresult[0] && !charresult[0]) { //If user's weapon tracking list exists
 						if (!wepresult[0].savedWeapons[0] && !charresult[0]) {
-							user.send({ embeds: [nonexistantembed] });
+							user.send({ embeds: [nonexistantembed] }).catch(console.error);
 							return;
 						}
 					} else if (charresult[0] && wepresult[0]) { //Both user's tracking lists exist
 						if (!charresult[0].savedCharacters[0] && !wepresult[0].savedWeapons[0]) {
-							user.send({ embeds: [nonexistantembed] });
+							user.send({ embeds: [nonexistantembed] }).catch(console.error);
 							return;
 						}
 					}
@@ -143,7 +143,7 @@ module.exports = {
 
 						agendaembed.setFooter({ text: `Page ${page} of ${maxPage}` });
 						getfields(agenda, page);
-						user.send({ embeds: [agendaembed] });
+						user.send({ embeds: [agendaembed] }).catch(console.error);
 					}
 				} //For each person
 			}
