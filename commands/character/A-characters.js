@@ -27,7 +27,7 @@ module.exports = {
 
 		const updateEmbed = (embed, page) => {
 			const name = 'A→Z\n[ID] [Name] [Element]';
-			embed.setFooter({ text: footer });
+			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page);
 			embed.fields = [];
 			embed.addField(name, list);
@@ -55,8 +55,6 @@ module.exports = {
 			page = +args[0];
 		}
 
-		const footer = `Page ${page} of ${maxPage}`;
-
 		if (page > 0 && page <= maxPage) {
 			const name = 'A→Z\n[ID] [Name] [Element]';
 			let list = getlist(page);
@@ -64,7 +62,7 @@ module.exports = {
 			const embed = new Discord.MessageEmbed()
 				.setTitle('__Supported Character List__')
 				.setColor('#00FF97')
-				.setFooter({ text: footer })
+				.setFooter({ text: `Page ${page} of ${maxPage}` })
 				.addField(name, list);
 
 			const row = new MessageActionRow()

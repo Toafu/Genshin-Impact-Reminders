@@ -13,8 +13,6 @@ module.exports = {
 	expectedArgs: '(page number)',
 	//testOnly: true,
 	callback: async ({ message, args, text, interaction: msgInt, channel }) => {
-		const footer = `Page ${page} of ${maxPage}`;
-
 		const getlist = page => {
 			const arrayList = [];
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
@@ -28,7 +26,7 @@ module.exports = {
 
 		const updateEmbed = (embed, page) => {
 			const name = 'A→Z\n[ID] [Name] [Rarity]';
-			embed.setFooter({ text: footer });
+			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page);
 			embed.fields = [];
 			embed.addField(name, list);
@@ -44,7 +42,7 @@ module.exports = {
 				const embed = new Discord.MessageEmbed()
 					.setTitle('__Supported Weapons List__')
 					.setColor('#00FF97')
-					.setFooter({ text: footer })
+					.setFooter({ text: `Page ${page} of ${maxPage}` })
 					.addField(name, list);
 				message.channel.send({ embeds: [embed] });
 			}
@@ -64,7 +62,7 @@ module.exports = {
 				.setTitle('__Supported Weapons List__')
 				.setColor('#00FF97')
 				.addField(name, list)
-				.setFooter({ text: footer });
+				.setFooter({ text: `Page ${page} of ${maxPage}` });
 
 			const row = new MessageActionRow()
 				.addComponents(
