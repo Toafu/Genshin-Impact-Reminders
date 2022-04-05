@@ -31,6 +31,9 @@ module.exports = {
 				for (let i = 0; i < result.length; i++) {
 					const id = result[i]._id;
 
+					const channel = client.channels.cache.get('929745519876640789');
+					channel.send(`Attempting to send automated agenda to ${id}`);
+					
 					const zone = await timezoneSchema.find({ _id: id });
 					const { server, offset } = ahelp.getTimeZone(zone);
 					const { day, title, logo } = ahelp.getTime(server, offset);
