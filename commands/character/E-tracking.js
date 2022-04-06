@@ -26,11 +26,10 @@ module.exports = {
 		};
 
 		const updateEmbed = (embed, page, maxPage, trackList) => {
-			const name = 'You are currently spending countless hours building:';
 			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page, trackList);
 			embed.fields = [];
-			embed.addField(name, list);
+			embed.addField('You are currently spending countless hours building:', list);
 		};
 
 		let id;
@@ -59,7 +58,6 @@ module.exports = {
 		});
 
 		if (result.length > 0) {
-
 			const dblist = result[0].savedCharacters;
 			const trackList = [];
 			let page;
@@ -151,6 +149,12 @@ module.exports = {
 						updateEmbed(embed, page, maxPage, trackList);
 						await i.update({ embeds: [embed], components: [row] });
 					});
+				} else {
+					if (message) {
+						message.channel.send({ embeds: [embed] });
+					} else {
+						msgInt.reply({ embeds: [embed] });
+					}
 				}
 				return;
 			} else if (page > maxPage) {

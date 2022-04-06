@@ -13,7 +13,7 @@ const getTimeZone = zone => {
 		offset = zone[0].server.offset;
 	} else {
 		server = 'NA';
-		offset = -5;
+		offset = -4;
 	}
 
 	const zoneInfo = {
