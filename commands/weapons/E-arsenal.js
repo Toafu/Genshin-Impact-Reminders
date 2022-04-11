@@ -12,12 +12,23 @@ module.exports = {
 	expectedArgs: '(Page Number)',
 	//testOnly: true,
 	callback: async ({ message, args, interaction: msgInt, channel }) => {
+		//Take an empty array and push the current page's entries. Convert to string to make Discord.js happy.
+		const getlist = page => {
+			let list = [];
+			for (let i = (page * 20) - 20; i < page * 20; i++) {
+				if (trackList[i]) {
+					list.push(`[${trackList[i].id}] **${trackList[i].name}** (${trackList[i].stars})`);
+				}
+			}
+			list = list.join('\n');
+			return list;
+		};
+		
 		const updateEmbed = (embed, page, maxPage) => {
-			const name = 'You are currently spending countless hours upgrading:';
 			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page);
 			embed.fields = [];
-			embed.addField(name, list);
+			embed.addField('You are currently spending countless hours upgrading:', list);
 		};
 
 		let id;
@@ -54,16 +65,6 @@ module.exports = {
 
 		if (result.length > 0) {
 			const trackList = [];
-			const getlist = page => {
-				let list = [];
-				for (let i = (page * 20) - 20; i < page * 20; i++) {
-					if (trackList[i]) {
-						list.push(`[${trackList[i].id}] **${trackList[i].name}** (${trackList[i].stars})`);
-					}
-				}
-				list = list.join('\n');
-				return list;
-			};
 
 			const dblist = result[0].savedWeapons;
 			dblist.forEach(weapon => trackList.push(weapon));
