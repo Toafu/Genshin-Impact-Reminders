@@ -13,7 +13,7 @@ module.exports = {
 	//testOnly: true,
 	callback: async ({ message, args, interaction: msgInt, channel }) => {
 		//Take an empty array and push the current page's entries. Convert to string to make Discord.js happy.
-		const getlist = page => {
+		const getlist = (page, trackList) => {
 			let list = [];
 			for (let i = (page * 20) - 20; i < page * 20; i++) {
 				if (trackList[i]) {
@@ -64,14 +64,13 @@ module.exports = {
 		}
 
 		if (result.length > 0) {
-			const trackList = [];
-
 			const dblist = result[0].savedWeapons;
+			const trackList = [];
 			dblist.forEach(weapon => trackList.push(weapon));
 
 			trackList.sort((wep1, wep2) => (wep1.id > wep2.id) ? 1 : -1);
 			const maxPage = Math.ceil(trackList.length / 20);
-			let list = getlist(page);
+			let list = getlist(page, trackList);
 
 			if (list.length > 0 && page <= maxPage) {
 				const name = 'You are currently spending countless hours upgrading:';
@@ -150,7 +149,13 @@ module.exports = {
 						updateEmbed(embed, page, maxPage);
 						await i.update({ embeds: [embed], components: [row] });
 					});
-				}
+				} else {
+					if (message) {
+						message.channel.send({ embeds: [embed] });
+					} else {
+						msgInt.reply({ embeds: [embed] });
+					}
+				} //if maxPage > 1
 				return;
 			} else if (page > maxPage) {
 				const maxpageembed = new Discord.MessageEmbed()
