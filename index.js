@@ -19,7 +19,7 @@ const firstMessage = require('./first-message');
 const roleClaim = require('./role-claim');
 
 client.on('ready', async () => {
-	console.log('It has awoken.');
+	console.log('It has awoken. oooOOOooo');
 
 	new WOKCommands(client, {
 		commandsDir: path.join(__dirname, 'commands'),
