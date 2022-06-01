@@ -32,6 +32,7 @@ const getChars = () => {
 			characters[i] = (characterRead(word[0], word[1], word[2], word[3], i, word[4], word[5], word[6], word[7], word[8], word[9], word[10], word[11], word[12], word[13], word[14]));
 			word.splice(0, 15);
 			i += 1;
+			console.log(`Reading in ${word[0]}`);
 		}
 		//console.log(characters[22]);
 	});
