@@ -25,14 +25,14 @@ module.exports = {
 				'date.minute': now.getMinutes(),
 			};
 
-			console.log(`Searching for scheduled agenda at ${now.getHours()}:${now.getMinutes}`);
+			console.log(`Searching for scheduled agenda at ${now.getHours()}:${now.getMinutes()}`);
 
 			const result = await scheduleSchema.find(query);
 
 			if (result.length > 0) {
 				for (let i = 0; i < result.length; i++) {
 					const id = result[i]._id;
-					console.log(`Found agenda for ${id} at ${now.getHours()}:${now.getMinutes}`);
+					console.log(`Found agenda for ${id} at ${now.getHours()}:${now.getMinutes()}`);
 
 					const channel = client.channels.cache.get('929745519876640789');
 					channel.send(`Attempting to send automated agenda to ${id}`);
