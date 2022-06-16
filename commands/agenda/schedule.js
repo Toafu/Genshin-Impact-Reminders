@@ -25,11 +25,14 @@ module.exports = {
 				'date.minute': now.getMinutes(),
 			};
 
+			console.log(`Searching for scheduled agenda at ${now.getHours()}:${now.getMinutes}`);
+
 			const result = await scheduleSchema.find(query);
 
 			if (result.length > 0) {
 				for (let i = 0; i < result.length; i++) {
 					const id = result[i]._id;
+					console.log(`Found agenda for ${id} at ${now.getHours()}:${now.getMinutes}`);
 
 					const channel = client.channels.cache.get('929745519876640789');
 					channel.send(`Attempting to send automated agenda to ${id}`);
@@ -240,6 +243,7 @@ module.exports = {
 				GMToffset = +extractOffset[1] * -1;
 				offset = GMToffset * -1;
 			}
+			console.log(`Calculated offset is ${offset}`);
 		} else {
 			const validTimeZones = momentTimezone.tz.names();
 			if (!validTimeZones.includes(timeZone)) {
@@ -303,7 +307,9 @@ module.exports = {
 		}
 
 		hour += offset;
+		console.log(`Calculated hour is ${hour}`);
 		validatehour(hour);
+		console.log(`Validated hour is ${hour}`);
 
 		const schedule = {
 			hour,
