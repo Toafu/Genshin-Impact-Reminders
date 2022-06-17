@@ -168,14 +168,6 @@ module.exports = {
 			author = msgInt.user.username;
 		}
 
-		const validatehour = hour => {
-			if (hour < 0) {
-				hour += 24;
-			} else if (hour > 23) {
-				hour -= 24;
-			}
-		};
-
 		if (args.length === 0) {
 			const query = { _id: id };
 			const result = await scheduleSchema.find(query);
@@ -185,8 +177,7 @@ module.exports = {
 				const hour = result[0].date.hour;
 				const minute = String(result[0].date.minute).padStart(2, '0');
 				const offset = result[0].date.offset * -1;
-				let displayhour = hour + offset;
-				validatehour(displayhour);
+				let displayhour = (hour + 24 + offset) % 24; //+24 since we don't want negative modulus
 				displayhour = String(displayhour).padStart(2, '0');
 				let GMToffset;
 				if (offset > -1) {
@@ -306,13 +297,8 @@ module.exports = {
 			msgInt.reply({ embeds: [startembed] });
 		}
 
-		hour += offset;
-		console.log(`Calculated hour is ${hour}`);
-		validatehour(hour);
-		console.log(`Validated hour is ${hour}`);
-
 		const schedule = {
-			hour,
+			hour: (hour + 24 + offset) % 24,
 			minute,
 			offset,
 		};
