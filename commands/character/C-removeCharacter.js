@@ -29,9 +29,7 @@ module.exports = {
 		let index;
 
 		if (query === 'all') {
-			await savedCharacterSchema.findOneAndDelete({
-				_id: id,
-			});
+			await savedCharacterSchema.findOneAndDelete({ _id: id });
 			const removeallembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor({ name: author })
@@ -56,12 +54,24 @@ module.exports = {
 		for (const item of queries) {
 			const querytest = Number(item);
 			if (Number.isNaN(querytest) === true) {
-				if (item === 'childe') {
-					index = characters.findIndex(person => person.name.toLowerCase() === 'tartaglia');
-				} else if (item === 'ayaya') {
-					index = characters.findIndex(person => person.name.toLowerCase() === 'ayaka');
-				} else {
-					index = characters.findIndex(person => person.name.toLowerCase() === item);
+				switch (item) { //Special cases (especially Inazuma names)
+					case 'childe':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'tartaglia');
+						break;
+					case 'ayaya':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'ayaka');
+						break;
+					case 'kaedahara kazuha':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'kazuha');
+						break;
+					case 'itto':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'arataki itto');
+						break;
+					case 'kokomi':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'sangonomiya kokomi');
+						break;
+					default:
+						index = characters.findIndex(person => person.name.toLowerCase() === query);
 				}
 			} else {
 				index = querytest;
@@ -95,7 +105,7 @@ module.exports = {
 		}
 		if (fail.length > 0) {
 			fail = fail.join('\n');
-			embed.addField('We couldn\'t add these characters due to a typo or invalid ID:', fail)
+			embed.addField('We couldn\'t remove these characters due to a typo or invalid ID:', fail)
 				.setFooter({ text: 'Use the  tracking  command if you need help with spelling or finding IDs. Use slashes to remove multiple people (b!remove 0/Venti).' });
 		}
 		if (message) {
@@ -103,5 +113,11 @@ module.exports = {
 			return;
 		}
 		msgInt.reply({ embeds: [embed] });
+
+		//Check if the character list is empty, and if so, remove from the database.
+		const list = await savedCharacterSchema.find({ _id: id });
+		if (!list[0].savedCharacters[0]) {
+			await savedCharacterSchema.findOneAndDelete({ _id: id });
+		}
 	},
 };

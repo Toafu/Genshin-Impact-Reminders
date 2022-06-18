@@ -36,7 +36,7 @@ module.exports = {
 
 					const channel = client.channels.cache.get('929745519876640789');
 					channel.send(`Attempting to send automated agenda to ${id}`);
-					
+
 					const zone = await timezoneSchema.find({ _id: id });
 					const { server, offset } = ahelp.getTimeZone(zone);
 					const { day, title, logo } = ahelp.getTime(server, offset);
@@ -177,7 +177,7 @@ module.exports = {
 				const hour = result[0].date.hour;
 				const minute = String(result[0].date.minute).padStart(2, '0');
 				const offset = result[0].date.offset * -1;
-				let displayhour = (hour + 24 + offset) % 24; //+24 since we don't want negative modulus
+				let displayhour = (hour + 24 + offset) % 24; // +24 since we don't want negative modulus
 				displayhour = String(displayhour).padStart(2, '0');
 				let GMToffset;
 				if (offset > -1) {
@@ -188,7 +188,7 @@ module.exports = {
 				embed.setDescription(`Your agenda will be DM'd to you at **${displayhour}:${minute} GMT${GMToffset}**.`);
 			} else {
 				embed.setDescription('Your agenda hasn\'t been scheduled yet! Run **b!schedule <HH:mm (24h)> <Timezone/GMT Offset>** to automatically receive a daily agenda.');
-			}
+			} //if schedule exists in database
 			if (message) {
 				message.channel.send({ embeds: [embed] });
 			} else {
@@ -229,11 +229,10 @@ module.exports = {
 			const extractOffset = timeZone.split(/[+-]+/);
 			if (timeZone.includes('+')) {
 				GMToffset = +extractOffset[1];
-				offset = GMToffset * -1;
 			} else if (timeZone.includes('-')) {
 				GMToffset = +extractOffset[1] * -1;
-				offset = GMToffset * -1;
 			}
+			offset = GMToffset * -1;
 			console.log(`Calculated offset is ${offset}`);
 		} else {
 			const validTimeZones = momentTimezone.tz.names();

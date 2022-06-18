@@ -5,15 +5,12 @@ const weapons = getWeapon.getWeapons();
 const today = require('./today');
 
 const getTimeZone = zone => {
-	let server;
-	let offset;
+	let server = 'NA';
+	let offset = -4;
 
 	if (zone.length > 0) {
 		server = zone[0].server.name;
 		offset = zone[0].server.offset;
-	} else {
-		server = 'NA';
-		offset = -4;
 	}
 
 	const zoneInfo = {

@@ -84,6 +84,8 @@ module.exports = {
 			.setAuthor({ name: author })
 			.setColor('#00FF97');
 
+		//If empty lists are wiped, this code can be simplified.
+
 		if (!charresult[0] && !wepresult[0]) { //No record of user
 			if (message) {
 				message.channel.send({ embeds: [nonexistantembed] });
@@ -179,17 +181,28 @@ module.exports = {
 		const invalidpageembed = new Discord.MessageEmbed()
 			.setTitle(title)
 			.setColor('#00FF97')
-			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
 			.setFooter({ text: '>:(' });
 
+		//Check if page requested is valid
+		let invalid = false;
 		if (page > maxPage) {
+			invalidpageembed.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`);
+			invalid = true;
+		} else if (page < 1) {
+			invalidpageembed.addField('hol up', `The minimum page you can request is 1.`);
+			invalid = true;
+		}
+
+		if (invalid) {
 			if (message) {
 				message.channel.send({ embeds: [invalidpageembed] });
-				return;
+			} else {
+				msgInt.reply({ embeds: [invalidpageembed] });
 			}
-			msgInt.reply({ embeds: [invalidpageembed] });
 			return;
 		}
+
+		// --- PAGE VALIDATION COMPLETE ---
 
 		const agenda = {
 			agendaembed,
@@ -200,86 +213,84 @@ module.exports = {
 			locfield,
 		};
 
-		if (page > 0 && page <= maxPage) {
-			agendaembed.setFooter({ text: footer });
-			getfields(agenda, page);
-			if (maxPage > 1) {
-				const row = new MessageActionRow()
-					.addComponents(
-						new MessageButton()
-							.setCustomId('first_page')
-							.setLabel('First Page')
-							.setStyle('PRIMARY')
-					)
-					.addComponents(
-						new MessageButton()
-							.setCustomId('prev_page')
-							.setLabel('Previous Page')
-							.setStyle('PRIMARY')
-					)
-					.addComponents(
-						new MessageButton()
-							.setCustomId('next_page')
-							.setLabel('Next Page')
-							.setStyle('PRIMARY')
-					)
-					.addComponents(
-						new MessageButton()
-							.setCustomId('last_page')
-							.setLabel('Last Page')
-							.setStyle('PRIMARY')
-					);
+		agendaembed.setFooter({ text: footer });
+		getfields(agenda, page);
+		if (maxPage > 1) {
+			const row = new MessageActionRow()
+				.addComponents(
+					new MessageButton()
+						.setCustomId('first_page')
+						.setLabel('First Page')
+						.setStyle('PRIMARY')
+				)
+				.addComponents(
+					new MessageButton()
+						.setCustomId('prev_page')
+						.setLabel('Previous Page')
+						.setStyle('PRIMARY')
+				)
+				.addComponents(
+					new MessageButton()
+						.setCustomId('next_page')
+						.setLabel('Next Page')
+						.setStyle('PRIMARY')
+				)
+				.addComponents(
+					new MessageButton()
+						.setCustomId('last_page')
+						.setLabel('Last Page')
+						.setStyle('PRIMARY')
+				);
 
-				let filter;
-				if (message) {
-					await message.channel.send({
-						embeds: [agendaembed],
-						components: [row],
-					});
-
-					filter = (btnInt) => {
-						return message.author.id === btnInt.user.id;
-					};
-				} else {
-					await msgInt.reply({
-						embeds: [agendaembed],
-						components: [row],
-					});
-
-					filter = (btnInt) => {
-						return msgInt.user.id === btnInt.user.id;
-					};
-				}
-
-				const collector = channel.createMessageComponentCollector({
-					filter,
-					idle: 1000 * 15,
+			let filter;
+			if (message) {
+				await message.channel.send({
+					embeds: [agendaembed],
+					components: [row],
 				});
 
-				collector.on('collect', async i => {
-					if (i.customId === 'first_page') {
-						page = 1;
-					};
-					if (i.customId === 'prev_page') {
-						if (--page < 1) page = 1;
-					};
-					if (i.customId === 'next_page') {
-						if (++page > maxPage) page = maxPage;
-					};
-					if (i.customId === 'last_page') {
-						page = maxPage;
-					};
-					agendaembed.setFooter({ text: footer });
-					getfields(agenda, page);
-					await i.update({ embeds: [agendaembed], components: [row] });
-				});
+				filter = (btnInt) => {
+					return message.author.id === btnInt.user.id;
+				};
 			} else {
-				if (message) {
-					message.channel.send({ embeds: [agendaembed] });
-				} else {
-					msgInt.reply({ embeds: [agendaembed] });
-				}
+				await msgInt.reply({
+					embeds: [agendaembed],
+					components: [row],
+				});
+
+				filter = (btnInt) => {
+					return msgInt.user.id === btnInt.user.id;
+				};
 			}
-		}
+
+			const collector = channel.createMessageComponentCollector({
+				filter,
+				idle: 1000 * 15,
+			});
+
+			collector.on('collect', async i => {
+				if (i.customId === 'first_page') {
+					page = 1;
+				};
+				if (i.customId === 'prev_page') {
+					if (--page < 1) page = 1;
+				};
+				if (i.customId === 'next_page') {
+					if (++page > maxPage) page = maxPage;
+				};
+				if (i.customId === 'last_page') {
+					page = maxPage;
+				};
+				agendaembed.setFooter({ text: footer });
+				getfields(agenda, page);
+				await i.update({ embeds: [agendaembed], components: [row] });
+			});
+		} else {
+			if (message) {
+				message.channel.send({ embeds: [agendaembed] });
+			} else {
+				msgInt.reply({ embeds: [agendaembed] });
+			}
+		} //if maxPage > 1
 	}
 };

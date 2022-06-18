@@ -88,6 +88,6 @@ module.exports = {
 					msgInt.reply({ embeds: [showembed] });
 				}
 			}
-		}
+		} //if no args (show agenda if exists)
 	},
 };
