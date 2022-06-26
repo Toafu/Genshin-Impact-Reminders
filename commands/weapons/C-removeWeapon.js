@@ -29,9 +29,7 @@ module.exports = {
 		let index;
 
 		if (query === 'all') {
-			await savedWeaponSchema.findOneAndDelete({
-				_id: id,
-			});
+			await savedWeaponSchema.findOneAndDelete({ _id: id });
 			const removeallembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor({ name: author })
@@ -95,8 +93,14 @@ module.exports = {
 		}
 		if (message) {
 			message.channel.send({ embeds: [embed] });
-			return;
+		} else {
+			msgInt.reply({ embeds: [embed] });
 		}
-		msgInt.reply({ embeds: [embed] });
+
+		//Check if savedWeapons array is empty, and if so, delete from database
+		const count = await savedWeaponSchema.find({ _id: id });
+		if (count[0] && count[0].savedWeapons.length === 0) {
+			await savedWeaponSchema.findOneAndDelete({ _id: id });
+		}
 	},
 };

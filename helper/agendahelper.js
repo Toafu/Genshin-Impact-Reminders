@@ -130,6 +130,8 @@ const getFunctions = (day, availablematerials, nocharstoday, nowepstoday, custom
 		for (let i = (page * 10) - 10; i < page * 10; i++) {
 			if (charagenda[i]) {
 				finalcharlist.push(charagenda[i]);
+			} else {
+				break;
 			}
 		}
 		return finalcharlist;
@@ -141,6 +143,8 @@ const getFunctions = (day, availablematerials, nocharstoday, nowepstoday, custom
 		for (let i = (page * 10) - 10; i < page * 10; i++) {
 			if (wepagenda[i]) {
 				finalweplist.push(wepagenda[i]);
+			} else {
+				break;
 			}
 		}
 		return finalweplist;

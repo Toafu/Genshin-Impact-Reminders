@@ -18,12 +18,24 @@ module.exports = {
 		const query = text.toLowerCase();
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
-			if (query === 'childe') {
-				index = characters.findIndex(person => person.name.toLowerCase() === 'tartaglia');
-			} else if (query === 'ayaya') {
-				index = characters.findIndex(person => person.name.toLowerCase() === 'ayaka');
-			} else {
-				index = characters.findIndex(person => person.name.toLowerCase() === query);
+			switch (query) { //Special cases (especially Inazuma names)
+				case 'childe':
+					index = characters.findIndex(person => person.name.toLowerCase() === 'tartaglia');
+					break;
+				case 'ayaya':
+					index = characters.findIndex(person => person.name.toLowerCase() === 'ayaka');
+					break;
+				case 'kaedahara kazuha':
+					index = characters.findIndex(person => person.name.toLowerCase() === 'kazuha');
+					break;
+				case 'itto':
+					index = characters.findIndex(person => person.name.toLowerCase() === 'arataki itto');
+					break;
+				case 'kokomi':
+					index = characters.findIndex(person => person.name.toLowerCase() === 'sangonomiya kokomi');
+					break;
+				default:
+					index = characters.findIndex(person => person.name.toLowerCase() === query);
 			}
 		} else {
 			index = querytest;
@@ -71,14 +83,13 @@ module.exports = {
 			} else {
 				msgInt.reply({ embeds: [embed] });
 			}
-			return;
 		} else {
 			const error = `Please use a valid ID [\`0-${characters.length - 1}\`] or character name.`;
 			if (message) {
 				message.channel.send(error);
-				return;
+			} else {
+				msgInt.reply(error);
 			}
-			msgInt.reply(error);
-		}
+		} //if valid index
 	},
 };

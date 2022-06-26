@@ -46,6 +46,21 @@ module.exports = {
 			page = +args[0];
 		}
 
+		const invalidpageembed = new Discord.MessageEmbed()
+			.setTitle(title)
+			.setColor('#00FF97')
+			.setFooter({ text: '>:(' });
+
+		if (page < 1) {
+			invalidpageembed.addField('hol up', `The minimum page you can request is 1.`);
+			if (message) {
+				message.channel.send({ embeds: [invalidpageembed] });
+			} else {
+				msgInt.reply({ embeds: [invalidpageembed] });
+			}
+			return;
+		}
+
 		const query = { _id: id };
 		const charresult = await savedCharacterSchema.find(query);
 		const todaysChars = [];
@@ -120,11 +135,29 @@ module.exports = {
 			}
 		}
 
+		if (charresult[0]) {
+			gettodaysChars(todaysChars, charresult);
+		}
+		if (wepresult[0]) {
+			gettodaysWeps(todaysWeps, wepresult);
+		}
+
+		const maxPage = Math.max(Math.ceil(todaysChars.length / 10), Math.ceil(todaysWeps.length / 10));
+
+		if (page > maxPage) {
+			invalidpageembed.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`);
+			if (message) {
+				message.channel.send({ embeds: [invalidpageembed] });
+			} else {
+				msgInt.reply({ embeds: [invalidpageembed] });
+			}
+			return;
+		}
+
 		const charagenda = [];
 		let finalcharlist;
 		let charfield = {};
 		if (charresult[0]) {
-			gettodaysChars(todaysChars, charresult);
 			if (todaysChars.length === 0) {
 				agendaembed.addFields(nocharstoday);
 			} else {
@@ -143,7 +176,6 @@ module.exports = {
 		let finalweplist;
 		let wepfield = {};
 		if (wepresult[0]) {
-			gettodaysWeps(todaysWeps, wepresult);
 			if (todaysWeps.length === 0) {
 				agendaembed.addFields(nowepstoday);
 			} else {
@@ -158,7 +190,7 @@ module.exports = {
 			}
 		}
 
-		const maxPage = Math.max(Math.ceil(todaysChars.length / 10), Math.ceil(todaysWeps.length / 10));
+		
 
 		if (maxPage === 0) { //The user is tracking but nothing today
 			if (message) {
@@ -176,20 +208,6 @@ module.exports = {
 			name: locname,
 			value: loclist,
 		};
-		const invalidpageembed = new Discord.MessageEmbed()
-			.setTitle(title)
-			.setColor('#00FF97')
-			.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`)
-			.setFooter({ text: '>:(' });
-
-		if (page > maxPage) {
-			if (message) {
-				message.channel.send({ embeds: [invalidpageembed] });
-				return;
-			}
-			msgInt.reply({ embeds: [invalidpageembed] });
-			return;
-		}
 
 		const agenda = {
 			agendaembed,

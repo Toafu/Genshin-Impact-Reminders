@@ -56,12 +56,24 @@ module.exports = {
 		for (const item of queries) {
 			const querytest = Number(item);
 			if (Number.isNaN(querytest) === true) {
-				if (item === 'childe') {
-					index = characters.findIndex(person => person.name.toLowerCase() === 'tartaglia');
-				} else if (item === 'ayaya') {
-					index = characters.findIndex(person => person.name.toLowerCase() === 'ayaka');
-				} else {
-					index = characters.findIndex(person => person.name.toLowerCase() === item);
+				switch (item) { //Special cases (especially Inazuma names)
+					case 'childe':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'tartaglia');
+						break;
+					case 'ayaya':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'ayaka');
+						break;
+					case 'kaedahara kazuha':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'kazuha');
+						break;
+					case 'itto':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'arataki itto');
+						break;
+					case 'kokomi':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'sangonomiya kokomi');
+						break;
+					default:
+						index = characters.findIndex(person => person.name.toLowerCase() === query);
 				}
 			} else {
 				index = querytest;
@@ -100,8 +112,14 @@ module.exports = {
 		}
 		if (message) {
 			message.channel.send({ embeds: [embed] });
-			return;
+		} else {
+			msgInt.reply({ embeds: [embed] });
 		}
-		msgInt.reply({ embeds: [embed] });
+
+		//Check if savedCharacters array is empty, and if so, delete from database
+		const count = await savedCharacterSchema.find({ _id: id });
+		if (count[0] && count[0].savedCharacters.length === 0) {
+			await savedCharacterSchema.findOneAndDelete({ _id: id });
+		}
 	},
 };
