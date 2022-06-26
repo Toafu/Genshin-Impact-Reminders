@@ -10,7 +10,7 @@ module.exports = {
 	slash: 'both',
 	name: 'agenda',
 	category: 'Agenda',
-	description: 'View what materials you can farm for your tracked characters and weapons. Default page 1.',
+	description: 'View what materials you can farm for your tracked characters and weapons.',
 	minArgs: 0,
 	maxArgs: 1,
 	expectedArgs: '(page number)',
@@ -149,7 +149,7 @@ module.exports = {
 			if (message) {
 				message.channel.send({ embeds: [invalidpageembed] });
 			} else {
-				msgInt.reply({ embeds: [invalidpageembed] });
+				msgInt.reply({ embeds: [invalidpageembed], ephemeral: true });
 			}
 			return;
 		}
