@@ -77,6 +77,9 @@ module.exports = {
 					case 'kokomi':
 						index = characters.findIndex(person => person.name.toLowerCase() === 'sangonomiya kokomi');
 						break;
+					case 'shinobu':
+						index = characters.findIndex(person => person.name.toLowerCase() === 'kuki shinobu');
+						break;
 					default:
 						index = characters.findIndex(person => person.name.toLowerCase() === query);
 				}
