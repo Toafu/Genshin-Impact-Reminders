@@ -39,11 +39,25 @@ module.exports = {
 
 		const availablematerials = ahelp.getMaterials(day);
 
-		let page;
-		if (!args[0]) {
-			page = 1;
-		} else {
-			page = +args[0];
+		// let page;
+		// if (!args[0]) {
+		// 	page = 1;
+		// } else {
+		// 	page = +args[0];
+		// }
+	
+		let page = 1;
+		if (args[0]) { //if a "page number" was given
+			if (Number.isNaN(page) === true) { //if that "page number" is not a number
+				if (message) {
+					message.channel.send('Make sure the page number is a number.');
+				} else {
+					msgInt.reply('Make sure the page number is a number.');
+				}
+				return;
+			} else {
+				page = +args[0];
+			}
 		}
 
 		const invalidpageembed = new Discord.MessageEmbed()
@@ -99,6 +113,7 @@ module.exports = {
 			.setAuthor({ name: author })
 			.setColor('#00FF97');
 
+		//If a user's saved characters or weapons list is empty, they will not be on the database
 		if (!charresult[0] && !wepresult[0]) { //No record of user
 			if (message) {
 				message.channel.send({ embeds: [nonexistantembed] });
@@ -106,34 +121,9 @@ module.exports = {
 				msgInt.reply({ embeds: [nonexistantembed] });
 			}
 			return;
-		} else if (charresult[0] && !wepresult[0]) { //If user's character tracking list exists
-			if (!charresult[0].savedCharacters[0] && !wepresult[0]) {
-				if (message) {
-					message.channel.send({ embeds: [nonexistantembed] });
-				} else {
-					msgInt.reply({ embeds: [nonexistantembed] });
-				}
-				return;
-			}
-		} else if (wepresult[0] && !charresult[0]) { //If user's weapon tracking list exists
-			if (!wepresult[0].savedWeapons[0] && !charresult[0]) {
-				if (message) {
-					message.channel.send({ embeds: [nonexistantembed] });
-				} else {
-					msgInt.reply({ embeds: [nonexistantembed] });
-				}
-				return;
-			}
-		} else if (charresult[0] && wepresult[0]) { //Both user's tracking lists exist
-			if (!charresult[0].savedCharacters[0] && !wepresult[0].savedWeapons[0]) {
-				if (message) {
-					message.channel.send({ embeds: [nonexistantembed] });
-				} else {
-					msgInt.reply({ embeds: [nonexistantembed] });
-				}
-				return;
-			}
 		}
+
+		//At this point one of these lists exists
 
 		if (charresult[0]) {
 			gettodaysChars(todaysChars, charresult);
@@ -189,8 +179,6 @@ module.exports = {
 				agendaembed.addFields(wepfield);
 			}
 		}
-
-		
 
 		if (maxPage === 0) { //The user is tracking but nothing today
 			if (message) {
