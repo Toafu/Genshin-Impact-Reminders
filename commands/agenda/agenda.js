@@ -38,21 +38,14 @@ module.exports = {
 			.addField('You don\'t need to farm today.', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
 
 		const availablematerials = ahelp.getMaterials(day);
-
-		// let page;
-		// if (!args[0]) {
-		// 	page = 1;
-		// } else {
-		// 	page = +args[0];
-		// }
 	
 		let page = 1;
 		if (args[0]) { //if a "page number" was given
-			if (Number.isNaN(page) === true) { //if that "page number" is not a number
+			if (Number.isNaN(args[0]) === true) { //if that "page number" is not a number
 				if (message) {
 					message.channel.send('Make sure the page number is a number.');
 				} else {
-					msgInt.reply('Make sure the page number is a number.');
+					msgInt.reply({ text: 'Make sure the page number is a number.', ephemeral: true });
 				}
 				return;
 			} else {
