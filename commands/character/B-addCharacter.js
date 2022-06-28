@@ -120,8 +120,8 @@ module.exports = {
 		}
 		if (message) {
 			message.channel.send({ embeds: [embed] });
-			return;
+		} else {
+			msgInt.reply({ embeds: [embed] });
 		}
-		msgInt.reply({ embeds: [embed] });
 	},
 };

@@ -42,9 +42,9 @@ module.exports = {
 				.addField('Adding All Weapons', 'I hope you realized what you just did.');
 			if (message) {
 				message.channel.send({ embeds: [addallweaponsembed] });
-				return;
+			} else {
+				msgInt.reply({ embeds: [addallweaponsembed] });
 			}
-			msgInt.reply({ embeds: [addallweaponsembed] });
 			return;
 		}
 
@@ -99,8 +99,8 @@ module.exports = {
 		}
 		if (message) {
 			message.channel.send({ embeds: [embed] });
-			return;
+		} else {
+			msgInt.reply({ embeds: [embed] });
 		}
-		msgInt.reply({ embeds: [embed] });
 	},
 };

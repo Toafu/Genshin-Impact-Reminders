@@ -121,12 +121,10 @@ module.exports = {
 					page = 1;
 				};
 				if (i.customId === 'prev_page') {
-					page--;
-					if (page < 1) page = 1;
+					if (--page < 1) page = 1;
 				};
 				if (i.customId === 'next_page') {
-					page++;
-					if (page > maxPage) page = maxPage;
+					if (++page > maxPage) page = maxPage;
 				};
 				if (i.customId === 'last_page') {
 					page = maxPage;
@@ -147,6 +145,7 @@ module.exports = {
 				.setFooter({ text: '>:(' });
 			if (message) {
 				message.channel.send({ embeds: [embed] });
+				return;
 			}
 			return embed;
 		} else {
