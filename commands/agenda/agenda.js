@@ -126,6 +126,15 @@ module.exports = {
 		}
 
 		const maxPage = Math.max(Math.ceil(todaysChars.length / 10), Math.ceil(todaysWeps.length / 10));
+		
+		if (maxPage === 0) { //The user is tracking but nothing today
+			if (message) {
+				message.channel.send({ embeds: [nothingtodayembed] });
+			} else {
+				msgInt.reply({ embeds: [nothingtodayembed] });
+			}
+			return;
+		}
 
 		if (page > maxPage) {
 			invalidpageembed.addField('hol up', `Your agenda only has **${maxPage}** page(s) today.`);
@@ -171,15 +180,6 @@ module.exports = {
 				};
 				agendaembed.addFields(wepfield);
 			}
-		}
-
-		if (maxPage === 0) { //The user is tracking but nothing today
-			if (message) {
-				message.channel.send({ embeds: [nothingtodayembed] });
-			} else {
-				msgInt.reply({ embeds: [nothingtodayembed] });
-			}
-			return;
 		}
 
 		const footer = `Page ${page} of ${maxPage}`;
