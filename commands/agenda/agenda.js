@@ -45,7 +45,7 @@ module.exports = {
 				if (message) {
 					message.channel.send('Make sure the page number is a number.');
 				} else {
-					msgInt.reply({ text: 'Make sure the page number is a number.', ephemeral: true });
+					msgInt.reply({ content: 'Make sure the page number is a number.', ephemeral: true });
 				}
 				return;
 			} else {
