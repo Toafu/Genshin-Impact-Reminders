@@ -67,6 +67,5 @@ module.exports = {
 		} else {
 			msgInt.reply({ embeds: [embed] });
 		}
-		return;
 	},
 };

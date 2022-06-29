@@ -38,10 +38,10 @@ module.exports = {
 			.addField('You don\'t need to farm today.', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
 
 		const availablematerials = ahelp.getMaterials(day);
-	
+
 		let page = 1;
 		if (args[0]) { //if a "page number" was given
-			if (Number.isNaN(args[0]) === true) { //if that "page number" is not a number
+			if (isNaN(args[0]) === true) { //if that "page number" is not a number
 				if (message) {
 					message.channel.send('Make sure the page number is a number.');
 				} else {
@@ -126,7 +126,7 @@ module.exports = {
 		}
 
 		const maxPage = Math.max(Math.ceil(todaysChars.length / 10), Math.ceil(todaysWeps.length / 10));
-		
+
 		if (maxPage === 0) { //The user is tracking but nothing today
 			if (message) {
 				message.channel.send({ embeds: [nothingtodayembed] });
@@ -145,6 +145,8 @@ module.exports = {
 			}
 			return;
 		}
+
+		//At this point page MUST be valid
 
 		const charagenda = [];
 		let finalcharlist;
@@ -199,85 +201,83 @@ module.exports = {
 			locfield,
 		};
 
-		if (page > 0 && page <= maxPage) {
-			agendaembed.setFooter({ text: footer });
-			getfields(agenda, page);
-			if (maxPage > 1) {
-				const row = new MessageActionRow()
-					.addComponents(
-						new MessageButton()
-							.setCustomId('first_page')
-							.setLabel('First Page')
-							.setStyle('PRIMARY')
-					)
-					.addComponents(
-						new MessageButton()
-							.setCustomId('prev_page')
-							.setLabel('Previous Page')
-							.setStyle('PRIMARY')
-					)
-					.addComponents(
-						new MessageButton()
-							.setCustomId('next_page')
-							.setLabel('Next Page')
-							.setStyle('PRIMARY')
-					)
-					.addComponents(
-						new MessageButton()
-							.setCustomId('last_page')
-							.setLabel('Last Page')
-							.setStyle('PRIMARY')
-					);
+		agendaembed.setFooter({ text: footer });
+		getfields(agenda, page);
+		if (maxPage > 1) {
+			const row = new MessageActionRow()
+				.addComponents(
+					new MessageButton()
+						.setCustomId('first_page')
+						.setLabel('First Page')
+						.setStyle('PRIMARY')
+				)
+				.addComponents(
+					new MessageButton()
+						.setCustomId('prev_page')
+						.setLabel('Previous Page')
+						.setStyle('PRIMARY')
+				)
+				.addComponents(
+					new MessageButton()
+						.setCustomId('next_page')
+						.setLabel('Next Page')
+						.setStyle('PRIMARY')
+				)
+				.addComponents(
+					new MessageButton()
+						.setCustomId('last_page')
+						.setLabel('Last Page')
+						.setStyle('PRIMARY')
+				);
 
-				let filter;
-				if (message) {
-					await message.channel.send({
-						embeds: [agendaembed],
-						components: [row],
-					});
-
-					filter = (btnInt) => {
-						return message.author.id === btnInt.user.id;
-					};
-				} else {
-					await msgInt.reply({
-						embeds: [agendaembed],
-						components: [row],
-					});
-
-					filter = (btnInt) => {
-						return msgInt.user.id === btnInt.user.id;
-					};
-				}
-
-				const collector = channel.createMessageComponentCollector({
-					filter,
-					idle: 1000 * 15,
+			let filter;
+			if (message) {
+				await message.channel.send({
+					embeds: [agendaembed],
+					components: [row],
 				});
 
-				collector.on('collect', async i => {
-					if (i.customId === 'first_page') {
-						page = 1;
-					};
-					if (i.customId === 'prev_page') {
-						if (--page < 1) page = 1;
-					};
-					if (i.customId === 'next_page') {
-						if (++page > maxPage) page = maxPage;
-					};
-					if (i.customId === 'last_page') {
-						page = maxPage;
-					};
-					agendaembed.setFooter({ text: footer });
-					getfields(agenda, page);
-					await i.update({ embeds: [agendaembed], components: [row] });
-				});
+				filter = (btnInt) => {
+					return message.author.id === btnInt.user.id;
+				};
 			} else {
-				if (message) {
-					message.channel.send({ embeds: [agendaembed] });
-				} else {
-					msgInt.reply({ embeds: [agendaembed] });
-				}
+				await msgInt.reply({
+					embeds: [agendaembed],
+					components: [row],
+				});
+
+				filter = (btnInt) => {
+					return msgInt.user.id === btnInt.user.id;
+				};
+			}
+
+			const collector = channel.createMessageComponentCollector({
+				filter,
+				idle: 1000 * 15,
+			});
+
+			collector.on('collect', async i => {
+				if (i.customId === 'first_page') {
+					page = 1;
+				};
+				if (i.customId === 'prev_page') {
+					if (--page < 1) page = 1;
+				};
+				if (i.customId === 'next_page') {
+					if (++page > maxPage) page = maxPage;
+				};
+				if (i.customId === 'last_page') {
+					page = maxPage;
+				};
+				agendaembed.setFooter({ text: footer });
+				getfields(agenda, page);
+				await i.update({ embeds: [agendaembed], components: [row] });
+			});
+		} else {
+			if (message) {
+				message.channel.send({ embeds: [agendaembed] });
+			} else {
+				msgInt.reply({ embeds: [agendaembed] });
 			}
 		}
 	}

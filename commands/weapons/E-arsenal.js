@@ -56,10 +56,8 @@ module.exports = {
 			_id: id,
 		});
 
-		let page;
-		if (!args[0]) {
-			page = 1;
-		} else {
+		let page = 1;
+		if (args[0]) {
 			page = +args[0];
 		}
 
@@ -180,6 +178,5 @@ module.exports = {
 		} else {
 			msgInt.reply({ embeds: [emptyembed] });
 		}
-		return;
 	},
 };

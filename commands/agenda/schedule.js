@@ -164,11 +164,9 @@ module.exports = {
 				const offset = result[0].date.offset * -1;
 				let displayhour = (hour + 24 + offset) % 24; //+24 since we don't want negative modulus
 				displayhour = String(displayhour).padStart(2, '0');
-				let GMToffset;
+				let GMToffset = offset;
 				if (offset > -1) {
 					GMToffset = `+${offset}`;
-				} else {
-					GMToffset = offset;
 				}
 				embed.setDescription(`Your agenda will be DM'd to you at **${displayhour}:${minute} GMT${GMToffset}**.`);
 			} else {

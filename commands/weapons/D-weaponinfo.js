@@ -56,17 +56,16 @@ module.exports = {
 					});
 			if (message) {
 				message.channel.send({ embeds: [embed] });
-				return;
+			} else {
+				msgInt.reply({ embeds: [embed] });
 			}
-			msgInt.reply({ embeds: [embed] });
-			return;
 		} else {
 			const error = `Please use a valid ID [\`0-${weapons.length - 1}\`] or weapon name.`;
 			if (message) {
 				message.channel.send(error);
-				return;
+			} else {
+				msgInt.reply(error);
 			}
-			msgInt.reply(error);
-		}
+		} //if valid index
 	},
 };

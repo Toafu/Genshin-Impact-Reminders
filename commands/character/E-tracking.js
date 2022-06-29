@@ -57,16 +57,15 @@ module.exports = {
 			_id: id,
 		});
 
+		let page = 1;
+		if (args[0]) {
+			page = +args[0];
+		}
+
 		if (result.length > 0) {
 			const dblist = result[0].savedCharacters;
 			const trackList = [];
-			let page;
 			dblist.forEach(person => trackList.push(person));
-			if (!args[0]) {
-				page = 1;
-			} else {
-				page = +args[0];
-			}
 
 			trackList.sort((char1, char2) => (char1.name > char2.name) ? 1 : -1);
 			const maxPage = Math.ceil(trackList.length / 20);

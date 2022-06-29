@@ -47,6 +47,7 @@ module.exports = {
 				}
 				return;
 			}
+
 			await savedMessageSchema.findOneAndUpdate({
 				_id: id,
 			}, {
@@ -63,7 +64,6 @@ module.exports = {
 			} else {
 				msgInt.reply({ embeds: [updatedembed] });
 			}
-
 		} else {
 			const result = await savedMessageSchema.find({ _id: id });
 			if (result.length === 0) {
@@ -76,7 +76,6 @@ module.exports = {
 				} else {
 					msgInt.reply({ embeds: [nothingembed] });
 				}
-
 			} else {
 				const showembed = new Discord.MessageEmbed()
 					.setTitle(`${author}, this message is currently showing at the bottom of your agenda:`)
@@ -88,6 +87,6 @@ module.exports = {
 					msgInt.reply({ embeds: [showembed] });
 				}
 			}
-		}
+		} //if argument was given
 	},
 };
