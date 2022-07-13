@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const getChar = require('@helper/getChars');
 const characters = getChar.getChars();
 const getEmotes = require('@helper/getEmote');
+const getNames = require('@helper/getNames');
 
 module.exports = {
 	slash: 'both',
@@ -18,28 +19,7 @@ module.exports = {
 		const query = text.toLowerCase();
 		const querytest = Number(query);
 		if (Number.isNaN(querytest) === true) {
-			switch (query) { //Special cases (especially Inazuma names)
-				case 'childe':
-					index = characters.findIndex(person => person.name.toLowerCase() === 'tartaglia');
-					break;
-				case 'ayaya':
-					index = characters.findIndex(person => person.name.toLowerCase() === 'ayaka');
-					break;
-				case 'kaedahara kazuha':
-					index = characters.findIndex(person => person.name.toLowerCase() === 'kazuha');
-					break;
-				case 'itto':
-					index = characters.findIndex(person => person.name.toLowerCase() === 'arataki itto');
-					break;
-				case 'kokomi':
-					index = characters.findIndex(person => person.name.toLowerCase() === 'sangonomiya kokomi');
-					break;
-				case 'shinobu':
-					index = characters.findIndex(person => person.name.toLowerCase() === 'kuki shinobu');
-					break;
-				default:
-					index = characters.findIndex(person => person.name.toLowerCase() === query);
-			}
+			index = characters.findIndex(person => person.name.toLowerCase() === getNames.getName(query));
 		} else {
 			index = querytest;
 		}
