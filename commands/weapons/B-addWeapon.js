@@ -66,17 +66,10 @@ module.exports = {
 			}
 
 			if (index >= 0 && index < weapons.length) {
-				const savedWepData = {
-					name: weapons[i].name,
-					stars: weapons[i].stars,
-					id: i,
-					mat: weapons[i].mat,
-					days: weapons[i].days,
-				};
 				await savedWeaponSchema.findOneAndUpdate({
 					_id: id,
 				}, {
-					$addToSet: { savedWeapons: savedWepData },
+					$addToSet: { savedWeapons: weapons[index] },
 				}, {
 					upsert: true,
 				}).exec();
