@@ -68,10 +68,17 @@ module.exports = {
 			}
 
 			if (index >= 0 && index < characters.length) {
+				const savedCharData = {
+					name: characters[index].name,
+					element: characters[index].element,
+					talent: characters[index].talent,
+					days: characters[index].days,
+					id: index,
+				};
 				await savedCharacterSchema.findOneAndUpdate({
 					_id: id,
 				}, {
-					$addToSet: { savedCharacters: characters[index] },
+					$addToSet: { savedCharacters: savedCharData },
 				}, {
 					upsert: true,
 				}).exec();
