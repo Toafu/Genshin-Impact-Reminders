@@ -12,7 +12,7 @@ const week = {
 const todayIs = (offset) => {
 	const time = new Date();
 	time.setHours(time.getHours() + offset); //For Heroku server
-	//time.setHours(time.getHours() + 4 + offset);
+	//time.setHours(time.getHours() + 5 + offset);
 	const day = time.getDay();
 	return week[day];
 };
@@ -21,7 +21,7 @@ exports.todayIs = todayIs;
 const timeIs = (offset) => {
 	const time = new Date();
 	time.setHours(time.getHours() + offset); //For Heroku server
-	//time.setHours(time.getHours() + 4 + offset);
+	//time.setHours(time.getHours() + 5 + offset);
 	return time;
 };
 exports.timeIs = timeIs;

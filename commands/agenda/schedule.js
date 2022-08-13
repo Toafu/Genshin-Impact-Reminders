@@ -21,7 +21,7 @@ module.exports = {
 			const now = new Date;
 			const query = {
 				'date.hour': now.getHours(), //For Heroku
-				//'date.hour': now.getHours() + 4,
+				//'date.hour': (now.getHours() + 5) % 24,
 				'date.minute': now.getMinutes(),
 			};
 
@@ -36,7 +36,7 @@ module.exports = {
 
 					const channel = client.channels.cache.get('929745519876640789');
 					channel.send(`Attempting to send automated agenda to ${id}`);
-					
+
 					const zone = await timezoneSchema.find({ _id: id });
 					const { server, offset } = ahelp.getTimeZone(zone);
 					const { day, title, logo } = ahelp.getTime(server, offset);
@@ -44,6 +44,13 @@ module.exports = {
 
 					const user = await client.users.fetch(id).catch(console.error);
 
+					const nothingtodayembed = new Discord.MessageEmbed()
+						.setTitle(title)
+						.setThumbnail(logo)
+						.setAuthor({ name: user.username })
+						.setColor('#00FF97')
+						.addField('You don\'t need to farm today.', 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>');
+					
 					const availablematerials = ahelp.getMaterials(day);
 
 					const query = { _id: id };
@@ -85,6 +92,12 @@ module.exports = {
 					const wepname = '__Today\'s Weapons__';
 					const locname = '__Places to Go__';
 
+					const agendaembed = new Discord.MessageEmbed()
+						.setTitle(title)
+						.setThumbnail(logo)
+						.setAuthor({ name: user.username })
+						.setColor('#00FF97');
+
 					if (!charresult[0] && !wepresult[0]) { //No record of user
 						user.send({ embeds: [nonexistantembed] }).catch(console.error);
 						return;
@@ -108,21 +121,20 @@ module.exports = {
 						}
 					}
 
+					const maxPage = Math.max(Math.ceil(todaysChars.length / 10), Math.ceil(todaysWeps.length / 10));
+
+					if (maxPage === 0) {
+						user.send({ embeds: [nothingtodayembed] }).catch(console.error);
+						break;
+					}
+
 					const loclist = getlocations(todaysChars, todaysWeps);
 					const locfield = {
 						name: locname,
 						value: loclist,
 					};
 
-					const maxPage = Math.max(Math.ceil(todaysChars.length / 10), Math.ceil(todaysWeps.length / 10));
-
 					for (let page = 1; page <= maxPage; ++page) {
-						const agendaembed = new Discord.MessageEmbed()
-							.setTitle(title)
-							.setThumbnail(logo)
-							.setAuthor({ name: user.username })
-							.setColor('#00FF97');
-
 						const agenda = {
 							agendaembed,
 							charname,
