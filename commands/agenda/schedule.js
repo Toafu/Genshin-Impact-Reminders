@@ -144,7 +144,7 @@ module.exports = {
 							locfield,
 						};
 
-						agendaembed.setFooter({ text: `Page ${page} of ${maxPage}` });
+						agendaembed.setFooter({ text: `Unsubcribe with "b!schedule off"` });
 						getfields(agenda, page);
 						user.send({ embeds: [agendaembed] }).catch(console.error);
 					}
