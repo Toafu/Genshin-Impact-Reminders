@@ -25,7 +25,7 @@ module.exports = {
 				'date.minute': now.getMinutes(),
 			};
 
-			console.log(`Searching for scheduled agenda at ${now.getHours()}:${now.getMinutes()}`);
+			//console.log(`Searching for scheduled agenda at ${now.getHours()}:${now.getMinutes()}`);
 
 			const result = await scheduleSchema.find(query);
 
