@@ -229,7 +229,7 @@ module.exports = {
 				GMToffset = +extractOffset[1] * -1;
 				offset = GMToffset * -1;
 			}
-			console.log(`Calculated offset is ${offset}`);
+			//console.log(`Calculated offset is ${offset}`);
 		} else {
 			const validTimeZones = momentTimezone.tz.names();
 			if (!validTimeZones.includes(timeZone)) {

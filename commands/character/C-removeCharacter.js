@@ -66,7 +66,14 @@ module.exports = {
 				await savedCharacterSchema.findOneAndUpdate({
 					_id: id,
 				}, {
-					$pull: { savedCharacters: characters[index] },
+					$pull: { savedCharacters: {
+						name: characters[index].name,
+						element: characters[index].element,
+						talent: characters[index].talent,
+						days: characters[index].days,
+						id: index,
+						location: characters[index].location,
+					} },
 				}, {
 					upsert: true,
 				}).exec();

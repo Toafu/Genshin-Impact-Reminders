@@ -63,7 +63,14 @@ module.exports = {
 				await savedWeaponSchema.findOneAndUpdate({
 					_id: id,
 				}, {
-					$pull: { savedWeapons: weapons[index] },
+					$pull: { savedWeapons: {
+						name: weapons[i].name,
+						stars: weapons[i].stars,
+						id: i,
+						mat: weapons[i].mat,
+						days: weapons[i].days,
+						location: weapons[i].location,
+					} },
 				}, {
 					upsert: true,
 				}).exec();
