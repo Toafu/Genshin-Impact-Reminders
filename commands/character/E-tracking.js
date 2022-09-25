@@ -154,7 +154,7 @@ module.exports = {
 					} else {
 						msgInt.reply({ embeds: [embed] });
 					}
-				}
+				} //if maxPage > 1
 				return;
 			} else if (page > maxPage) {
 				const maxpageembed = new Discord.MessageEmbed()

@@ -64,12 +64,12 @@ module.exports = {
 					_id: id,
 				}, {
 					$pull: { savedWeapons: {
-						name: weapons[i].name,
-						stars: weapons[i].stars,
-						id: i,
-						mat: weapons[i].mat,
-						days: weapons[i].days,
-						location: weapons[i].location,
+						name: weapons[index].name,
+						stars: weapons[index].stars,
+						id: index,
+						mat: weapons[index].mat,
+						days: weapons[index].days,
+						location: weapons[index].location,
 					} },
 				}, {
 					upsert: true,

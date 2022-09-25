@@ -23,10 +23,10 @@ module.exports = {
 			list = list.join('\n');
 			return list;
 		};
-		
-		const updateEmbed = (embed, page, maxPage) => {
+
+		const updateEmbed = (embed, page, maxPage, trackList) => {
 			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
-			list = getlist(page);
+			list = getlist(page, trackList);
 			embed.fields = [];
 			embed.addField('You are currently spending countless hours upgrading:', list);
 		};
@@ -144,7 +144,7 @@ module.exports = {
 						if (i.customId === 'last_page') {
 							page = maxPage;
 						};
-						updateEmbed(embed, page, maxPage);
+						updateEmbed(embed, page, maxPage, trackList);
 						await i.update({ embeds: [embed], components: [row] });
 					});
 				} else {
