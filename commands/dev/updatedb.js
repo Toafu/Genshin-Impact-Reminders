@@ -13,7 +13,6 @@ module.exports = {
 	callback: async ({ message }) => {
 		const msg = await message.channel.send('Updating database...');
 		if (message.author.id.toString() === '269910487133716480') {
-			
 			for (let i = 0; i < characters.length; i++) {
 				const savedCharData = {
 					name: characters[i].name,
