@@ -83,7 +83,7 @@ client.on('ready', async () => {
 
 	process.on('unhandledRejection', error => {
 		console.error('Unhandled promise rejection:', error);
-	});
+	}); 
 
 });
 client.login(process.env.DJS_TOKEN);
