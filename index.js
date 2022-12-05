@@ -81,9 +81,9 @@ client.on('ready', async () => {
 		.setDescription('We need to make sure you\'re a person! Just hit that check mark below this message. It may take a short bit for the verification process to complete.')
 		.setFooter({ text: 'You got this!' });
 
-	// firstMessage(client, '844208376828788771', verificationembed, ['<:check:844677239827726346>']);
+	firstMessage(client, '844208376828788771', verificationembed, ['<:check:844677239827726346>']);
 
-	// roleClaim(client);
+	roleClaim(client);
 
 	process.on('unhandledRejection', error => {
 		console.error('Unhandled promise rejection:', error);

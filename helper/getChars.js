@@ -33,7 +33,8 @@ const getChars = () => {
 			word.splice(0, 15);
 			i += 1;
 		}
-		//console.log(characters[22]);
+		// const json = JSON.stringify(characters);
+		// fs.writeFile('characters.json', json, 'utf8', (err) => { if (err) console.log(err); })
 	});
 	return characters; //Returns an array containing each character as an object.
 };

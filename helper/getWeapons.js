@@ -34,7 +34,8 @@ const getWeapons = () => {
 				weapon.passive = weapon.passive.substring(1, weapon.passive.length - 1);
 			}
 		});
-		//console.log(weapons[34]);
+		// const json = JSON.stringify(weapons);
+		// fs.writeFile('weapons.json', json, 'utf8', (err) => { if (err) console.log(err); });
 	});
 	return weapons;
 };
