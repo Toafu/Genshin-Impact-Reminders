@@ -1,6 +1,5 @@
 // Used by profile.js
-var charDict, skinDict;
-charDict = {
+const charDict = {
     [10000002]: {"name": "Ayaka",         "element": "Cryo",    "icon": "Ayaka"},
     [10000003]: {"name": "Jean",          "element": "Anemo",   "icon": "Qin"},
     [10000005]: {"name": "TravelerM",     "element": "Multi",   "icon": "PlayerBoy"},
@@ -62,7 +61,7 @@ charDict = {
     [10000073]: {"name": "Nahida",        "element": "Dendro",  "icon": "Nahida"},
     [10000074]: {"name": "Layla",         "element": "Cryo",    "icon": "Layla"}
 };
-skinDict = {
+const skinDict = {
     [200301]: "QinCostumeSea",
     [200302]: "QinCostumeWic",
     [201401]: "BarbaraCostumeSummertime",
@@ -74,3 +73,4 @@ skinDict = {
     [204201]: "KeqingCostumeFeather",
     [204501]: "RosariaCostumeWic"
 };
+module.exports = {charDict, skinDict};

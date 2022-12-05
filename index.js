@@ -32,7 +32,7 @@ client.on('ready', async () => {
 			useFindAndModify: false,
 		},
 
-		testServers: ['844003091934085140', '345711221208514560', '272829637657231360'],
+		testServers: ['844003091934085140', '345711221208514560', '272829637657231360', '917248019437596682'],
 
 		disabledDefaultCommands: [
 			'language',
