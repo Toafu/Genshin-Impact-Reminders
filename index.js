@@ -32,7 +32,7 @@ client.on('ready', async () => {
 			useFindAndModify: false,
 		},
 
-		testServers: ['844003091934085140', '345711221208514560'],
+		testServers: ['844003091934085140', '345711221208514560', '272829637657231360', '917248019437596682'],
 
 		disabledDefaultCommands: [
 			'language',
@@ -61,6 +61,10 @@ client.on('ready', async () => {
 				emoji: '🖥️',
 				hidden: true,
 			},
+			{
+				name: 'Profile',
+				emoji: '🤼',
+			}
 		])
 		.setDisplayName('Genshin Impact Reminders')
 		.setDefaultPrefix('b!')
@@ -77,13 +81,13 @@ client.on('ready', async () => {
 		.setDescription('We need to make sure you\'re a person! Just hit that check mark below this message. It may take a short bit for the verification process to complete.')
 		.setFooter({ text: 'You got this!' });
 
-	firstMessage(client, '844208376828788771', verificationembed, ['<:check:844677239827726346>']);
+	// firstMessage(client, '844208376828788771', verificationembed, ['<:check:844677239827726346>']);
 
-	roleClaim(client);
+	// roleClaim(client);
 
 	process.on('unhandledRejection', error => {
 		console.error('Unhandled promise rejection:', error);
-	});
+	}); 
 
 });
 client.login(process.env.DJS_TOKEN);
