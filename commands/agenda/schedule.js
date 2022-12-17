@@ -16,7 +16,6 @@ module.exports = {
 	maxArgs: 2,
 	expectedArgs: '<hh mm or off> <timezone or gmt offset>',
 	//testOnly: true,
-	/*
 	init: (client) => {
 		const checkForPosts = async () => {
 			const now = new Date;
@@ -155,7 +154,7 @@ module.exports = {
 		};
 		checkForPosts();
 	},
-	*/
+	
 	callback: async ({ message, args, text, interaction: msgInt }) => {
 		let id;
 		let author;
