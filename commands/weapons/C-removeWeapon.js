@@ -33,7 +33,7 @@ module.exports = {
 			const removeallembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor({ name: author })
-				.addField('Removing All Weapons', 'You unequipped all weapons.');
+				.addFields({ name: 'Removing All Weapons', value: 'You unequipped all weapons.' });
 			if (message) {
 				message.channel.send({ embeds: [removeallembed] });
 			} else {
@@ -63,14 +63,16 @@ module.exports = {
 				await savedWeaponSchema.findOneAndUpdate({
 					_id: id,
 				}, {
-					$pull: { savedWeapons: {
-						name: weapons[index].name,
-						stars: weapons[index].stars,
-						id: index,
-						mat: weapons[index].mat,
-						days: weapons[index].days,
-						location: weapons[index].location,
-					} },
+					$pull: {
+						savedWeapons: {
+							name: weapons[index].name,
+							stars: weapons[index].stars,
+							id: index,
+							mat: weapons[index].mat,
+							days: weapons[index].days,
+							location: weapons[index].location,
+						}
+					},
 				}, {
 					upsert: true,
 				}).exec();
@@ -91,11 +93,11 @@ module.exports = {
 			.setColor('#00FF97')
 			.setAuthor({ name: author });
 		if (success.length > 0) {
-			embed.addField('Removing Weapons', `You have unequipped ${success}`);
+			embed.addFields({ name: 'Removing Weapons', value: `You have unequipped ${success}` });
 		}
 		if (fail.length > 0) {
 			fail = fail.join('\n');
-			embed.addField('We couldn\'t remove these weapons due to a typo or invalid ID:', fail)
+			embed.addFields({ name: 'We couldn\'t remove these weapons due to a typo or invalid ID:', value: fail })
 				.setFooter({ text: 'Use the  arsenal  command if you need help with spelling or finding IDs. Use slashes to remove multiple weapons (b!unequip 24/The Flute).' });
 		}
 		if (message) {

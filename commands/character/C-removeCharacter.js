@@ -36,7 +36,7 @@ module.exports = {
 			const removeallembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor({ name: author })
-				.addField('Removing All Characters', 'You are no longer tracking any characters.');
+				.addFields({ name: 'Removing All Characters', value: 'You are no longer tracking any characters.' });
 			if (message) {
 				message.channel.send({ embeds: [removeallembed] });
 			} else {
@@ -66,14 +66,16 @@ module.exports = {
 				await savedCharacterSchema.findOneAndUpdate({
 					_id: id,
 				}, {
-					$pull: { savedCharacters: {
-						name: characters[index].name,
-						element: characters[index].element,
-						talent: characters[index].talent,
-						days: characters[index].days,
-						id: index,
-						location: characters[index].location,
-					} },
+					$pull: {
+						savedCharacters: {
+							name: characters[index].name,
+							element: characters[index].element,
+							talent: characters[index].talent,
+							days: characters[index].days,
+							id: index,
+							location: characters[index].location,
+						}
+					},
 				}, {
 					upsert: true,
 				}).exec();
@@ -93,11 +95,11 @@ module.exports = {
 			.setColor('#00FF97')
 			.setAuthor({ name: author });
 		if (success.length > 0) {
-			embed.addField('Removing Characters', `You are no longer tracking ${success}`);
+			embed.addFields({ name: 'Removing Characters', value: `You are no longer tracking ${success}` });
 		}
 		if (fail.length > 0) {
 			fail = fail.join('\n');
-			embed.addField('We couldn\'t add these characters due to a typo or invalid ID:', fail)
+			embed.addFields({ name: 'We couldn\'t add these characters due to a typo or invalid ID:', value: fail })
 				.setFooter({ text: 'Use the  tracking  command if you need help with spelling or finding IDs. Use slashes to remove multiple people (b!remove 0/Venti).' });
 		}
 		if (message) {

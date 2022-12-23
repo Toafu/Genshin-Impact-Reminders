@@ -28,7 +28,7 @@ module.exports = {
 			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page, trackList);
 			embed.fields = [];
-			embed.addField('You are currently spending countless hours upgrading:', list);
+			embed.addFields({ name: 'You are currently spending countless hours upgrading:', value: list });
 		};
 
 		let id;
@@ -76,7 +76,7 @@ module.exports = {
 					.setTitle(title)
 					.setColor('#00FF97')
 					.setFooter({ text: `Page ${page} of ${maxPage}` })
-					.addField(name, list);
+					.addFields({ name: name, value: list });
 
 				if (maxPage > 1) {
 					const row = new MessageActionRow()

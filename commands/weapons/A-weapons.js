@@ -29,7 +29,7 @@ module.exports = {
 			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page);
 			embed.fields = [];
-			embed.addField(name, list);
+			embed.addFields({ name: name, value: list });
 		};
 
 		const maxPage = Math.ceil(weapons.length / 20);
@@ -43,7 +43,7 @@ module.exports = {
 					.setTitle('__Supported Weapons List__')
 					.setColor('#00FF97')
 					.setFooter({ text: `Page ${page} of ${maxPage}` })
-					.addField(name, list);
+					.addFields({ name: name, value: list });
 				message.channel.send({ embeds: [embed] });
 			}
 			return;
@@ -61,7 +61,7 @@ module.exports = {
 			const embed = new Discord.MessageEmbed()
 				.setTitle('__Supported Weapons List__')
 				.setColor('#00FF97')
-				.addField(name, list)
+				.addFields({ name: name, value: list })
 				.setFooter({ text: `Page ${page} of ${maxPage}` });
 
 			const row = new MessageActionRow()

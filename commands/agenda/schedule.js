@@ -49,8 +49,8 @@ module.exports = {
 						.setThumbnail(logo)
 						.setAuthor({ name: user.username })
 						.setColor('#00FF97')
-						.addFields({name: 'You don\'t need to farm today.', value: 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>'});
-					
+						.addFields({ name: 'You don\'t need to farm today.', value: 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>' });
+
 					const availablematerials = ahelp.getMaterials(day);
 
 					const query = { _id: id };
@@ -76,7 +76,7 @@ module.exports = {
 						.setColor('#00FF97')
 						.addFields(nothing);
 					if (customtext) {
-						nonexistantembed.addFields({name: customtitle, value: customtext});
+						nonexistantembed.addFields({ name: customtitle, value: customtext });
 					}
 
 					const { gettodaysChars,
@@ -154,7 +154,7 @@ module.exports = {
 		};
 		checkForPosts();
 	},
-	
+
 	callback: async ({ message, args, text, interaction: msgInt }) => {
 		let id;
 		let author;

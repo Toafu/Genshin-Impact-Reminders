@@ -41,7 +41,7 @@ module.exports = {
 			const addallcharsembed = new Discord.MessageEmbed()
 				.setColor('#00FF97')
 				.setAuthor({ name: author })
-				.addField('Tracking All Characters', 'I hope you realized what you just did.');
+				.addFields({ name: 'Tracking All Characters', value: 'I hope you realized what you just did.' });
 			if (message) {
 				message.channel.send({ embeds: [addallcharsembed] });
 			} else {
@@ -99,11 +99,11 @@ module.exports = {
 			.setColor('#00FF97')
 			.setAuthor({ name: author });
 		if (success.length > 0) {
-			embed.addField('Adding Characters', `You are now tracking ${success}`);
+			embed.addFields({ name: 'Adding Characters', value: `You are now tracking ${success}` });
 		}
 		if (fail.length > 0) {
 			fail = fail.join('\n');
-			embed.addField('We couldn\'t add these characters due to a typo or invalid ID:', fail)
+			embed.addFields({ name: 'We couldn\'t add these characters due to a typo or invalid ID:', value: fail })
 				.setFooter({ text: 'Use the  characters  command if you need help with spelling or finding IDs. Use slashes to add multiple people (b!add 0/Venti).' });
 		}
 		if (message) {

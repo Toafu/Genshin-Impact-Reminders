@@ -35,7 +35,7 @@ module.exports = {
 			.setThumbnail(logo)
 			.setAuthor({ name: author })
 			.setColor('#00FF97')
-			.addFields({name: 'You don\'t need to farm today.', value: 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>'});
+			.addFields({ name: 'You don\'t need to farm today.', value: 'Why not do some ley lines or... artifact farm? <:peepoChrist:841881708815056916>' });
 
 		const availablematerials = ahelp.getMaterials(day);
 
@@ -59,7 +59,7 @@ module.exports = {
 			.setFooter({ text: '>:(' });
 
 		if (page < 1) {
-			invalidpageembed.addFields({name: 'hol up', value: `The minimum page you can request is 1.`});
+			invalidpageembed.addFields({ name: 'hol up', value: `The minimum page you can request is 1.` });
 			if (message) {
 				message.channel.send({ embeds: [invalidpageembed] });
 			} else {
@@ -91,7 +91,7 @@ module.exports = {
 			.setColor('#00FF97')
 			.addFields(nothing);
 		if (customtext) {
-			nonexistantembed.addFields({name: customtitle, value: customtext});
+			nonexistantembed.addFields({ name: customtitle, value: customtext });
 		}
 
 		const { gettodaysChars, gettodaysWeps, sortChars, sortWeps, getfinalcharlist, getfinalweplist, getlocations, getfields } = ahelp.getFunctions(day, availablematerials, nocharstoday, nowepstoday, customtitle, customtext);
@@ -137,7 +137,7 @@ module.exports = {
 		}
 
 		if (page > maxPage) {
-			invalidpageembed.addFields({name: 'hol up', value: `Your agenda only has **${maxPage}** page(s) today.`});
+			invalidpageembed.addFields({ name: 'hol up', value: `Your agenda only has **${maxPage}** page(s) today.` });
 			if (message) {
 				message.channel.send({ embeds: [invalidpageembed] });
 			} else {
