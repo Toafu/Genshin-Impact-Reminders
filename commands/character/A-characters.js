@@ -30,7 +30,7 @@ module.exports = {
 			embed.setFooter({ text: `Page ${page} of ${maxPage}` });
 			list = getlist(page);
 			embed.fields = [];
-			embed.addField(name, list);
+			embed.addFields({name: name, value: list});
 		};
 
 		const maxPage = Math.ceil(characters.length / 20);
@@ -44,7 +44,7 @@ module.exports = {
 					.setTitle('__Supported Character List__')
 					.setColor('#00FF97')
 					.setFooter({ text: `Page ${page} of ${maxPage}` })
-					.addField(name, list);
+					.addFields({name: name, value: list});
 				message.channel.send({ embeds: [embed] });
 			}
 			return;
@@ -63,7 +63,7 @@ module.exports = {
 				.setTitle('__Supported Character List__')
 				.setColor('#00FF97')
 				.setFooter({ text: `Page ${page} of ${maxPage}` })
-				.addField(name, list);
+				.addFields({name: name, value: list});
 
 			const row = new MessageActionRow()
 				.addComponents(

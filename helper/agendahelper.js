@@ -188,19 +188,19 @@ const getFunctions = (day, availablematerials, nocharstoday, nowepstoday, custom
 		agendaembed.addFields(availablematerials);
 
 		if (finalcharlist.length > 0) {
-			agendaembed.addField(charname, finalcharlist.join('\n'));
+			agendaembed.addFields({name: charname, value:finalcharlist.join('\n')});
 		} else {
 			if (page > 1 && charagenda[0]) {
-				agendaembed.addField(charname, 'No more characters to view.');
+				agendaembed.addFields({name: charname, value: 'No more characters to view.'});
 			} else {
 				agendaembed.addFields(nocharstoday);
 			}
 		}
 		if (finalweplist.length > 0) {
-			agendaembed.addField(wepname, finalweplist.join('\n'));
+			agendaembed.addFields({name: wepname, value: finalweplist.join('\n')});
 		} else {
 			if (page > 1 && wepagenda[0]) {
-				agendaembed.addField(wepname, 'No more weapons to view.');
+				agendaembed.addFields({name: wepname, value: 'No more weapons to view.'});
 			} else {
 				agendaembed.addFields(nowepstoday);
 			}
@@ -209,7 +209,7 @@ const getFunctions = (day, availablematerials, nocharstoday, nowepstoday, custom
 			agendaembed.addFields(locfield);
 		}
 		if (customtext) {
-			agendaembed.addField(customtitle, customtext);
+			agendaembed.addFields({name: customtitle, value: customtext});
 		}
 	};
 

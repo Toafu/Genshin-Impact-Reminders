@@ -73,4 +73,5 @@ const skinDict = {
     [204201]: "KeqingCostumeFeather",
     [204501]: "RosariaCostumeWic"
 };
-module.exports = {charDict, skinDict};
+exports.charDict = charDict;
+exports.skinDict = skinDict;

@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
-// const fs = require('fs');
-const {charDict, skinDict} = require('./dictionary.js');
+const {charDict, skinDict} = require('@helper/dictionary');
 function elementEmote(element) {
     switch(element) {
         case 'Anemo':
@@ -102,10 +101,8 @@ module.exports = {
                     value: charList,
                 })
                 .setFooter({ text: `UID: ${args[0]}` });
-            
             msgInt.reply({ embeds: [embed] });
-
-            console.log(charDict[profileMainId].element);
+            // console.log(charDict[profileMainId].element);
         })
         // .catch(() => { 
         //     msgInt.reply(`${args[0]} does not exist`);
